@@ -3,17 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from '@tanstack/react-query'
 import { UserResponse } from '@supabase/supabase-js'
-
-interface Inputs {
-  id: string
-  name: string
-  phone: string
-  salary: number
-  email: string
-  password: string
-}
-
-type Employee = Omit<Inputs, 'password' | 'email'> & { user_id: string }
+import { Employee, EmployeeInputs } from '../types'
 
 const RegisterEmployeeForm: FC = () => {
   const {
@@ -21,14 +11,14 @@ const RegisterEmployeeForm: FC = () => {
     handleSubmit,
     formState: { errors },
     getValues
-  } = useForm<Inputs>()
+  } = useForm<EmployeeInputs>()
   const supabase = useSupabaseClient()
 
   const saveEmployee = async (data: Employee): Promise<void> => {
     await supabase.from('employees').insert(data)
   }
 
-  const createUser = async (data: Inputs): Promise<UserResponse> => {
+  const createUser = async (data: EmployeeInputs): Promise<UserResponse> => {
     return await supabase.auth.admin.createUser({
       email: data.email,
       password: data.password
@@ -43,7 +33,7 @@ const RegisterEmployeeForm: FC = () => {
     data
   } = useMutation(createUser)
 
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+  const onSubmit: SubmitHandler<EmployeeInputs> = (data: EmployeeInputs) => {
     mutateUser(data)
   }
 

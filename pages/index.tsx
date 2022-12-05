@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { FC } from 'react'
-import RegisterCustomerForm from '../components/customers/form'
 import LoginPage from '../components/users/login'
+import RegisterSaleForm from '../components/sales/form'
 
 const Home: FC = () => {
   return (
@@ -13,7 +13,7 @@ const Home: FC = () => {
       </Head>
 
       <main>
-        <RegisterCustomerForm/>
+        <RegisterSaleForm/>
 
         <LoginPage/>
       </main>

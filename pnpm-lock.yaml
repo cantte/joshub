@@ -2,6 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@headlessui/react': ^1.7.4
+  '@headlessui/tailwindcss': ^0.1.1
+  '@heroicons/react': ^2.0.13
   '@supabase/auth-helpers-nextjs': ^0.5.2
   '@supabase/auth-helpers-react': ^0.3.1
   '@supabase/auth-ui-react': ^0.2.6
@@ -35,6 +37,8 @@ specifiers:
 
 dependencies:
   '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
+  '@headlessui/tailwindcss': 0.1.1_tailwindcss@3.2.4
+  '@heroicons/react': 2.0.13_react@18.2.0
   '@supabase/auth-helpers-nextjs': 0.5.2_m57u6a6l34vkx3j4pjzwywi7ua
   '@supabase/auth-helpers-react': 0.3.1_m57u6a6l34vkx3j4pjzwywi7ua
   '@supabase/auth-ui-react': 0.2.6_biqbaboplfbrettd7655fr4n2y
@@ -111,6 +115,23 @@ packages:
       client-only: 0.0.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@headlessui/tailwindcss/0.1.1_tailwindcss@3.2.4:
+    resolution: {integrity: sha512-MJbc/MG1iVDow0IQYdsZNVY2xiTa2fDpXLF01xIAyNH6M+Ks0c6X0k3x6PqAvwvKWKEFhS0MlMzrDUVTU6cXDA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      tailwindcss: ^3.0
+    dependencies:
+      tailwindcss: 3.2.4_postcss@8.4.19
+    dev: false
+
+  /@heroicons/react/2.0.13_react@18.2.0:
+    resolution: {integrity: sha512-iSN5XwmagrnirWlYEWNPdCDj9aRYVD/lnK3JlsC9/+fqGF80k8C7rl+1HCvBX0dBoagKqOFBs6fMhJJ1hOg1EQ==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.7:
