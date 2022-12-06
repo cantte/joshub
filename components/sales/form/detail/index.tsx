@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { Product } from '../../../products/types'
-import ProductField from '../../../shared/form/product.field'
+import { Product } from '@joshub/types/products'
+import ProductField from '@components/shared/form/product.field'
 import { useForm } from 'react-hook-form'
-import { SaleDetailInput } from '../../types'
+import { SaleDetailInput } from '@joshub/types/sales'
 
 interface Props {
   onSubmit: (data: SaleDetailInput) => void

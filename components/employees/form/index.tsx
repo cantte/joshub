@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from '@tanstack/react-query'
 import { UserResponse } from '@supabase/supabase-js'
-import { Employee, EmployeeInputs } from '../types'
+import { Employee, EmployeeInputs } from '@joshub/types/employees'
 
 const RegisterEmployeeForm: FC = () => {
   const {

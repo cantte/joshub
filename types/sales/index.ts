@@ -1,4 +1,4 @@
-import { Product } from '../../products/types'
+import { Product } from '@joshub/types/products'
 
 export interface SaleDetailInput {
   product?: Product

@@ -2,7 +2,7 @@ import React, { FC, Fragment, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useQuery } from '@tanstack/react-query'
 import { Combobox, Transition } from '@headlessui/react'
-import { Product } from '../../products/types'
+import { Product } from '@joshub/types/products'
 
 interface Props {
   onSelected: (value: Product) => void
@@ -44,7 +44,7 @@ const ProductField: FC<Props> = ({ onSelected }) => {
           <Combobox.Input
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             onChange={(e) => setQuery(e.target.value)}
-            displayValue={(product: Product) => product !== undefined ? `${product?.name}, ${product?.cold_spot_price}` : ''}
+            displayValue={(product: Product) => product === undefined ? 'Ningun producto seleccionado' : `${String(product.name)}, ${String(product.cold_spot_price)}`}
           />
         </div>
       </div>

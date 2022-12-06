@@ -4,8 +4,8 @@ import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import CustomerField from '../../shared/form/customer.field'
 import SaleDetailForm from './detail'
-import { SaleDetail, SaleDetailInput } from '../types'
-import { Employee } from '../../employees/types'
+import { SaleDetail, SaleDetailInput } from '@joshub/types/sales'
+import { Employee } from '@joshub/types/employees'
 
 interface SalesInputs {
   id?: number
