@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Product } from '../../../products/types'
-import ProductField from '../product.field'
+import ProductField from '../../../shared/form/product.field'
 import { useForm } from 'react-hook-form'
 import { SaleDetailInput } from '../../types'
 
