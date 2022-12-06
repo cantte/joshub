@@ -12,7 +12,11 @@ interface Inputs {
   cold_spot_price: number
 }
 
-const RegisterProductForm: FC = () => {
+interface Props {
+  onRegister: () => void
+}
+
+const RegisterProductForm: FC<Props> = ({ onRegister }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const supabase = useSupabaseClient()
 
@@ -20,7 +24,11 @@ const RegisterProductForm: FC = () => {
     await supabase.from('products').insert(data)
   }
 
-  const { mutate, isLoading, error } = useMutation(saveProduct)
+  const {
+    mutate,
+    isLoading,
+    error
+  } = useMutation(saveProduct, { onSuccess: onRegister })
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     mutate(data)
@@ -29,8 +37,8 @@ const RegisterProductForm: FC = () => {
   return (
     <div className="mt-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="overflow-hidden shadow sm:rounded-md">
-          <div className="bg-white px-4 py-5 sm:p-6">
+        <div className="sm:rounded-md">
+          <div className="bg-white py-5 pb-0">
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label htmlFor="code"
@@ -113,7 +121,7 @@ const RegisterProductForm: FC = () => {
               <div className="py-3">
                 <button type="submit"
                         disabled={isLoading}
-                        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2">
                   Guardar
                 </button>
               </div>
