@@ -70,7 +70,7 @@ const Navbar: FC = () => {
                     : (
                       <button
                         onClick={async () => await supabase.auth.signOut()}
-                        className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 mx-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                        className="inline-flex justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-1 focus-visible:ring-red-500 focus-visible:ring-offset-2">
                         Cerrar sesión
                       </button>
                       )
