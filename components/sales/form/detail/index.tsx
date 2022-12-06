@@ -55,7 +55,13 @@ const SaleDetailForm: FC<Props> = ({ onSubmit }) => {
               </label>
               <input type="number"
                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                     id="quantity" {...register('quantity', { required: true })}/>
+                     id="quantity" {...register('quantity', {
+                       required: true,
+                       max: watch('product.quantity')
+                     })}/>
+
+              {watch('product.quantity') !== undefined &&
+                <span className="text-gray-400 text-xs block py-1">Cantidad máxima: {watch('product.quantity')}</span>}
             </div>
 
             <div className="col-span-6">
