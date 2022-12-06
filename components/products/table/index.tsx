@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Product } from '@joshub/types/products'
 import { useQuery } from '@tanstack/react-query'
+import { TrashIcon, PencilIcon } from '@heroicons/react/24/outline'
 
 const ProductsTable: FC = () => {
   const supabase = useSupabaseClient()
@@ -65,13 +66,13 @@ const ProductsTable: FC = () => {
                 </td>
                 <td className="py-4 px-6">
                   <button
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    Editar
+                    className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none">
+                    <PencilIcon className="h-5 w-5 text-indigo-700"/>
                   </button>
 
                   <button
-                    className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 mx-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                    Eliminar
+                    className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
+                    <TrashIcon className="h-5 w-5 text-red-700"/>
                   </button>
                 </td>
               </tr>

@@ -3,7 +3,7 @@ import ProductsTable from '@components/products/table'
 import DefaultLayout from '@components/shared/layout/default'
 import { Dialog, Transition } from '@headlessui/react'
 import RegisterProductForm from '@components/products/form'
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon, PlusIcon } from '@heroicons/react/20/solid'
 
 const ProductsPage: FC = () => {
   const [addProductModalOpen, setAddProductModalOpen] = useState(false)
@@ -19,6 +19,7 @@ const ProductsPage: FC = () => {
           <button
             onClick={openAddProductModal}
             className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
+            <PlusIcon className="-ml-1 mr-2 h-5 w-5 text-indigo-900"/>
             Crear
           </button>
         </div>
