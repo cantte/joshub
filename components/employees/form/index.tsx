@@ -5,7 +5,11 @@ import { useMutation } from '@tanstack/react-query'
 import { UserResponse } from '@supabase/supabase-js'
 import { Employee, EmployeeInputs } from '@joshub/types/employees'
 
-const RegisterEmployeeForm: FC = () => {
+interface Props {
+  onRegister: () => void
+}
+
+const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
   const {
     register,
     handleSubmit,
@@ -25,7 +29,7 @@ const RegisterEmployeeForm: FC = () => {
     })
   }
 
-  const { mutate: mutateEmployee, isLoading, error } = useMutation(saveEmployee)
+  const { mutate: mutateEmployee, isLoading, error } = useMutation(saveEmployee, { onSuccess: onRegister })
   const {
     mutate: mutateUser,
     isLoading: isLoadingUser,
@@ -53,8 +57,8 @@ const RegisterEmployeeForm: FC = () => {
   return (
     <div className="mt-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="overflow-hidden shadow sm:rounded-md">
-          <div className="bg-white px-4 py-5 sm:p-6">
+        <div className="sm:rounded-md">
+          <div className="bg-white px-4 py-5 pb-0">
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label htmlFor="id"
@@ -137,7 +141,7 @@ const RegisterEmployeeForm: FC = () => {
               <div className="py-3">
                 <button type="submit"
                         disabled={isLoading || isLoadingUser}
-                        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2">
                   Guardar
                 </button>
               </div>
