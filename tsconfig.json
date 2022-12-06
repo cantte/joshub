@@ -29,6 +29,9 @@
       "@pages/*": [
         "pages/*"
       ],
+      "@joshub/hooks/*": [
+        "hooks/*"
+      ],
       "@joshub/types/*": [
         "types/*"
       ],
