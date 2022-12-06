@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import CustomerField from '../../shared/form/customer.field'
-import SaleDetailForm from './detail'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useMutation } from '@tanstack/react-query'
+import CustomerField from '@components/shared/form/customer.field'
+import SaleDetailForm from '@components/sales/form/detail'
 import { SaleDetail, SaleDetailInput } from '@joshub/types/sales'
-import { Employee } from '@joshub/types/employees'
+import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
 
 interface SalesInputs {
   id?: number
@@ -23,21 +23,8 @@ const RegisterSaleForm: FC = () => {
     watch
   } = useForm<SalesInputs>()
   const supabase = useSupabaseClient()
-  const user = useUser()
 
-  const loadEmployee = async (userId: string | undefined): Promise<Employee | undefined> => {
-    if (userId === undefined) {
-      return undefined
-    }
-    const { data } = await supabase.from('employees')
-      .select().eq('user_id', userId)
-    return data !== null ? data[0] : undefined
-  }
-
-  const { data: employee } = useQuery(['employee', user],
-    async () => await loadEmployee(user?.id), {
-      enabled: user !== undefined
-    })
+  const { employee } = useCurrentEmployee()
 
   useEffect(() => {
     if (employee !== undefined) {
