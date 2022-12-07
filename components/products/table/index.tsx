@@ -13,6 +13,8 @@ import {
 } from '@tremor/react'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { Dialog, Transition } from '@headlessui/react'
+import { XMarkIcon } from '@heroicons/react/20/solid'
+import EditProductForm from '@components/products/edit'
 
 const ProductsTable: FC = () => {
   const supabase = useSupabaseClient()
@@ -42,6 +44,15 @@ const ProductsTable: FC = () => {
 
   const { mutate } = useMutation(deleteProduct, { onSuccess: closeDeleteModal })
 
+  const [isOpeningEditModal, setIsOpeningEditModal] = useState(false)
+  const openEditModal = (): void => setIsOpeningEditModal(true)
+  const closeEditModal = (): void => {
+    setIsOpeningEditModal(false)
+    void queryClient.refetchQueries(['products'])
+  }
+
+  const [productToEdit, setProductToEdit] = useState<Product | null>(null)
+
   return (
     <div className="col-span-6">
       <Card>
@@ -70,6 +81,10 @@ const ProductsTable: FC = () => {
                   <TableCell>$ {Intl.NumberFormat('es').format(product.watertight_price)}</TableCell>
                   <TableCell>
                     <button
+                      onClick={() => {
+                        setProductToEdit(product)
+                        openEditModal()
+                      }}
                       className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none">
                       <PencilIcon className="h-5 w-5 text-indigo-700"/>
                     </button>
@@ -162,10 +177,73 @@ const ProductsTable: FC = () => {
                     <button
                       type="button"
                       className="inline-flex ml-3 justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
-                      onClick={closeDeleteModal}
+                      onClick={() => setIsOpeningDeleteModal(false)}
                     >
                       No, cancelar
                     </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
+      <Transition appear show={isOpeningEditModal} as={Fragment}>
+        <Dialog onClose={closeEditModal} as="div"
+                className="relative z-10">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25"/>
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div
+              className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel
+                  className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    <div className="flex flex-col mb-5">
+                      <div className="flex flex-row justify-between">
+                        <h3
+                          className="text-xl font-semibold text-gray-900">
+                          Actualizar producto
+                        </h3>
+                        <button
+                          onClick={() => setIsOpeningEditModal(false)}
+                          className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
+                          <XMarkIcon
+                            className="h-5 w-5 text-red-700"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </Dialog.Title>
+
+                  <div className="mt-2">
+                    {productToEdit !== null &&
+                      <EditProductForm onUpdate={closeEditModal}
+                                       product={productToEdit}/>
+                    }
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
