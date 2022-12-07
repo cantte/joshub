@@ -5,6 +5,7 @@ import { PlusIcon } from '@heroicons/react/20/solid'
 import SalesCard from '@components/dashboard/sales'
 import TotalProductsCard from '@components/dashboard/products'
 import ProfitsCard from '@components/dashboard/profits'
+import NextLink from 'next/link'
 
 const Home: FC = () => {
   return (
@@ -15,16 +16,20 @@ const Home: FC = () => {
             control</h1>
 
           <div>
-            <button
-              className="inline-flex justify-center mr-3 rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
-              <PlusIcon className="-ml-1 mr-2 h-5 w-5 text-indigo-900"/>
-              Registrar venta
-            </button>
-            <button
-              className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
-              <PlusIcon className="-ml-1 mr-2 h-5 w-5 text-indigo-900"/>
-              Registrar domicilio
-            </button>
+            <NextLink href="/sales/register">
+              <button
+                className="inline-flex justify-center mr-3 rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
+                <PlusIcon className="-ml-1 mr-2 h-5 w-5 text-indigo-900"/>
+                Registrar venta
+              </button>
+            </NextLink>
+            <NextLink href="/orders/register">
+              <button
+                className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
+                <PlusIcon className="-ml-1 mr-2 h-5 w-5 text-indigo-900"/>
+                Registrar domicilio
+              </button>
+            </NextLink>
           </div>
         </div>
       </div>
