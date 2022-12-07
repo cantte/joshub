@@ -162,14 +162,14 @@ const RegisterSaleForm: FC = () => {
 
               <div className="col-span-6 sm:col-span-3">
                 <p
-                  className="text-2xl">Total {watch('total')}</p>
+                  className="text-2xl">Total: $ {Intl.NumberFormat('es').format(watch('total'))}</p>
               </div>
             </div>
 
             <div className="py-5">
               <button type="submit"
                       disabled={isLoading}
-                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      className="inline-flex justify-center mr-3 w-full rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
                 Guardar
               </button>
             </div>

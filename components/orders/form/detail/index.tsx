@@ -34,7 +34,7 @@ const OrderDetailForm: FC<Props> = ({ onSubmit }) => {
 
   return (
     <div className="mt-5">
-      <div className="overflow-hidden shadow sm:rounded-md">
+      <div className="shadow sm:rounded-md">
         <div className="bg-white px-4 py-5 sm:p-6">
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-6 sm:col-span-3">
@@ -66,7 +66,7 @@ const OrderDetailForm: FC<Props> = ({ onSubmit }) => {
             <div className="col-span-6">
               <button type="button"
                       onClick={handleOnSubmit}
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      className="inline-flex justify-center mr-3 rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
                 Agregar producto
               </button>
             </div>
