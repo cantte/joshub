@@ -46,7 +46,7 @@ const EmployeesTable: FC = () => {
               ? employees.map(employee => (
                 <TableRow key={employee.id}>
                   <TableCell>{employee.id}</TableCell>
-                  <TableCell>{employee.name} {currentEmployee?.id === employee.id ? '(Yo)' : 'o'}</TableCell>
+                  <TableCell>{employee.name} {currentEmployee?.id === employee.id ? '(Yo)' : ''}</TableCell>
                   <TableCell>{employee.phone}</TableCell>
                   <TableCell>$ {Intl.NumberFormat('es').format(employee.salary)}</TableCell>
                   <TableCell>
