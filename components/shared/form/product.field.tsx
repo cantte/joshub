@@ -12,7 +12,7 @@ const ProductField: FC<Props> = ({ onSelected }) => {
   const supabase = useSupabaseClient()
 
   const loadProducts = async (): Promise<Product[] | null> => {
-    const { data } = await supabase.from('products').select()
+    const { data } = await supabase.from('products').select().is('deleted_at', null)
     return data
   }
 
