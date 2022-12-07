@@ -10,3 +10,11 @@ export interface OrderDetailInput {
 export type OrderDetail =
   Omit<OrderDetailInput, 'product'>
   & { order_id: number, product_code: string, total: number }
+
+export interface Order {
+  id: number
+  customer_id: string
+  employee_id: string
+  total: number
+  created_at: string
+}

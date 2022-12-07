@@ -6,14 +6,17 @@ import SalesCard from '@components/dashboard/sales'
 import TotalProductsCard from '@components/dashboard/products'
 import ProfitsCard from '@components/dashboard/profits'
 import NextLink from 'next/link'
+import SalesTable from '@components/sales/table'
+import OrdersTable from '@components/orders/table'
 
 const Home: FC = () => {
   return (
     <DefaultLayout>
       <div className="flex flex-col mb-5">
         <div className="flex flex-row justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">Panel de
-            control</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">
+            Panel de control
+          </h1>
 
           <div>
             <NextLink href="/sales/register">
@@ -45,6 +48,16 @@ const Home: FC = () => {
           </div>
         </div>
       </div>
+
+      <h1 className="text-2xl font-semibold text-gray-900">
+        Últimas ventas
+      </h1>
+      <SalesTable/>
+
+      <h1 className="text-2xl font-semibold text-gray-900 mt-6">
+        Últimos domicilios
+      </h1>
+      <OrdersTable/>
     </DefaultLayout>
   )
 }
