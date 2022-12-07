@@ -52,6 +52,12 @@ const Navbar: FC = () => {
                       className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Empleados
                     </NextLink>
+
+                    <NextLink
+                      href="/customers/register"
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Registrar cliente
+                    </NextLink>
                   </div>
                 </div>
               </div>

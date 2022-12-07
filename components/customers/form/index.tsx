@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import React, { FC } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
@@ -9,14 +9,18 @@ interface Inputs {
 }
 
 const RegisterCustomerForm: FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>()
   const supabase = useSupabaseClient()
 
   const saveCustomer = async (data: Inputs): Promise<void> => {
     await supabase.from('customers').insert(data)
   }
 
-  const { mutate, isLoading, error } = useMutation(saveCustomer)
+  const { mutate, isLoading, error } = useMutation(saveCustomer, {
+    onSuccess: () => {
+      reset()
+    }
+  })
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     mutate(data)
@@ -57,7 +61,7 @@ const RegisterCustomerForm: FC = () => {
                 <button type="submit"
                         disabled={isLoading}
                         className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  Save
+                  Guardar
                 </button>
               </div>
 
