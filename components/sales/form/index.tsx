@@ -79,7 +79,7 @@ const RegisterSaleForm: FC = () => {
   }, [sale])
 
   const handleAddDetail = (detail: SaleDetailInput): void => {
-    const exists = detailsAdded.find(d => d.product?.code === detail.product?.code)
+    const exists = detailsAdded.find(d => d.product?.code === detail.product?.code && d.price === detail.price)
     if (exists === undefined) {
       setDetailsAdded([...detailsAdded, detail])
     } else {
@@ -150,7 +150,7 @@ const RegisterSaleForm: FC = () => {
                             {detail.product?.name}
                           </th>
                           <td className="py-4 px-6">
-                            ${detail.product?.cold_spot_price}
+                            ${detail.price}
                           </td>
                           <td className="py-4 px-6">
                             {detail.quantity}
