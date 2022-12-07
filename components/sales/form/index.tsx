@@ -6,6 +6,7 @@ import CustomerField from '@components/shared/form/customer.field'
 import SaleDetailForm from '@components/sales/form/detail'
 import { SaleDetail, SaleDetailInput } from '@joshub/types/sales'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
+import { useRouter } from 'next/router'
 
 interface SalesInputs {
   id?: number
@@ -48,7 +49,12 @@ const RegisterSaleForm: FC = () => {
     data: sale
   } = useMutation(saveSale)
 
-  const { mutate: mutateSaleDetails } = useMutation(saveDetails)
+  const router = useRouter()
+  const { mutate: mutateSaleDetails } = useMutation(saveDetails, {
+    onSuccess: () => {
+      void router.push('/')
+    }
+  })
 
   const [detailsAdded, setDetailsAdded] = useState<SaleDetailInput[]>([])
 
@@ -162,7 +168,8 @@ const RegisterSaleForm: FC = () => {
 
               <div className="col-span-6 sm:col-span-3">
                 <p
-                  className="text-2xl">Total: $ {Intl.NumberFormat('es').format(watch('total'))}</p>
+                  className="text-2xl">Total:
+                  $ {Intl.NumberFormat('es').format(watch('total'))}</p>
               </div>
             </div>
 

@@ -6,6 +6,7 @@ import { OrderDetail, OrderDetailInput } from '@joshub/types/orders'
 import { useMutation } from '@tanstack/react-query'
 import CustomerField from '@components/shared/form/customer.field'
 import OrderDetailForm from '@components/orders/form/detail'
+import { useRouter } from 'next/router'
 
 interface OrderInputs {
   id?: number
@@ -49,7 +50,12 @@ const RegisterOrderForm: FC = () => {
     data: order
   } = useMutation(saveOrder)
 
-  const { mutate: mutateOrderDetails } = useMutation(saveDetails)
+  const router = useRouter()
+  const { mutate: mutateOrderDetails } = useMutation(saveDetails, {
+    onSuccess: () => {
+      void router.push('/')
+    }
+  })
 
   const [detailsAdded, setDetailsAdded] = useState<OrderDetailInput[]>([])
 
