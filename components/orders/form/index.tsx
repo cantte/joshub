@@ -71,7 +71,7 @@ const RegisterOrderForm: FC = () => {
           ...rest,
           order_id: order.id as number,
           product_code: detail.product?.code as string,
-          total: +detail.price * +detail.quantity
+          total: Number(detail.price) * Number(detail.quantity)
         } satisfies OrderDetail
       })
 
@@ -88,7 +88,7 @@ const RegisterOrderForm: FC = () => {
 
     const newDetails = detailsAdded.map(d => {
       if (d.product?.code === detail.product?.code) {
-        return { ...d, quantity: +d.quantity + +detail.quantity }
+        return { ...d, quantity: Number(d.quantity) + Number(detail.quantity) }
       }
       return d
     })
@@ -98,7 +98,7 @@ const RegisterOrderForm: FC = () => {
 
   useEffect(() => {
     setValue('total', detailsAdded
-      .map(item => +item.price * +item.quantity)
+      .map(item => Number(item.price) * Number(item.quantity))
       .reduce((accumulator, currentValue) =>
         accumulator + currentValue, 0))
   }, [detailsAdded])
