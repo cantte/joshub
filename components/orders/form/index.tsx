@@ -7,7 +7,15 @@ import { useMutation } from '@tanstack/react-query'
 import CustomerField from '@components/shared/form/customer.field'
 import OrderDetailForm from '@components/orders/form/detail'
 import { useRouter } from 'next/router'
-import { Card, Table, TableHead, TableHeaderCell, TableRow, TableBody, TableCell } from '@tremor/react'
+import {
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+} from '@tremor/react'
 
 interface OrderInputs {
   id?: number
@@ -148,23 +156,25 @@ const RegisterOrderForm: FC = () => {
                         {detailsAdded.length > 0
                           ? (
                               detailsAdded.map((detail) => (
-                            <TableRow key={detail.product?.code}>
-                              <TableCell>
-                                {detail.product?.name}
-                              </TableCell>
-                              <TableCell>
-                                $ {Intl.NumberFormat('es').format(detail.product?.cold_spot_price as number)}
-                              </TableCell>
-                              <TableCell>
-                                {Intl.NumberFormat('es').format(detail.quantity)}
-                              </TableCell>
-                              <TableCell>
-                                $ {Intl.NumberFormat('es').format(detail.quantity * detail.price)}
-                              </TableCell>
-                            </TableRow>
+                              <TableRow key={detail.product?.code}>
+                                <TableCell>
+                                  {detail.product?.name}
+                                </TableCell>
+                                <TableCell>
+                                  $ {Intl.NumberFormat('es').format(detail.product?.cold_spot_price as number)}
+                                </TableCell>
+                                <TableCell>
+                                  {Intl.NumberFormat('es').format(detail.quantity)}
+                                </TableCell>
+                                <TableCell>
+                                  $ {Intl.NumberFormat('es').format(detail.quantity * detail.price)}
+                                </TableCell>
+                              </TableRow>
                               ))
                             )
-                          : (<TableCell>No ha agregado ningún producto</TableCell>)}
+                          : (<TableCell>
+                            No ha agregado ningún producto
+                          </TableCell>)}
                       </TableBody>
                     </Table>
                   </Card>

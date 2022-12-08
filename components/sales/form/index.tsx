@@ -7,6 +7,15 @@ import SaleDetailForm from '@components/sales/form/detail'
 import { SaleDetail, SaleDetailInput } from '@joshub/types/sales'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
 import { useRouter } from 'next/router'
+import {
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow
+} from '@tremor/react'
 
 interface SalesInputs {
   id?: number
@@ -70,7 +79,7 @@ const RegisterSaleForm: FC = () => {
           ...rest,
           sale_id: sale.id as number,
           product_code: detail.product?.code as string,
-          total: +detail.price * +detail.quantity
+          total: Number(detail.price) * Number(detail.quantity)
         } satisfies SaleDetail
       })
 
@@ -79,13 +88,13 @@ const RegisterSaleForm: FC = () => {
   }, [sale])
 
   const handleAddDetail = (detail: SaleDetailInput): void => {
-    const exists = detailsAdded.find(d => d.product?.code === detail.product?.code && d.price === detail.price)
+    const exists = detailsAdded.find(d => d.product?.code === detail.product?.code && d.price === Number(detail.price))
     if (exists === undefined) {
       setDetailsAdded([...detailsAdded, detail])
     } else {
       const newDetails = detailsAdded.map(d => {
         if (d.product?.code === detail.product?.code) {
-          return { ...d, quantity: +d.quantity + +detail.quantity }
+          return { ...d, quantity: Number(d.quantity) + Number(detail.quantity) }
         }
         return d
       })
@@ -95,7 +104,7 @@ const RegisterSaleForm: FC = () => {
 
   useEffect(() => {
     setValue('total', detailsAdded
-      .map(item => +item.price * +item.quantity)
+      .map(item => Number(item.price) * Number(item.quantity))
       .reduce((accumulator, currentValue) =>
         accumulator + currentValue, 0))
   }, [detailsAdded])
@@ -120,49 +129,43 @@ const RegisterSaleForm: FC = () => {
 
               <div className="col-span-6">
                 <div className="overflow-x-auto relative">
-                  <table
-                    className="w-full text-sm text-left text-gray-500">
-                    <thead
-                      className="text-xs text-gray-700 uppercase bg-gray-50">
-                    <tr>
-                      <th scope="col" className="py-3 px-6">
-                        Nombre
-                      </th>
-                      <th scope="col" className="py-3 px-6">
-                        Precio de venta
-                      </th>
-                      <th scope="col" className="py-3 px-6">
-                        Cantidad
-                      </th>
-                      <th scope="col" className="py-3 px-6">
-                        Total
-                      </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                      detailsAdded.map(detail => (
-                        <tr
-                          key={detail.product?.code}
-                          className="bg-white border-b">
-                          <th scope="row"
-                              className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                            {detail.product?.name}
-                          </th>
-                          <td className="py-4 px-6">
-                            ${detail.price}
-                          </td>
-                          <td className="py-4 px-6">
-                            {detail.quantity}
-                          </td>
-                          <td className="py-4 px-6">
-                            {detail.quantity * detail.price}
-                          </td>
-                        </tr>
-                      ))
-                    }
-                    </tbody>
-                  </table>
+                  <Card>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableHeaderCell>Nombre</TableHeaderCell>
+                          <TableHeaderCell>Precio de venta</TableHeaderCell>
+                          <TableHeaderCell>Cantidad</TableHeaderCell>
+                          <TableHeaderCell>Total</TableHeaderCell>
+                        </TableRow>
+                      </TableHead>
+
+                      <TableBody>
+                        {detailsAdded.length > 0
+                          ? (
+                              detailsAdded.map((detail) => (
+                              <TableRow key={detail.product?.code}>
+                                <TableCell>
+                                  {detail.product?.name}
+                                </TableCell>
+                                <TableCell>
+                                  $ {Intl.NumberFormat('es').format(detail.product?.cold_spot_price as number)}
+                                </TableCell>
+                                <TableCell>
+                                  {Intl.NumberFormat('es').format(detail.quantity)}
+                                </TableCell>
+                                <TableCell>
+                                  $ {Intl.NumberFormat('es').format(detail.quantity * detail.price)}
+                                </TableCell>
+                              </TableRow>
+                              ))
+                            )
+                          : (<TableCell>
+                            No ha agregado ningún producto
+                          </TableCell>)}
+                      </TableBody>
+                    </Table>
+                  </Card>
                 </div>
               </div>
 
