@@ -89,10 +89,10 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="py-3">
+              <div className="py-3 col-span-6">
                 <button type="submit"
                         disabled={isLoading}
-                        className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2">
+                        className="inline-flex w-full justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400">
                   Editar
                 </button>
               </div>

@@ -191,14 +191,14 @@ const RegisterOrderForm: FC = () => {
             <div className="py-5">
               <button type="submit"
                       disabled={isLoading}
-                      className="inline-flex justify-center mr-3 w-full rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2">
+                      className="inline-flex w-full justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400">
                 Guardar
               </button>
             </div>
 
             {(Boolean(error)) &&
               <div className="text-red-400 text-xs block py-1">
-                Error al guardar el empleado
+                Error al guardar el domicilio
               </div>}
           </div>
         </div>
