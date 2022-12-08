@@ -47,7 +47,7 @@ const OrdersTable: FC = () => {
                 </TableRow>
               ))
               : <TableRow>
-                <TableCell>
+                <TableCell textAlignment="text-center">
                   No hay ventas
                 </TableCell>
               </TableRow>}
