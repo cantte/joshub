@@ -8,6 +8,7 @@ import ProfitsCard from '@components/dashboard/profits'
 import NextLink from 'next/link'
 import SalesTable from '@components/sales/table'
 import OrdersTable from '@components/orders/table'
+import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 
 const Home: FC = () => {
   return (
@@ -61,5 +62,7 @@ const Home: FC = () => {
     </DefaultLayout>
   )
 }
+
+export const getServerSideProps = withRequiredAuth
 
 export default Home

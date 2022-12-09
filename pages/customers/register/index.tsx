@@ -1,6 +1,9 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import DefaultLayout from '@components/shared/layout/default'
 import RegisterCustomerForm from '@components/customers/form'
+import {
+  withRequiredAuth
+} from '@joshub/shared/auth/with-required-auth'
 
 const RegisterClientPage: FC = () => {
   return (
@@ -17,5 +20,7 @@ const RegisterClientPage: FC = () => {
     </DefaultLayout>
   )
 }
+
+export const getServerSideProps = withRequiredAuth
 
 export default RegisterClientPage

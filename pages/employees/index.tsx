@@ -4,6 +4,7 @@ import DefaultLayout from '@components/shared/layout/default'
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import RegisterEmployeeForm from '@components/employees/form'
+import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 
 const EmployeesPage: FC = () => {
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false)
@@ -89,5 +90,7 @@ const EmployeesPage: FC = () => {
     </DefaultLayout>
   )
 }
+
+export const getServerSideProps = withRequiredAuth
 
 export default EmployeesPage

@@ -4,6 +4,7 @@ import DefaultLayout from '@components/shared/layout/default'
 import { Dialog, Transition } from '@headlessui/react'
 import RegisterProductForm from '@components/products/form'
 import { XMarkIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 
 const ProductsPage: FC = () => {
   const [addProductModalOpen, setAddProductModalOpen] = useState(false)
@@ -89,5 +90,7 @@ const ProductsPage: FC = () => {
     </DefaultLayout>
   )
 }
+
+export const getServerSideProps = withRequiredAuth
 
 export default ProductsPage
