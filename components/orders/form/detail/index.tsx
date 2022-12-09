@@ -15,7 +15,7 @@ const OrderDetailForm: FC<Props> = ({ onSubmit }) => {
     getValues,
     resetField,
     watch,
-    formState: { isValid }
+    formState: { isValid, errors }
   } = useForm<OrderDetailInput>()
 
   const handleSelectProduct = (product: Product): void => {
@@ -56,11 +56,16 @@ const OrderDetailForm: FC<Props> = ({ onSubmit }) => {
                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                      id="quantity" {...register('quantity', {
                        required: true,
-                       max: watch('product.quantity')
+                       max: watch('product.quantity'),
+                       pattern: /^[0-9]+$/i
                      })}/>
 
-              {watch('product.quantity') !== undefined &&
+              {watch('product.quantity') !== undefined && errors.quantity !== undefined &&
                 <span className="text-gray-400 text-xs block py-1">Cantidad máxima: {watch('product.quantity')}</span>}
+
+              {errors.quantity?.type === 'pattern' &&
+                <span className="text-red-500 text-xs block py-1">La cantidad debe ser un número entero</span>
+              }
             </div>
 
             <div className="col-span-6">
