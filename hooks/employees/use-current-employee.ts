@@ -23,7 +23,7 @@ export const useCurrentEmployee = (): UseCurrentEmployee => {
 
   const { data: employee, isLoading, error } = useQuery(['employee', user],
     async () => await loadEmployee(user?.id), {
-      enabled: user !== undefined
+      enabled: user !== undefined && user !== null
     })
 
   return {
