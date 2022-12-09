@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 const Navbar: FC = () => {
   const session = useSession()
   const supabase = useSupabaseClient()
+
   const router = useRouter()
   const handleLogout = async (): Promise<void> => {
     await supabase.auth.signOut()
@@ -40,35 +41,37 @@ const Navbar: FC = () => {
                   <span className="text-white text-xl">Joshub</span>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    <NextLink
-                      href="/"
-                      className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Panel de control
-                    </NextLink>
+                  {session !== null
+                    ? <div className="flex space-x-4">
+                      <NextLink
+                        href="/"
+                        className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Panel de control
+                      </NextLink>
 
-                    <NextLink
-                      href="/products"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Productos
-                    </NextLink>
+                      <NextLink
+                        href="/products"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Productos
+                      </NextLink>
 
-                    <NextLink
-                      href="/employees"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Empleados
-                    </NextLink>
+                      <NextLink
+                        href="/employees"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Empleados
+                      </NextLink>
 
-                    <NextLink
-                      href="/customers/register"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Registrar cliente
-                    </NextLink>
-                  </div>
+                      <NextLink
+                        href="/customers/register"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Registrar cliente
+                      </NextLink>
+                    </div>
+                    : null}
                 </div>
               </div>
               <div
-                className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden sm:ml-6 sm:block">
                 {
                   session === null
                     ? (
