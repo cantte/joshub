@@ -3,10 +3,16 @@ import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import NextLink from 'next/link'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/router'
 
 const Navbar: FC = () => {
   const session = useSession()
   const supabase = useSupabaseClient()
+  const router = useRouter()
+  const handleLogout = async (): Promise<void> => {
+    await supabase.auth.signOut()
+    await router.push('/login')
+  }
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -75,7 +81,7 @@ const Navbar: FC = () => {
                       )
                     : (
                       <button
-                        onClick={async () => await supabase.auth.signOut()}
+                        onClick={handleLogout}
                         className="inline-flex justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-1 focus-visible:ring-red-500 focus-visible:ring-offset-2">
                         Cerrar sesión
                       </button>
