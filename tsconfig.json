@@ -38,7 +38,7 @@
       "@joshub/shared/*": [
         "shared/*"
       ],
-      "@styles/*": [
+      "@joshub/styles/*": [
         "styles/*"
       ]
     }

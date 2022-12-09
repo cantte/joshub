@@ -1,5 +1,6 @@
-import '../styles/globals.css'
+import '@joshub/styles//globals.css'
 import '@tremor/react/dist/esm/tremor.css'
+import '@joshub/styles/fonts.css'
 
 import type { AppProps, AppType } from 'next/app'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
