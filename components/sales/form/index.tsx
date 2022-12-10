@@ -67,7 +67,6 @@ const RegisterSaleForm: FC = () => {
   })
 
   const onSubmit: SubmitHandler<SalesInputs> = (data: SalesInputs) => {
-    console.log('sumit!!')
     mutateSale(data)
   }
 

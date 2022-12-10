@@ -2,7 +2,11 @@ import React, { FC, Fragment, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
-import { OrderDetail, OrderDetailInput } from '@joshub/types/orders'
+import {
+  OrderDetail,
+  OrderDetailInput,
+  OrderInputs
+} from '@joshub/types/orders'
 import { useMutation } from '@tanstack/react-query'
 import CustomerField from '@components/shared/form/customer.field'
 import { useRouter } from 'next/router'
@@ -18,14 +22,6 @@ import {
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import OrderDetailForm from '@components/orders/form/detail'
-
-interface OrderInputs {
-  id?: number
-  customer_id: string
-  employee_id: string
-  address: string
-  total: number
-}
 
 const RegisterOrderForm: FC = () => {
   const {
