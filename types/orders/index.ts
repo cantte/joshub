@@ -1,15 +1,8 @@
-import { Product } from '@joshub/types/products'
+import { TransactionDetail, TransactionDetailInput } from '@joshub/types/shared'
 
-export interface OrderDetailInput {
-  product?: Product
+export type OrderDetailInput = TransactionDetailInput
 
-  quantity: number
-  price: number
-}
-
-export type OrderDetail =
-  Omit<OrderDetailInput, 'product'>
-  & { order_id: number, product_code: string, total: number }
+export type OrderDetail = TransactionDetail & { order_id: number }
 
 export interface OrderInputs {
   id?: number
