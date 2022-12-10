@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
-import React, { FC } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { FC } from 'react'
+import axios from 'axios'
 
 interface Inputs {
   id: string
@@ -10,10 +10,9 @@ interface Inputs {
 
 const RegisterCustomerForm: FC = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>()
-  const supabase = useSupabaseClient()
 
   const saveCustomer = async (data: Inputs): Promise<void> => {
-    await supabase.from('customers').insert(data)
+    await axios.post('/api/customers', data)
   }
 
   const { mutate, isLoading, error } = useMutation(saveCustomer, {
@@ -29,8 +28,8 @@ const RegisterCustomerForm: FC = () => {
   return (
     <div className="mt-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="shadow sm:rounded-md">
-          <div className="bg-white px-4 py-5 sm:p-6">
+        <div className="sm:shadow sm:rounded-md">
+          <div className="bg-white sm:px-4 py-5 sm:p-6">
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label htmlFor="id"
@@ -57,6 +56,14 @@ const RegisterCustomerForm: FC = () => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
+              {(Boolean(error)) &&
+                <div
+                  className="p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                  role="alert">
+                  Ya existe un cliente registrado con la identificación ingresada.
+                </div>
+              }
+
               <div className="py-3 col-span-6">
                 <button type="submit"
                         disabled={isLoading}
@@ -64,11 +71,6 @@ const RegisterCustomerForm: FC = () => {
                   Guardar
                 </button>
               </div>
-
-              {(Boolean(error)) &&
-                <div className="text-red-400 text-xs block py-1">
-                  Error al guardar el cliente
-                </div>}
             </div>
           </div>
         </div>

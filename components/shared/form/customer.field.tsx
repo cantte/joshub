@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { SelectBox, SelectBoxItem } from '@tremor/react'
+import axios from 'axios'
 
 interface Customer {
   id: string
@@ -13,9 +13,8 @@ interface Props {
 }
 
 const CustomerField: FC<Props> = ({ onSelected }) => {
-  const supabase = useSupabaseClient()
   const loadCustomers = async (): Promise<Customer[] | null> => {
-    const { data } = await supabase.from('customers').select()
+    const { data } = await axios.get<Customer[] | null>('/api/customers')
     return data
   }
 
