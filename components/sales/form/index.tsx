@@ -67,6 +67,7 @@ const RegisterSaleForm: FC = () => {
   })
 
   const onSubmit: SubmitHandler<SalesInputs> = (data: SalesInputs) => {
+    console.log('sumit!!')
     mutateSale(data)
   }
 
@@ -99,20 +100,21 @@ const RegisterSaleForm: FC = () => {
   const closeAddDetailForm = (): void => setAddDetailFormOpen(false)
 
   const handleAddDetail = (detail: SaleDetailInput): void => {
+    closeAddDetailForm()
+
     const exists = detailsAdded.find(d => d.product?.code === detail.product?.code && d.price === Number(detail.price))
     if (exists === undefined) {
       setDetailsAdded([...detailsAdded, detail])
-    } else {
-      const newDetails = detailsAdded.map(d => {
-        if (d.product?.code === detail.product?.code) {
-          return { ...d, quantity: Number(d.quantity) + Number(detail.quantity) }
-        }
-        return d
-      })
-      setDetailsAdded(newDetails)
+      return
     }
 
-    closeAddDetailForm()
+    const newDetails = detailsAdded.map(d => {
+      if (d.product?.code === detail.product?.code) {
+        return { ...d, quantity: Number(d.quantity) + Number(detail.quantity) }
+      }
+      return d
+    })
+    setDetailsAdded(newDetails)
   }
 
   return (
@@ -130,70 +132,10 @@ const RegisterSaleForm: FC = () => {
 
               <div className="col-span-6">
                 <button onClick={openAddDetailForm}
+                        type="button"
                         className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400">
                   Agregar producto
                 </button>
-
-                <Transition appear show={addDetailFormOpen} as={Fragment}>
-                  <Dialog onClose={closeAddDetailForm} as="div"
-                          className="relative z-10">
-                    <Transition.Child
-                      as={Fragment}
-                      enter="ease-out duration-300"
-                      enterFrom="opacity-0"
-                      enterTo="opacity-100"
-                      leave="ease-in duration-200"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <div className="fixed inset-0 bg-black bg-opacity-25"/>
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto">
-                      <div
-                        className="flex min-h-full items-center justify-center p-4 text-center">
-                        <Transition.Child
-                          as={Fragment}
-                          enter="ease-out duration-300"
-                          enterFrom="opacity-0 scale-95"
-                          enterTo="opacity-100 scale-100"
-                          leave="ease-in duration-200"
-                          leaveFrom="opacity-100 scale-100"
-                          leaveTo="opacity-0 scale-95"
-                        >
-                          <Dialog.Panel
-                            className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                            <Dialog.Title
-                              as="h3"
-                              className="text-lg font-medium leading-6 text-gray-900"
-                            >
-                              <div className="flex flex-col mb-5">
-                                <div className="flex flex-row justify-between">
-                                  <h3
-                                    className="text-xl font-semibold text-gray-900">
-                                    Agregar producto
-                                  </h3>
-                                  <button
-                                    onClick={closeAddDetailForm}
-                                    className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
-                                    <XMarkIcon
-                                      className="h-5 w-5 text-red-700"
-                                    />
-                                  </button>
-                                </div>
-                              </div>
-                            </Dialog.Title>
-
-                            <div className="mt-2">
-                              <SaleDetailForm
-                                onSubmit={handleAddDetail}/>
-                            </div>
-                          </Dialog.Panel>
-                        </Transition.Child>
-                      </div>
-                    </div>
-                  </Dialog>
-                </Transition>
               </div>
 
               <div className="col-span-6">
@@ -214,12 +156,13 @@ const RegisterSaleForm: FC = () => {
                         {detailsAdded.length > 0
                           ? (
                               detailsAdded.map((detail) => (
-                              <TableRow key={detail.product?.code}>
+                              <TableRow
+                                key={`${detail.product?.code ?? ''}-${String(detail.price)}`}>
                                 <TableCell>
                                   {detail.product?.name}
                                 </TableCell>
                                 <TableCell>
-                                  $ {Intl.NumberFormat('es').format(detail.product?.cold_spot_price as number)}
+                                  $ {Intl.NumberFormat('es').format(detail.price)}
                                 </TableCell>
                                 <TableCell>
                                   {Intl.NumberFormat('es').format(detail.quantity)}
@@ -230,9 +173,11 @@ const RegisterSaleForm: FC = () => {
                               </TableRow>
                               ))
                             )
-                          : (<TableCell>
-                            No ha agregado ningún producto
-                          </TableCell>)}
+                          : (<TableRow>
+                            <TableCell>
+                              No ha agregado ningún producto
+                            </TableCell>
+                          </TableRow>)}
                       </TableBody>
                     </Table>
                   </Card>
@@ -261,6 +206,67 @@ const RegisterSaleForm: FC = () => {
           </div>
         </div>
       </form>
+
+      <Transition appear show={addDetailFormOpen} as={Fragment}>
+        <Dialog onClose={closeAddDetailForm} as="div"
+                className="relative z-10">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25"/>
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div
+              className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel
+                  className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    <div className="flex flex-col mb-5">
+                      <div className="flex flex-row justify-between">
+                        <h3
+                          className="text-xl font-semibold text-gray-900">
+                          Agregar producto
+                        </h3>
+                        <button
+                          onClick={closeAddDetailForm}
+                          className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
+                          <XMarkIcon
+                            className="h-5 w-5 text-red-700"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </Dialog.Title>
+
+                  <div className="mt-2">
+                    <SaleDetailForm
+                      onSubmit={handleAddDetail}/>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   )
 }

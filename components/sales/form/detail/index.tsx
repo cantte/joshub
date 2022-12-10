@@ -20,8 +20,7 @@ const SaleDetailForm: FC<Props> = ({ onSubmit }) => {
   } = useForm<SaleDetailInput>({
     defaultValues: {
       product: undefined
-    },
-    reValidateMode: 'onChange'
+    }
   })
 
   const handleSelectProduct = (product: Product): void => {
