@@ -5,7 +5,6 @@ class MyDocument extends Document {
     return (
       <Html lang="es">
         <Head>
-          <title>Joshub</title>
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
         </Head>
 
