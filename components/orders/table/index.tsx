@@ -31,6 +31,7 @@ const OrdersTable: FC = () => {
             <TableRow>
               <TableHeaderCell>Fecha</TableHeaderCell>
               <TableHeaderCell>Cliente</TableHeaderCell>
+              <TableHeaderCell>Dirección</TableHeaderCell>
               <TableHeaderCell>Empleado</TableHeaderCell>
               <TableHeaderCell>Total</TableHeaderCell>
             </TableRow>
@@ -42,6 +43,7 @@ const OrdersTable: FC = () => {
                 <TableRow key={order.id}>
                   <TableCell>{Intl.DateTimeFormat('es').format(Date.parse(order.created_at))}</TableCell>
                   <TableCell>{order.customer_id}</TableCell>
+                  <TableCell>{order.address}</TableCell>
                   <TableCell>{order.employee_id}</TableCell>
                   <TableCell>${Intl.NumberFormat('es').format(order.total)}</TableCell>
                 </TableRow>
