@@ -11,10 +11,12 @@ export type OrderDetail =
   Omit<OrderDetailInput, 'product'>
   & { order_id: number, product_code: string, total: number }
 
-export interface Order {
-  id: number
+export interface OrderInputs {
+  id?: number
   customer_id: string
   employee_id: string
+  address: string
   total: number
-  created_at: string
 }
+
+export type Order = Omit<OrderInputs, 'id'> & { id: number, created_at: string }
