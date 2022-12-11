@@ -2,11 +2,7 @@ import React, { FC } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { SelectBox, SelectBoxItem } from '@tremor/react'
 import axios from 'axios'
-
-interface Customer {
-  id: string
-  name: string
-}
+import { Customer } from '@joshub/types/customers'
 
 interface Props {
   onSelected: (value: Customer) => void

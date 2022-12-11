@@ -2,16 +2,17 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 import axios from 'axios'
-
-interface Inputs {
-  id: string
-  name: string
-}
+import { CustomerInputs } from '@joshub/types/customers'
 
 const RegisterCustomerForm: FC = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<CustomerInputs>()
 
-  const saveCustomer = async (data: Inputs): Promise<void> => {
+  const saveCustomer = async (data: CustomerInputs): Promise<void> => {
     await axios.post('/api/customers', data)
   }
 
@@ -21,7 +22,7 @@ const RegisterCustomerForm: FC = () => {
     }
   })
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<CustomerInputs> = (data) => {
     mutate(data)
   }
 
@@ -60,7 +61,8 @@ const RegisterCustomerForm: FC = () => {
                 <div
                   className="p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
                   role="alert">
-                  Ya existe un cliente registrado con la identificación ingresada.
+                  Ya existe un cliente registrado con la identificación
+                  ingresada.
                 </div>
               }
 
