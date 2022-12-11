@@ -1,5 +1,4 @@
 import React, { FC, Fragment, useState } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Employee } from '@joshub/types/employees'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
@@ -19,7 +18,6 @@ import EditEmployeeForm from '@components/employees/edit'
 import axios from 'axios'
 
 const EmployeesTable: FC = () => {
-  const supabase = useSupabaseClient()
   const { employee: currentEmployee } = useCurrentEmployee()
 
   const loadEmployees = async (): Promise<Employee[] | null> => {
@@ -41,7 +39,7 @@ const EmployeesTable: FC = () => {
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null)
 
   const deleteEmployee = async (id: string): Promise<void> => {
-    await supabase.from('employees').update({ deleted_at: new Date() }).eq('id', id)
+    await axios.delete(`/api/employees/${id}`)
   }
 
   const { mutate } = useMutation(deleteEmployee, { onSuccess: closeDeleteModal })
