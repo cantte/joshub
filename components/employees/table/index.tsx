@@ -16,13 +16,14 @@ import {
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import EditEmployeeForm from '@components/employees/edit'
+import axios from 'axios'
 
 const EmployeesTable: FC = () => {
   const supabase = useSupabaseClient()
   const { employee: currentEmployee } = useCurrentEmployee()
 
   const loadEmployees = async (): Promise<Employee[] | null> => {
-    const { data } = await supabase.from('employees').select().is('deleted_at', null)
+    const { data } = await axios.get<Employee[]>('/api/employees')
     return data
   }
 
@@ -35,7 +36,7 @@ const EmployeesTable: FC = () => {
   const openDeleteModal = (): void => setIsOpeningDeleteModal(true)
   const closeDeleteModal = (): void => {
     setIsOpeningDeleteModal(false)
-    void queryClient.refetchQueries(['employees'])
+    void queryClient.invalidateQueries(['employees'])
   }
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null)
 
@@ -49,7 +50,7 @@ const EmployeesTable: FC = () => {
   const openEditModal = (): void => setIsOpeningEditModal(true)
   const closeEditModal = (): void => {
     setIsOpeningEditModal(false)
-    void queryClient.refetchQueries(['employees'])
+    void queryClient.invalidateQueries(['employees'])
   }
 
   const [employeeToEdit, setEmployeeToEdit] = useState<Employee | null>(null)

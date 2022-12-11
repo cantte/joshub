@@ -5,12 +5,18 @@ import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import RegisterEmployeeForm from '@components/employees/form'
 import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
+import { useQueryClient } from '@tanstack/react-query'
 
 const EmployeesPage: FC = () => {
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false)
 
   const openAddEmployeeModal = (): void => setAddEmployeeModalOpen(true)
-  const closeAddEmployeeModal = (): void => setAddEmployeeModalOpen(false)
+
+  const queryClient = useQueryClient()
+  const closeAddEmployeeModal = (): void => {
+    setAddEmployeeModalOpen(false)
+    void queryClient.invalidateQueries(['employees'])
+  }
 
   return (
     <DefaultLayout>
@@ -29,7 +35,7 @@ const EmployeesPage: FC = () => {
       <EmployeesTable/>
 
       <Transition appear show={addEmployeeModalOpen} as={Fragment}>
-        <Dialog onClose={closeAddEmployeeModal} as="div"
+        <Dialog onClose={() => setAddEmployeeModalOpen(false)} as="div"
                 className="relative z-10">
           <Transition.Child
             as={Fragment}
@@ -68,7 +74,7 @@ const EmployeesPage: FC = () => {
                           Registrar empleado
                         </h3>
                         <button
-                          onClick={closeAddEmployeeModal}
+                          onClick={() => setAddEmployeeModalOpen(false)}
                           className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
                           <XMarkIcon
                             className="h-5 w-5 text-red-700"
