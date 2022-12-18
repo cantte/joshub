@@ -1,10 +1,9 @@
-import React, { FC, Fragment, useEffect, useState } from 'react'
+import { FC, Fragment, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from '@tanstack/react-query'
 import CustomerField from '@components/shared/form/customer.field'
 import SaleDetailForm from '@components/sales/form/detail'
-import { SaleDetail, SaleDetailInput } from '@joshub/types/sales'
+import { Sale, SaleDetailInput, SalesInputs } from '@joshub/types/sales'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
 import { useRouter } from 'next/router'
 import {
@@ -18,13 +17,8 @@ import {
 } from '@tremor/react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
-
-interface SalesInputs {
-  id?: number
-  customer_id: string
-  employee_id: string
-  total: number
-}
+import axios from 'axios'
+import { TransactionDetail } from '@joshub/types/shared'
 
 const RegisterSaleForm: FC = () => {
   const {
@@ -33,7 +27,6 @@ const RegisterSaleForm: FC = () => {
     handleSubmit,
     watch
   } = useForm<SalesInputs>()
-  const supabase = useSupabaseClient()
 
   const { employee } = useCurrentEmployee()
 
@@ -43,48 +36,39 @@ const RegisterSaleForm: FC = () => {
     }
   }, [employee])
 
-  const saveSale = async (data: SalesInputs): Promise<SalesInputs> => {
-    const { data: result } = await supabase.from('sales').insert(data).select()
-    return result !== null ? result[0] : undefined
+  const saveSale = async (saleToSave: SalesInputs): Promise<Sale> => {
+    const { data } = await axios.post<Sale>('/api/sales', saleToSave)
+
+    return data
   }
 
-  const saveDetails = async (data: SaleDetail[]): Promise<void> => {
-    await supabase.from('sales_detail').insert(data)
-  }
-
+  const router = useRouter()
   const {
     mutate: mutateSale,
     isLoading,
-    error,
-    data: sale
-  } = useMutation(saveSale)
-
-  const router = useRouter()
-  const { mutate: mutateSaleDetails } = useMutation(saveDetails, {
+    error
+  } = useMutation(saveSale, {
     onSuccess: () => {
       void router.push('/')
     }
   })
 
   const onSubmit: SubmitHandler<SalesInputs> = (data: SalesInputs) => {
-    mutateSale(data)
-  }
-
-  useEffect(() => {
-    if (sale !== undefined) {
-      const details = detailsAdded.map(detail => {
+    const saleToSave: SalesInputs = {
+      ...data,
+      items: detailsAdded.map(detail => {
         const { product, ...rest } = detail
+
         return {
           ...rest,
-          sale_id: sale.id as number,
           product_code: detail.product?.code as string,
           total: Number(detail.price) * Number(detail.quantity)
-        } satisfies SaleDetail
+        } satisfies TransactionDetail
       })
-
-      mutateSaleDetails(details)
     }
-  }, [sale])
+
+    mutateSale(saleToSave)
+  }
 
   const [detailsAdded, setDetailsAdded] = useState<SaleDetailInput[]>([])
   useEffect(() => {
