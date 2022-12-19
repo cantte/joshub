@@ -1,5 +1,4 @@
 import React, { FC, Fragment, useState } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Employee } from '@joshub/types/employees'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
@@ -16,13 +15,13 @@ import {
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import EditEmployeeForm from '@components/employees/edit'
+import axios from 'axios'
 
 const EmployeesTable: FC = () => {
-  const supabase = useSupabaseClient()
   const { employee: currentEmployee } = useCurrentEmployee()
 
   const loadEmployees = async (): Promise<Employee[] | null> => {
-    const { data } = await supabase.from('employees').select().is('deleted_at', null)
+    const { data } = await axios.get<Employee[]>('/api/employees')
     return data
   }
 
@@ -35,12 +34,12 @@ const EmployeesTable: FC = () => {
   const openDeleteModal = (): void => setIsOpeningDeleteModal(true)
   const closeDeleteModal = (): void => {
     setIsOpeningDeleteModal(false)
-    void queryClient.refetchQueries(['employees'])
+    void queryClient.invalidateQueries(['employees'])
   }
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null)
 
   const deleteEmployee = async (id: string): Promise<void> => {
-    await supabase.from('employees').update({ deleted_at: new Date() }).eq('id', id)
+    await axios.delete(`/api/employees/${id}`)
   }
 
   const { mutate } = useMutation(deleteEmployee, { onSuccess: closeDeleteModal })
@@ -49,7 +48,7 @@ const EmployeesTable: FC = () => {
   const openEditModal = (): void => setIsOpeningEditModal(true)
   const closeEditModal = (): void => {
     setIsOpeningEditModal(false)
-    void queryClient.refetchQueries(['employees'])
+    void queryClient.invalidateQueries(['employees'])
   }
 
   const [employeeToEdit, setEmployeeToEdit] = useState<Employee | null>(null)

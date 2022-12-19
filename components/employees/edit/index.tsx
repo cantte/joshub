@@ -1,8 +1,8 @@
 import { Employee } from '@joshub/types/employees'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import React, { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 
 interface Props {
   onUpdated: () => void
@@ -14,10 +14,9 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<Employee>({
     defaultValues: employee
   })
-  const supabase = useSupabaseClient()
 
   const updateEmployee = async (data: Employee): Promise<void> => {
-    await supabase.from('employees').update(data).eq('id', data.id)
+    await axios.put(`/api/employees/${employee.id}`, data)
   }
 
   const {
@@ -36,7 +35,7 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
         <div className="sm:rounded-md">
           <div className="bg-white px-4 py-5 pb-0">
             <div className="grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="id"
                        className="block text-sm font-medium text-gray-700">
                   Cédula
@@ -50,7 +49,7 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="name"
                        className="block text-sm font-medium text-gray-700">
                   Nombre
@@ -89,6 +88,15 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
+              {(Boolean(error)) &&
+                <div
+                  className="p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                  role="alert">
+                  Error al actualizar el empleado, verifique los datos e intente
+                  de nuevo
+                </div>
+              }
+
               <div className="py-3 col-span-6">
                 <button type="submit"
                         disabled={isLoading}
@@ -96,11 +104,6 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
                   Editar
                 </button>
               </div>
-
-              {(Boolean(error)) &&
-                <div className="text-red-400 text-xs block py-1">
-                  Error al editar el empleado
-                </div>}
             </div>
           </div>
         </div>

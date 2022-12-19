@@ -1,18 +1,16 @@
 import React, { FC } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useQuery } from '@tanstack/react-query'
 import { Product } from '@joshub/types/products'
 import { SelectBox, SelectBoxItem } from '@tremor/react'
+import axios from 'axios'
 
 interface Props {
   onSelected: (value: Product) => void
 }
 
 const ProductField: FC<Props> = ({ onSelected }) => {
-  const supabase = useSupabaseClient()
-
   const loadProducts = async (): Promise<Product[] | null> => {
-    const { data } = await supabase.from('products').select().is('deleted_at', null)
+    const { data } = await axios.get<Product[] | null>('/api/products')
     return data
   }
 

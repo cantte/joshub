@@ -1,9 +1,8 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useMutation } from '@tanstack/react-query'
-import { UserResponse } from '@supabase/supabase-js'
-import { Employee, EmployeeInputs } from '@joshub/types/employees'
+import { EmployeeInputs } from '@joshub/types/employees'
+import axios from 'axios'
 
 interface Props {
   onRegister: () => void
@@ -13,46 +12,22 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    getValues
+    formState: { errors }
   } = useForm<EmployeeInputs>()
-  const supabase = useSupabaseClient()
 
-  const saveEmployee = async (data: Employee): Promise<void> => {
-    await supabase.from('employees').insert(data)
+  const saveEmployee = async (data: EmployeeInputs): Promise<void> => {
+    await axios.post('/api/employees', data)
   }
 
-  const createUser = async (data: EmployeeInputs): Promise<UserResponse> => {
-    return await supabase.auth.admin.createUser({
-      email: data.email,
-      password: data.password
-    })
-  }
-
-  const { mutate: mutateEmployee, isLoading, error } = useMutation(saveEmployee, { onSuccess: onRegister })
   const {
-    mutate: mutateUser,
-    isLoading: isLoadingUser,
-    isSuccess,
-    data
-  } = useMutation(createUser)
+    mutate: mutateEmployee,
+    isLoading,
+    error
+  } = useMutation(saveEmployee, { onSuccess: onRegister })
 
   const onSubmit: SubmitHandler<EmployeeInputs> = (data: EmployeeInputs) => {
-    mutateUser(data)
+    mutateEmployee(data)
   }
-
-  useEffect(() => {
-    if (isSuccess && data != null && data.data.user != null) {
-      const { email, password, ...rest } = getValues()
-      const employee = {
-        ...rest,
-        salary: parseFloat(String(rest.salary)),
-        user_id: data.data.user.id
-      }
-
-      mutateEmployee(employee)
-    }
-  }, [isSuccess, data])
 
   return (
     <div className="mt-5">
@@ -60,7 +35,7 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
         <div className="sm:rounded-md">
           <div className="bg-white px-4 py-5 pb-0">
             <div className="grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="id"
                        className="block text-sm font-medium text-gray-700">
                   Cédula
@@ -73,7 +48,7 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="name"
                        className="block text-sm font-medium text-gray-700">
                   Nombre
@@ -112,7 +87,7 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="email"
                        className="block text-sm font-medium text-gray-700">
                   Correo electrónico
@@ -125,7 +100,7 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="password"
                        className="block text-sm font-medium text-gray-700">
                   Contraseña
@@ -138,18 +113,22 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="py-3 col-span-6">
+              {(Boolean(error)) &&
+                <div
+                  className="p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                  role="alert">
+                  Error al registrar el empleado, verifique los datos e intente
+                  de nuevo
+                </div>
+              }
+
+              <div className="pt-3 col-span-6">
                 <button type="submit"
-                        disabled={isLoading || isLoadingUser}
+                        disabled={isLoading}
                         className="inline-flex w-full justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400">
                   Guardar
                 </button>
               </div>
-
-              {(Boolean(error)) &&
-                <div className="text-red-400 text-xs block py-1">
-                  Error al guardar el empleado
-                </div>}
             </div>
           </div>
         </div>

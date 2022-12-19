@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
-import React, { FC } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { FC } from 'react'
+import axios from 'axios'
 
 interface Inputs {
   code: string
@@ -18,10 +18,9 @@ interface Props {
 
 const RegisterProductForm: FC<Props> = ({ onRegister }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
-  const supabase = useSupabaseClient()
 
   const saveProduct = async (data: Inputs): Promise<void> => {
-    await supabase.from('products').insert(data)
+    await axios.post('/api/products', data)
   }
 
   const {
@@ -40,7 +39,7 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
         <div className="sm:rounded-md">
           <div className="bg-white py-5 pb-0">
             <div className="grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="code"
                        className="block text-sm font-medium text-gray-700">
                   Código
@@ -53,7 +52,7 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="name"
                        className="block text-sm font-medium text-gray-700">
                   Nombre
@@ -118,6 +117,15 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
+              {(Boolean(error)) &&
+                <div
+                  className="p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                  role="alert">
+                  Error al registrar el producto, verifique los datos e intente
+                  de nuevo
+                </div>
+              }
+
               <div className="py-3 col-span-6">
                 <button type="submit"
                         disabled={isLoading}
@@ -125,11 +133,6 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
                   Guardar
                 </button>
               </div>
-
-              {(Boolean(error)) &&
-                <div className="text-red-400 text-xs block py-1">
-                  Error al guardar el producto
-                </div>}
             </div>
           </div>
         </div>

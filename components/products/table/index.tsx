@@ -1,5 +1,4 @@
 import React, { FC, Fragment, useState } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Product } from '@joshub/types/products'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
@@ -15,12 +14,11 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import EditProductForm from '@components/products/edit'
+import axios from 'axios'
 
 const ProductsTable: FC = () => {
-  const supabase = useSupabaseClient()
-
   const loadProducts = async (): Promise<Product[] | null> => {
-    const { data } = await supabase.from('products').select().is('deleted_at', null)
+    const { data } = await axios.get<Product[]>('/api/products')
     return data
   }
 
@@ -33,13 +31,13 @@ const ProductsTable: FC = () => {
   const openDeleteModal = (): void => setIsOpeningDeleteModal(true)
   const closeDeleteModal = (): void => {
     setIsOpeningDeleteModal(false)
-    void queryClient.refetchQueries(['products'])
+    void queryClient.invalidateQueries(['products'])
   }
 
   const [productToDelete, setProductToDelete] = useState<Product | null>(null)
 
   const deleteProduct = async (code: string): Promise<void> => {
-    await supabase.from('products').update({ deleted_at: new Date() }).eq('code', code)
+    await axios.delete(`/api/products/${code}`)
   }
 
   const { mutate } = useMutation(deleteProduct, { onSuccess: closeDeleteModal })
@@ -48,7 +46,7 @@ const ProductsTable: FC = () => {
   const openEditModal = (): void => setIsOpeningEditModal(true)
   const closeEditModal = (): void => {
     setIsOpeningEditModal(false)
-    void queryClient.refetchQueries(['products'])
+    void queryClient.invalidateQueries(['products'])
   }
 
   const [productToEdit, setProductToEdit] = useState<Product | null>(null)

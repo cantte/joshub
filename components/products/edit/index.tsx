@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Product } from '@joshub/types/products'
 import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 
 interface Props {
   onUpdate: () => void
@@ -14,10 +14,9 @@ const EditProductForm: FC<Props> = ({ onUpdate, product }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<Product>({
     defaultValues: product
   })
-  const supabase = useSupabaseClient()
 
   const updateProduct = async (data: Product): Promise<void> => {
-    await supabase.from('products').update(data).eq('code', data.code)
+    await axios.put(`/api/products/${product.code}`, data)
   }
 
   const {
@@ -36,7 +35,7 @@ const EditProductForm: FC<Props> = ({ onUpdate, product }) => {
         <div className="sm:rounded-md">
           <div className="bg-white py-5 pb-0">
             <div className="grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="code"
                        className="block text-sm font-medium text-gray-700">
                   Código
@@ -50,7 +49,7 @@ const EditProductForm: FC<Props> = ({ onUpdate, product }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label htmlFor="name"
                        className="block text-sm font-medium text-gray-700">
                   Nombre
@@ -115,6 +114,15 @@ const EditProductForm: FC<Props> = ({ onUpdate, product }) => {
                   <span className="text-red-400 text-xs block py-1">Este campo es requerido</span>}
               </div>
 
+              {(Boolean(error)) &&
+                <div
+                  className="p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                  role="alert">
+                  Error al acrualizar el producto, verifique los datos e intente
+                  de nuevo
+                </div>
+              }
+
               <div className="py-3 col-span-6">
                 <button type="submit"
                         disabled={isLoading}
@@ -122,11 +130,6 @@ const EditProductForm: FC<Props> = ({ onUpdate, product }) => {
                   Actualizar
                 </button>
               </div>
-
-              {(Boolean(error)) &&
-                <div className="text-red-400 text-xs block py-1">
-                  Error al actualizar el producto
-                </div>}
             </div>
           </div>
         </div>

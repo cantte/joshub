@@ -10,6 +10,10 @@ export interface OrderInputs {
   employee_id: string
   address: string
   total: number
+
+  items?: OrderDetailInput[]
 }
 
-export type Order = Omit<OrderInputs, 'id'> & { id: number, created_at: string }
+export type Order =
+  Omit<OrderInputs, 'id'>
+  & { id: number, created_at: string, items: OrderDetail[] }
