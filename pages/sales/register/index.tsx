@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import DefaultLayout from '@components/shared/layout/default'
-import RegisterSaleForm from '@components/sales/form'
+import RegisterSaleForm from '@components/sales/register'
 import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 
 const RegisterSalePage: FC = () => {

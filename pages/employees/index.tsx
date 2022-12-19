@@ -3,7 +3,7 @@ import EmployeesTable from '@components/employees/table'
 import DefaultLayout from '@components/shared/layout/default'
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { Dialog, Transition } from '@headlessui/react'
-import RegisterEmployeeForm from '@components/employees/form'
+import RegisterEmployeeForm from '@components/employees/register'
 import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 import { useQueryClient } from '@tanstack/react-query'
 

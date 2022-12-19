@@ -1,9 +1,10 @@
-import React, { FC, Fragment, useEffect } from 'react'
+import { FC, Fragment, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
-import { Order, OrderDetailInput, OrderInputs } from '@joshub/types/orders'
 import { useMutation } from '@tanstack/react-query'
 import CustomerField from '@components/shared/form/customer.field'
+import SaleDetailForm from '@components/sales/register/detail'
+import { Sale, SalesInputs } from '@joshub/types/sales'
+import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
 import { useRouter } from 'next/router'
 import {
   Card,
@@ -16,17 +17,16 @@ import {
 } from '@tremor/react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
-import OrderDetailForm from '@components/orders/form/detail'
 import axios from 'axios'
-import { TransactionDetail } from '@joshub/types/shared'
+import { TransactionDetail, TransactionDetailInput } from '@joshub/types/shared'
 import useTransactionDetails from '@joshub/hooks/shared/use-transaction-details'
 
-const RegisterOrderForm: FC = () => {
+const RegisterSaleForm: FC = () => {
   const {
     register,
     setValue,
     handleSubmit
-  } = useForm<OrderInputs>()
+  } = useForm<SalesInputs>()
 
   const { employee } = useCurrentEmployee()
 
@@ -36,18 +36,18 @@ const RegisterOrderForm: FC = () => {
     }
   }, [employee])
 
-  const saveOrder = async (orderToSave: OrderInputs): Promise<Order> => {
-    const { data } = await axios.post<Order>('/api/orders', orderToSave)
+  const saveSale = async (saleToSave: SalesInputs): Promise<Sale> => {
+    const { data } = await axios.post<Sale>('/api/sales', saleToSave)
 
     return data
   }
 
   const router = useRouter()
   const {
-    mutate: mutateOrder,
+    mutate: mutateSale,
     isLoading,
     error
-  } = useMutation(saveOrder, {
+  } = useMutation(saveSale, {
     onSuccess: () => {
       void router.push('/')
     }
@@ -63,17 +63,18 @@ const RegisterOrderForm: FC = () => {
     closeAddDetailModal
   } = useTransactionDetails()
 
-  const handleAddDetail = (detail: OrderDetailInput): void => {
+  const handleAddDetail = (detail: TransactionDetailInput): void => {
     addDetail(detail)
     closeAddDetailModal()
   }
 
-  const onSubmit: SubmitHandler<OrderInputs> = (data: OrderInputs) => {
-    const orderToSave: OrderInputs = {
+  const onSubmit: SubmitHandler<SalesInputs> = (data: SalesInputs) => {
+    const saleToSave: SalesInputs = {
       ...data,
       total,
       items: details.map(detail => {
         const { product, ...rest } = detail
+
         return {
           ...rest,
           product_code: detail.product?.code as string,
@@ -81,7 +82,8 @@ const RegisterOrderForm: FC = () => {
         } satisfies TransactionDetail
       })
     }
-    mutateOrder(orderToSave)
+
+    mutateSale(saleToSave)
   }
 
   return (
@@ -98,16 +100,6 @@ const RegisterOrderForm: FC = () => {
               </div>
 
               <div className="col-span-6">
-                <label htmlFor="address"
-                       className="block text-sm font-medium text-gray-700">
-                  Dirección
-                </label>
-                <input type="text"
-                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                       id="id" {...register('address', { required: true })} />
-              </div>
-
-              <div className="col-span-6">
                 <button onClick={openAddDetailModal}
                         type="button"
                         className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400">
@@ -118,6 +110,7 @@ const RegisterOrderForm: FC = () => {
               <div className="col-span-6">
                 <div className="overflow-x-auto relative">
                   <Card>
+                    <h3 className="text-xl">Productos añadidos</h3>
                     <Table>
                       <TableHead>
                         <TableRow>
@@ -132,7 +125,8 @@ const RegisterOrderForm: FC = () => {
                         {details.length > 0
                           ? (
                               details.map((detail) => (
-                              <TableRow key={detail.product?.code}>
+                              <TableRow
+                                key={`${detail.product?.code ?? ''}-${String(detail.price)}`}>
                                 <TableCell>
                                   {detail.product?.name}
                                 </TableCell>
@@ -148,9 +142,11 @@ const RegisterOrderForm: FC = () => {
                               </TableRow>
                               ))
                             )
-                          : (<TableCell>
-                            No ha agregado ningún producto
-                          </TableCell>)}
+                          : (<TableRow>
+                            <TableCell>
+                              No ha agregado ningún producto
+                            </TableCell>
+                          </TableRow>)}
                       </TableBody>
                     </Table>
                   </Card>
@@ -174,7 +170,7 @@ const RegisterOrderForm: FC = () => {
 
             {(Boolean(error)) &&
               <div className="text-red-400 text-xs block py-1">
-                Error al guardar el domicilio
+                Error al guardar la venta
               </div>}
           </div>
         </div>
@@ -190,7 +186,8 @@ const RegisterOrderForm: FC = () => {
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0">
+            leaveTo="opacity-0"
+          >
             <div className="fixed inset-0 bg-black bg-opacity-25"/>
           </Transition.Child>
 
@@ -204,9 +201,10 @@ const RegisterOrderForm: FC = () => {
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95">
+                leaveTo="opacity-0 scale-95"
+              >
                 <Dialog.Panel
-                  className="w-full max-w-xl transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -229,7 +227,8 @@ const RegisterOrderForm: FC = () => {
                   </Dialog.Title>
 
                   <div className="mt-2">
-                    <OrderDetailForm onSubmit={handleAddDetail}/>
+                    <SaleDetailForm
+                      onSubmit={handleAddDetail}/>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -241,4 +240,4 @@ const RegisterOrderForm: FC = () => {
   )
 }
 
-export default RegisterOrderForm
+export default RegisterSaleForm
