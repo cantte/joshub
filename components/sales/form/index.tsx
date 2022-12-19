@@ -1,9 +1,9 @@
-import { FC, Fragment, useEffect, useState } from 'react'
+import { FC, Fragment, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import CustomerField from '@components/shared/form/customer.field'
 import SaleDetailForm from '@components/sales/form/detail'
-import { Sale, SaleDetailInput, SalesInputs } from '@joshub/types/sales'
+import { Sale, SalesInputs } from '@joshub/types/sales'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
 import { useRouter } from 'next/router'
 import {
@@ -18,14 +18,14 @@ import {
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import axios from 'axios'
-import { TransactionDetail } from '@joshub/types/shared'
+import { TransactionDetail, TransactionDetailInput } from '@joshub/types/shared'
+import useTransactionDetails from '@joshub/hooks/shared/use-transaction-details'
 
 const RegisterSaleForm: FC = () => {
   const {
     register,
     setValue,
-    handleSubmit,
-    watch
+    handleSubmit
   } = useForm<SalesInputs>()
 
   const { employee } = useCurrentEmployee()
@@ -53,10 +53,26 @@ const RegisterSaleForm: FC = () => {
     }
   })
 
+  const {
+    details,
+    addDetailModalOpen,
+    total,
+
+    addDetail,
+    openAddDetailModal,
+    closeAddDetailModal
+  } = useTransactionDetails()
+
+  const handleAddDetail = (detail: TransactionDetailInput): void => {
+    addDetail(detail)
+    closeAddDetailModal()
+  }
+
   const onSubmit: SubmitHandler<SalesInputs> = (data: SalesInputs) => {
     const saleToSave: SalesInputs = {
       ...data,
-      items: detailsAdded.map(detail => {
+      total,
+      items: details.map(detail => {
         const { product, ...rest } = detail
 
         return {
@@ -68,36 +84,6 @@ const RegisterSaleForm: FC = () => {
     }
 
     mutateSale(saleToSave)
-  }
-
-  const [detailsAdded, setDetailsAdded] = useState<SaleDetailInput[]>([])
-  useEffect(() => {
-    setValue('total', detailsAdded
-      .map(item => Number(item.price) * Number(item.quantity))
-      .reduce((accumulator, currentValue) =>
-        accumulator + currentValue, 0))
-  }, [detailsAdded])
-
-  const [addDetailFormOpen, setAddDetailFormOpen] = useState(false)
-  const openAddDetailForm = (): void => setAddDetailFormOpen(true)
-  const closeAddDetailForm = (): void => setAddDetailFormOpen(false)
-
-  const handleAddDetail = (detail: SaleDetailInput): void => {
-    closeAddDetailForm()
-
-    const exists = detailsAdded.find(d => d.product?.code === detail.product?.code && d.price === Number(detail.price))
-    if (exists === undefined) {
-      setDetailsAdded([...detailsAdded, detail])
-      return
-    }
-
-    const newDetails = detailsAdded.map(d => {
-      if (d.product?.code === detail.product?.code) {
-        return { ...d, quantity: Number(d.quantity) + Number(detail.quantity) }
-      }
-      return d
-    })
-    setDetailsAdded(newDetails)
   }
 
   return (
@@ -114,7 +100,7 @@ const RegisterSaleForm: FC = () => {
               </div>
 
               <div className="col-span-6">
-                <button onClick={openAddDetailForm}
+                <button onClick={openAddDetailModal}
                         type="button"
                         className="inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400">
                   Agregar producto
@@ -136,9 +122,9 @@ const RegisterSaleForm: FC = () => {
                       </TableHead>
 
                       <TableBody>
-                        {detailsAdded.length > 0
+                        {details.length > 0
                           ? (
-                              detailsAdded.map((detail) => (
+                              details.map((detail) => (
                               <TableRow
                                 key={`${detail.product?.code ?? ''}-${String(detail.price)}`}>
                                 <TableCell>
@@ -170,7 +156,7 @@ const RegisterSaleForm: FC = () => {
               <div className="col-span-6 sm:col-span-3">
                 <p
                   className="text-2xl">Total:
-                  $ {Intl.NumberFormat('es').format(watch('total'))}</p>
+                  $ {Intl.NumberFormat('es').format(total)}</p>
               </div>
             </div>
 
@@ -190,8 +176,8 @@ const RegisterSaleForm: FC = () => {
         </div>
       </form>
 
-      <Transition appear show={addDetailFormOpen} as={Fragment}>
-        <Dialog onClose={closeAddDetailForm} as="div"
+      <Transition appear show={addDetailModalOpen} as={Fragment}>
+        <Dialog onClose={closeAddDetailModal} as="div"
                 className="relative z-10">
           <Transition.Child
             as={Fragment}
@@ -230,7 +216,7 @@ const RegisterSaleForm: FC = () => {
                           Agregar producto
                         </h3>
                         <button
-                          onClick={closeAddDetailForm}
+                          onClick={closeAddDetailModal}
                           className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
                           <XMarkIcon
                             className="h-5 w-5 text-red-700"
