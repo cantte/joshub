@@ -2,7 +2,7 @@ import { FC, Fragment, useState } from 'react'
 import ProductsTable from '@components/products/table'
 import DefaultLayout from '@components/shared/layout/default'
 import { Dialog, Transition } from '@headlessui/react'
-import RegisterProductForm from '@components/products/form'
+import RegisterProductForm from '@components/products/register'
 import { XMarkIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 
