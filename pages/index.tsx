@@ -13,10 +13,10 @@ import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 const Home: FC = () => {
   return (
     <DefaultLayout>
-      <div className="flex flex-col mb-5">
+      <div className="flex flex-col mb-10">
         <div className="flex flex-row justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">
-            Panel de control
+          <h1 className="text-4xl text-gray-900">
+            Bienvenido
           </h1>
 
           <div>
@@ -38,8 +38,12 @@ const Home: FC = () => {
         </div>
       </div>
 
+      <h2 className="text-2xl text-gray-700">
+        Reporte diario
+      </h2>
+
       <div className="sm:rounded-md">
-        <div className="bg-white px-4 py-5 sm:p-6">
+        <div className="mb-7">
           <div className="mt-4">
             <ColGrid numColsSm={2} numColsLg={3} gapX="gap-x-6" gapY="gap-y-6">
               <SalesCard/>
@@ -50,14 +54,14 @@ const Home: FC = () => {
         </div>
       </div>
 
-      <h1 className="text-2xl font-semibold text-gray-900">
+      <h2 className="text-2xl text-gray-700">
         Últimas ventas
-      </h1>
+      </h2>
       <SalesTable/>
 
-      <h1 className="text-2xl font-semibold text-gray-900 mt-6">
+      <h2 className="text-2xl text-gray-700 mt-7">
         Últimos domicilios
-      </h1>
+      </h2>
       <OrdersTable/>
     </DefaultLayout>
   )
