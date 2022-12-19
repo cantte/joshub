@@ -1,29 +1,9 @@
 import { FC } from 'react'
 import { Card, Metric, Text } from '@tremor/react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { useQuery } from '@tanstack/react-query'
+import useDailyReport from '@joshub/hooks/reports/use-daily-report'
 
 const TotalProductsCard: FC = () => {
-  const supabase = useSupabaseClient()
-
-  const loadTotalProducts = async (): Promise<number | undefined> => {
-    const { data: orders } = await supabase.from('orders_detail').select('quantity')
-    const { data: sales } = await supabase.from('sales_detail').select('quantity')
-
-    if (orders !== undefined && orders !== null && sales !== undefined && sales !== null) {
-      const totalOrders = orders.reduce((acc, current) => acc + Number(current.quantity), 0)
-      const totalSales = sales.reduce((acc, current) => acc + Number(current.quantity), 0)
-
-      return totalOrders + totalSales
-    }
-
-    return 0
-  }
-
-  const {
-    data: total,
-    isLoading
-  } = useQuery(['total_products'], loadTotalProducts)
+  const { dailyReport, isLoading } = useDailyReport()
 
   return (
     <>
@@ -48,7 +28,7 @@ const TotalProductsCard: FC = () => {
           : (
             <Card>
               <Text>Bebidas vendidas</Text>
-              <Metric>{Intl.NumberFormat('es').format(total !== undefined ? total : 0)}</Metric>
+              <Metric>{Intl.NumberFormat('es').format(dailyReport !== undefined ? dailyReport.products_sold : 0)}</Metric>
             </Card>
             )
       }
