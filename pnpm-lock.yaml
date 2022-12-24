@@ -13,7 +13,7 @@ specifiers:
   '@tremor/react': ^1.2.2
   '@types/node': 18.11.17
   '@types/react': 18.0.26
-  '@types/react-dom': 18.0.9
+  '@types/react-dom': 18.0.10
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.45.0
   autoprefixer: ^10.4.13
@@ -48,7 +48,7 @@ dependencies:
   '@tremor/react': 1.2.2_v2m5e27vhdewzwhryxwfaorcca
   '@types/node': 18.11.17
   '@types/react': 18.0.26
-  '@types/react-dom': 18.0.9
+  '@types/react-dom': 18.0.10
   autoprefixer: 10.4.13_postcss@8.4.19
   axios: 1.2.0
   eslint-config-next: 13.1.0_ha6vam6werchizxrnqvarmz2zu
@@ -537,8 +537,8 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: false
 
-  /@types/react-dom/18.0.9:
-    resolution: {integrity: sha512-qnVvHxASt/H7i+XG1U1xMiY5t+IHcPGUK7TDMDzom08xa7e86eCeKOiLZezwCKVxJn6NEiiy2ekgX8aQssjIKg==}
+  /@types/react-dom/18.0.10:
+    resolution: {integrity: sha512-E42GW/JA4Qv15wQdqJq8DL4JhNpB3prJgjgapN3qJT9K2zO5IIAQh4VXvCEDupoqAwnz0cY4RlXeC/ajX5SFHg==}
     dependencies:
       '@types/react': 18.0.26
     dev: false
