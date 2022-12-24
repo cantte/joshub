@@ -1,6 +1,6 @@
 export interface PubInputs {
   name: string
-  nit: string
+  nit?: string
   address: string
   owner: string
 }
