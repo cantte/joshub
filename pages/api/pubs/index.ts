@@ -21,10 +21,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
   if (req.method === 'GET') {
     const supabase = createServerSupabaseClient({ req, res })
 
-    const { userId } = req.query
+    const { owner } = req.query
 
     const { data, error } = await supabase.from('pubs').select()
-      .eq('owner', userId)
+      .eq('owner', owner)
 
     if (error != null) {
       res.status(500).json({ error: error.message })
@@ -37,6 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     }
 
     res.status(404).json({ error: 'Not found' })
+    return
   }
 
   res.status(405).json({ error: 'Method not allowed' })
