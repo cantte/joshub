@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/arkews/joshub/compare/v1.0.1...v1.0.2) (2022-12-24)
+
+
+### Build System
+
+* update pnpm-lock.yaml ([05928ba](https://github.com/arkews/joshub/commit/05928bafada1993fffe96d893b1748218a1f1a6d))
+
 ## [1.0.1](https://github.com/arkews/joshub/compare/v1.0.0...v1.0.1) (2022-12-20)
 
 
