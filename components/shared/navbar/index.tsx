@@ -32,6 +32,14 @@ const storeNavigation = [
   }
 ]
 
+const mobileNavigation = [
+  { name: 'Registrar venta', href: '/sales/register' },
+  { name: 'Registrar domicilio', href: '/orders/register' },
+  { name: 'Registrar cliente', href: '/customers/register' },
+  { name: 'Empleados', href: '/employees' },
+  { name: 'Productos', href: '/products' }
+]
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function classNames (...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -60,7 +68,7 @@ const Navbar: FC = () => {
 
           <div className='-my-2 -mr-2 md:hidden'>
             <Popover.Button
-              className='inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
+              className='inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none'>
               <span className='sr-only'>Open menu</span>
               <Bars3Icon className='h-6 w-6' aria-hidden='true' />
             </Popover.Button>
@@ -76,7 +84,7 @@ const Navbar: FC = () => {
                         <Popover.Button
                           className={classNames(
                             open ? 'text-gray-900' : 'text-gray-500',
-                            'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                            'group inline-flex items-center rounded-md bg-white text-base hover:text-gray-900 focus:outline-none'
                           )}
                         >
                           <span>Tienda</span>
@@ -105,21 +113,21 @@ const Navbar: FC = () => {
                               <div
                                 className='relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8'>
                                 {storeNavigation.map((item) => (
-                                  <a
+                                  <NextLink
                                     key={item.name}
                                     href={item.href}
                                     className='-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50'
                                   >
                                     <item.icon
-                                      className='h-6 w-6 flex-shrink-0 text-indigo-600'
+                                      className='h-6 w-6 flex-shrink-0 text-indigo-700'
                                       aria-hidden='true' />
                                     <div className='ml-4'>
                                       <p
-                                        className='text-base font-medium text-gray-900'>{item.name}</p>
+                                        className='text-base text-gray-900'>{item.name}</p>
                                       <p
                                         className='mt-1 text-sm text-gray-500'>{item.description}</p>
                                     </div>
-                                  </a>
+                                  </NextLink>
                                 ))}
                               </div>
                             </div>
@@ -187,13 +195,11 @@ const Navbar: FC = () => {
             <div className='px-5 pt-5 pb-6'>
               <div className='flex items-center justify-between'>
                 <div>
-                  <img className='h-8 w-auto'
-                       src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
-                       alt='Workflow' />
+                  <span className='text-2xl'>Joshub</span>
                 </div>
                 <div className='-mr-2'>
                   <Popover.Button
-                    className='inline-flex items-center justify-center rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
+                    className='inline-flex items-center justify-center rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none'>
                     <span className='sr-only'>Close menu</span>
                     <XMarkIcon className='h-6 w-6' aria-hidden='true' />
                   </Popover.Button>
@@ -201,7 +207,7 @@ const Navbar: FC = () => {
               </div>
               <div className='mt-6'>
                 <nav className='grid gap-y-8'>
-                  {navigation.map((item) => (
+                  {mobileNavigation.map((item) => (
                     <NextLink key={item.name} href={item.href}
                               className='-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50'>
                       <div className='ml-4 text-base font-medium text-gray-900'>
