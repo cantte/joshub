@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/arkews/joshub/compare/v1.1.0...v1.2.0) (2022-12-25)
+
+
+### Features
+
+* **employees:** linking employees to a pub ([88a3372](https://github.com/arkews/joshub/commit/88a3372182789bfb796bbc137054b962c4065281))
+* **products:** linking to a pub ([cafad1b](https://github.com/arkews/joshub/commit/cafad1b2addc98efd45fb61350941f452e284580))
+* **pubs:** add pub verification ([b3d2b0b](https://github.com/arkews/joshub/commit/b3d2b0b8e60f3b6792fc4b36719fd9a6e7fdb993))
+* **pubs:** remove nit whitespaces ([4f64456](https://github.com/arkews/joshub/commit/4f644565898aa02383cee490cbba37bb7ac33fb4))
+
+
+### Build System
+
+* **deps:** add zustand ([ea553d4](https://github.com/arkews/joshub/commit/ea553d41c2e1fe8af4a591019064d296045f4f9c))
+
 ## [1.1.0](https://github.com/arkews/joshub/compare/v1.0.2...v1.1.0) (2022-12-25)
 
 
