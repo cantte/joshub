@@ -16,18 +16,24 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import EditEmployeeForm from '@components/employees/edit'
 import axios from 'axios'
+import { usePub } from '@joshub/store/pubs'
 
 const EmployeesTable: FC = () => {
   const { employee: currentEmployee } = useCurrentEmployee()
 
-  const loadEmployees = async (): Promise<Employee[] | null> => {
-    const { data } = await axios.get<Employee[]>('/api/employees')
+  const pub = usePub()
+  const loadEmployees = async (pubId: string): Promise<Employee[] | null> => {
+    const { data } = await axios.get<Employee[]>(`/api/employees?pubId=${pubId}`)
     return data
   }
 
   const {
     data: employees
-  } = useQuery(['employees'], loadEmployees)
+  } = useQuery(['employees'],
+    async () => await loadEmployees(pub?.id ?? ''),
+    {
+      enabled: pub !== undefined
+    })
   const queryClient = useQueryClient()
 
   const [isOpeningDeleteModal, setIsOpeningDeleteModal] = useState(false)
@@ -54,7 +60,7 @@ const EmployeesTable: FC = () => {
   const [employeeToEdit, setEmployeeToEdit] = useState<Employee | null>(null)
 
   return (
-    <div className="col-span-6">
+    <div className='col-span-6'>
       <Card>
         <Table>
           <TableHead>
@@ -81,8 +87,8 @@ const EmployeesTable: FC = () => {
                         setEmployeeToEdit(employee)
                         openEditModal()
                       }}
-                      className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none">
-                      <PencilIcon className="h-5 w-5 text-indigo-700"/>
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'>
+                      <PencilIcon className='h-5 w-5 text-indigo-700' />
                     </button>
 
                     <button
@@ -90,8 +96,8 @@ const EmployeesTable: FC = () => {
                         setEmployeeToDelete(employee)
                         openDeleteModal()
                       }}
-                      className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
-                      <TrashIcon className="h-5 w-5 text-red-700"/>
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'>
+                      <TrashIcon className='h-5 w-5 text-red-700' />
                     </button>
                   </TableCell>
                 </TableRow>
@@ -106,62 +112,62 @@ const EmployeesTable: FC = () => {
       </Card>
 
       <Transition appear show={isOpeningDeleteModal} as={Fragment}>
-        <Dialog onClose={closeDeleteModal} as="div" className="relative z-10">
+        <Dialog onClose={closeDeleteModal} as='div' className='relative z-10'>
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            enter='ease-out duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25"/>
+            <div className='fixed inset-0 bg-black bg-opacity-25' />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
+          <div className='fixed inset-0 overflow-y-auto'>
             <div
-              className="flex min-h-full items-center justify-center p-4 text-center">
+              className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
+                enter='ease-out duration-300'
+                enterFrom='opacity-0 scale-95'
+                enterTo='opacity-100 scale-100'
+                leave='ease-in duration-200'
+                leaveFrom='opacity-100 scale-100'
+                leaveTo='opacity-0 scale-95'
               >
                 <Dialog.Panel
-                  className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    as='h3'
+                    className='text-lg font-medium leading-6 text-gray-900'
                   >
-                    <div className="flex flex-col mb-5">
-                      <div className="flex flex-row justify-between">
+                    <div className='flex flex-col mb-5'>
+                      <div className='flex flex-row justify-between'>
                         <h3
-                          className="text-xl font-semibold text-gray-900">
+                          className='text-xl font-semibold text-gray-900'>
                           ¿Estás seguro que deseas eliminar este empleado?
                         </h3>
                       </div>
                     </div>
                   </Dialog.Title>
 
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
+                  <div className='mt-2'>
+                    <p className='text-sm text-gray-500'>
                       Esta seguro que desea eliminar al
                       empleado{' '}
-                      <span className="font-bold text-gray-700 inline">
+                      <span className='font-bold text-gray-700 inline'>
                         {employeeToDelete?.name}
                       </span>{' '}
                       Esta acción no se puede deshacer.
                     </p>
                   </div>
 
-                  <div className="mt-4">
+                  <div className='mt-4'>
                     <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                      type='button'
+                      className='inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2'
                       onClick={() => {
                         if (employeeToDelete !== null) {
                           mutate(employeeToDelete.id)
@@ -172,8 +178,8 @@ const EmployeesTable: FC = () => {
                     </button>
 
                     <button
-                      type="button"
-                      className="inline-flex ml-3 justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
+                      type='button'
+                      className='inline-flex ml-3 justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2'
                       onClick={closeDeleteModal}
                     >
                       No, cancelar
@@ -187,58 +193,58 @@ const EmployeesTable: FC = () => {
       </Transition>
 
       <Transition appear show={isOpeningEditModal} as={Fragment}>
-        <Dialog onClose={closeEditModal} as="div" className="relative z-10">
+        <Dialog onClose={closeEditModal} as='div' className='relative z-10'>
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            enter='ease-out duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25"/>
+            <div className='fixed inset-0 bg-black bg-opacity-25' />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
+          <div className='fixed inset-0 overflow-y-auto'>
             <div
-              className="flex min-h-full items-center justify-center p-4 text-center">
+              className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
+                enter='ease-out duration-300'
+                enterFrom='opacity-0 scale-95'
+                enterTo='opacity-100 scale-100'
+                leave='ease-in duration-200'
+                leaveFrom='opacity-100 scale-100'
+                leaveTo='opacity-0 scale-95'
               >
                 <Dialog.Panel
-                  className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    as='h3'
+                    className='text-lg font-medium leading-6 text-gray-900'
                   >
-                    <div className="flex flex-col mb-5">
-                      <div className="flex flex-row justify-between">
+                    <div className='flex flex-col mb-5'>
+                      <div className='flex flex-row justify-between'>
                         <h3
-                          className="text-xl font-semibold text-gray-900">
+                          className='text-xl font-semibold text-gray-900'>
                           Editar empleado
                         </h3>
                         <button
                           onClick={() => setIsOpeningEditModal(false)}
-                          className="inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none">
+                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'>
                           <XMarkIcon
-                            className="h-5 w-5 text-red-700"
+                            className='h-5 w-5 text-red-700'
                           />
                         </button>
                       </div>
                     </div>
                   </Dialog.Title>
 
-                  <div className="mt-2">
+                  <div className='mt-2'>
                     {employeeToEdit !== null &&
                       <EditEmployeeForm onUpdated={closeEditModal}
-                                        employee={employeeToEdit}/>
+                                        employee={employeeToEdit} />
                     }
                   </div>
                 </Dialog.Panel>
