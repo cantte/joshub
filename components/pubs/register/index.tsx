@@ -38,7 +38,7 @@ const RegisterPubForm: FC = () => {
   })
 
   const onSubmit: SubmitHandler<PubInputs> = (data) => {
-    data.nit = data.nit === '' ? undefined : data.nit
+    data.nit = data.nit?.trim() === '' ? undefined : data.nit
 
     mutate(data)
   }

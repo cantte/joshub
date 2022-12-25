@@ -25,7 +25,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
       return
     }
 
+    const { pubId } = req.query
+
     const { data, error } = await supabase.from('employees').select()
+      .is('deleted_at', null)
+      .eq('pub_id', pubId as string)
 
     if (error != null) {
       res.status(500).json({ error: error.message })

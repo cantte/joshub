@@ -5,6 +5,7 @@ export interface EmployeeInputs {
   salary: number
   email: string
   password: string
+  pub_id: string
 }
 
 export type Employee =

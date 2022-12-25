@@ -6,6 +6,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import RegisterEmployeeForm from '@components/employees/register'
 import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 import { useQueryClient } from '@tanstack/react-query'
+import withRequiredPub from '@joshub/hocs/pubs/with-required-pub'
 
 const EmployeesPage: FC = () => {
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false)
@@ -99,4 +100,4 @@ const EmployeesPage: FC = () => {
 
 export const getServerSideProps = withRequiredAuth
 
-export default EmployeesPage
+export default withRequiredPub(EmployeesPage)

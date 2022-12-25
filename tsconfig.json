@@ -40,6 +40,12 @@
       ],
       "@joshub/styles/*": [
         "styles/*"
+      ],
+      "@joshub/store/*": [
+        "store/*"
+      ],
+      "@joshub/hocs/*": [
+        "hocs/*"
       ]
     }
   },
