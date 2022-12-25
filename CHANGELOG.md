@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.0](https://github.com/arkews/joshub/compare/v1.0.2...v1.1.0) (2022-12-25)
+
+
+### Features
+
+* **pubs:** add register page ([0104d82](https://github.com/arkews/joshub/commit/0104d82f71a58bd046d4a825a74efbc9ff5b0dd3))
+* **pubs:** add route api endpoints ([b7425ef](https://github.com/arkews/joshub/commit/b7425eff3b93ad5eede9cbdb3c145bc8d50d2210))
+* **pubs:** add types ([54db289](https://github.com/arkews/joshub/commit/54db2894d89d682f03b4c9f861beee21b293b2c4))
+* **pubs:** enable undefined on 'nit' ([ad8e57e](https://github.com/arkews/joshub/commit/ad8e57e8320fd9957868269782d9a4f467cd0474))
+
+
+### Bug Fixes
+
+* **pubs:** solve route api endpoints bugs ([9758db4](https://github.com/arkews/joshub/commit/9758db4a63bf3ba43099025273f7e10196b5b3dd))
+
 ## [1.0.2](https://github.com/arkews/joshub/compare/v1.0.1...v1.0.2) (2022-12-24)
 
 
