@@ -5,8 +5,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
   if (req.method === 'GET') {
     const supabase = createServerSupabaseClient({ req, res })
 
-    const { data, error } = await supabase.from('products')
-      .select().is('deleted_at', null)
+    const { pubId } = req.query
+    const { data, error } = await supabase.from('products').select()
+      .is('deleted_at', null)
+      .eq('pub_id', pubId as string)
 
     if (error != null) {
       res.status(500).json({ error: error.message })
@@ -21,7 +23,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     const supabase = createServerSupabaseClient({ req, res })
 
     const { body } = req
-    const { data, error } = await supabase.from('products').insert(body).select()
+    const {
+      data,
+      error
+    } = await supabase.from('products').insert(body).select()
 
     if (error != null) {
       res.status(500).json({ error: error.message })
