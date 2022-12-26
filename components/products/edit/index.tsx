@@ -3,6 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Product } from '@joshub/types/products'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
+import toast from 'react-hot-toast'
+import Alert from '@components/shared/feedback/alerts'
 
 interface Props {
   onUpdate: () => void
@@ -24,7 +26,12 @@ const EditProductForm: FC<Props> = ({ onUpdate, product }) => {
   }
 
   const { mutate, isLoading, error } = useMutation(updateProduct, {
-    onSuccess: onUpdate
+    onSuccess: () => {
+      toast.custom(t => (
+        <Alert id={t.id} title='Producto actualizado!' variant='info' />
+      ))
+      onUpdate()
+    }
   })
 
   const onSubmit: SubmitHandler<Product> = data => {

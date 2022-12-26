@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 import axios from 'axios'
 import { usePub } from '@joshub/store/pubs'
+import toast from 'react-hot-toast'
+import Alert from '@components/shared/feedback/alerts'
 
 interface Inputs {
   code: string
@@ -35,7 +37,12 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
   }
 
   const { mutate, isLoading, error } = useMutation(saveProduct, {
-    onSuccess: onRegister
+    onSuccess: () => {
+      toast.custom(t => (
+        <Alert id={t.id} title='Producto registrado!' variant='success' />
+      ))
+      onRegister()
+    }
   })
 
   const onSubmit: SubmitHandler<Inputs> = data => {

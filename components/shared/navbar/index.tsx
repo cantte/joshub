@@ -56,9 +56,9 @@ const Navbar: FC = () => {
   }
 
   return (
-    <Popover className='relative bg-white'>
+    <Popover className='relative sticky top-0 z-50 bg-white shadow'>
       <div className='mx-auto w-full'>
-        <div className='flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10 px-4 sm:px-6'>
+        <div className='flex items-center justify-between py-6 md:justify-start md:space-x-10 px-4 sm:px-6'>
           <div className='flex justify-start lg:w-0 lg:flex-1'>
             <NextLink href='/' className='-m-1.5 p-1.5'>
               <span className='text-2xl'>Joshub</span>
@@ -81,7 +81,7 @@ const Navbar: FC = () => {
                       <Popover.Button
                         className={classNames(
                           open ? 'text-gray-900' : 'text-gray-500',
-                          'group inline-flex items-center rounded-md bg-white text-base hover:text-gray-900 focus:outline-none'
+                          'group inline-flex items-center rounded-md text-base hover:text-gray-900 focus:outline-none'
                         )}
                       >
                         <span>Tienda</span>
@@ -139,7 +139,7 @@ const Navbar: FC = () => {
                     <NextLink
                       key={item.name}
                       href={item.href}
-                      className='text-gray-500 inline-flex items-center rounded-md bg-white text-base hover:text-gray-900'
+                      className='text-gray-500 inline-flex items-center rounded-md text-base hover:text-gray-900'
                     >
                       {item.name}
                     </NextLink>

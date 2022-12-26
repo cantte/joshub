@@ -3,6 +3,8 @@ import React, { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
+import toast from 'react-hot-toast'
+import Alert from '@components/shared/feedback/alerts'
 
 interface Props {
   onUpdated: () => void
@@ -24,7 +26,12 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
   }
 
   const { mutate, isLoading, error } = useMutation(updateEmployee, {
-    onSuccess: onUpdated
+    onSuccess: () => {
+      toast.custom(t => (
+        <Alert id={t.id} title='Empleado actualizado!' variant='info' />
+      ))
+      onUpdated()
+    }
   })
 
   const onSubmit: SubmitHandler<Employee> = (data: Employee) => {
