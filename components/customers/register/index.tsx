@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { FC } from 'react'
 import axios from 'axios'
 import { CustomerInputs } from '@joshub/types/customers'
+import toast from 'react-hot-toast'
+import Alert from '@components/shared/feedback/alerts'
 
 const RegisterCustomerForm: FC = () => {
   const {
@@ -18,6 +20,9 @@ const RegisterCustomerForm: FC = () => {
 
   const { mutate, isLoading, error } = useMutation(saveCustomer, {
     onSuccess: () => {
+      toast.custom(t => (
+        <Alert id={t.id} title='Cliente registrado!' variant='success' />
+      ))
       reset()
     }
   })

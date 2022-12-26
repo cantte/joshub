@@ -21,6 +21,8 @@ import axios from 'axios'
 import { TransactionDetail } from '@joshub/types/shared'
 import useTransactionDetails from '@joshub/hooks/shared/use-transaction-details'
 import { usePub } from '@joshub/store/pubs'
+import toast from 'react-hot-toast'
+import Alert from '@components/shared/feedback/alerts'
 
 const RegisterOrderForm: FC = () => {
   const pub = usePub()
@@ -51,6 +53,9 @@ const RegisterOrderForm: FC = () => {
     error
   } = useMutation(saveOrder, {
     onSuccess: () => {
+      toast.custom(t => (
+        <Alert id={t.id} title='Domicilio registrado!' variant='success' />
+      ))
       void router.push('/')
     }
   })

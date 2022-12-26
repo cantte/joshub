@@ -4,6 +4,8 @@ import { useMutation } from '@tanstack/react-query'
 import { EmployeeInputs } from '@joshub/types/employees'
 import axios from 'axios'
 import { usePub } from '@joshub/store/pubs'
+import toast from 'react-hot-toast'
+import Alert from '@components/shared/feedback/alerts'
 
 interface Props {
   onRegister: () => void
@@ -29,7 +31,14 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
     mutate: mutateEmployee,
     isLoading,
     error
-  } = useMutation(saveEmployee, { onSuccess: onRegister })
+  } = useMutation(saveEmployee, {
+    onSuccess: () => {
+      toast.custom(t => (
+        <Alert id={t.id} title='Empleado registrado!' variant='success' />
+      ))
+      onRegister()
+    }
+  })
 
   const onSubmit: SubmitHandler<EmployeeInputs> = (data: EmployeeInputs) => {
     mutateEmployee(data)
