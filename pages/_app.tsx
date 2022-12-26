@@ -13,8 +13,10 @@ const queryClient = new QueryClient()
 const App: AppType = ({ Component, pageProps }: AppProps) => {
   const [supabase] = useState(() => createBrowserSupabaseClient())
   return (
-    <SessionContextProvider supabaseClient={supabase}
-                            initialSession={pageProps.initialSession}>
+    <SessionContextProvider
+      supabaseClient={supabase}
+      initialSession={pageProps.initialSession}
+    >
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
       </QueryClientProvider>

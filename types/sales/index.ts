@@ -10,8 +10,12 @@ export interface SalesInputs {
   total: number
 
   items?: SaleDetailInput[]
+
+  pub_id: string
 }
 
-export type Sale =
-  Omit<SalesInputs, 'id'>
-  & { id: number, created_at: string, items: SaleDetail[] }
+export type Sale = Omit<SalesInputs, 'id'> & {
+  id: number
+  created_at: string
+  items: SaleDetail[]
+}

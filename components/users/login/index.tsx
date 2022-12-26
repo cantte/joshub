@@ -10,14 +10,11 @@ const Login: FC = () => {
 
   useEffect(() => {
     if (session != null) {
-      void router.push('/').then(() => {
-      })
+      void router.push('/').then(() => {})
     }
   }, [session, router])
 
-  return (
-    <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }}/>
-  )
+  return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
 }
 
 export default Login

@@ -8,23 +8,29 @@ import {
   TableHeaderCell,
   TableRow
 } from '@tremor/react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Sale } from '@joshub/types/sales'
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { usePub } from '@joshub/store/pubs'
 
 const SalesTable: FC = () => {
-  const supabase = useSupabaseClient()
+  const pub = usePub()
+  const loadSales = async (pubId: string): Promise<Sale[] | null> => {
+    const { data } = await axios.get<Sale[]>(`/api/sales/latest?pubId=${pubId}`)
 
-  const loadSales = async (): Promise<Sale[] | null> => {
-    const { data } = await supabase.from('sales')
-      .select().limit(5).order('created_at', { ascending: false })
     return data
   }
 
-  const { data: sales } = useQuery(['sales'], loadSales)
+  const { data: sales } = useQuery(
+    ['sales'],
+    async () => await loadSales(pub?.id ?? ''),
+    {
+      enabled: pub !== undefined
+    }
+  )
 
   return (
-    <div className="col-span-6 mt-5">
+    <div className='col-span-6 mt-5'>
       <Card>
         <Table>
           <TableHead>
@@ -38,19 +44,27 @@ const SalesTable: FC = () => {
 
           <TableBody>
             {sales !== undefined && sales !== null
-              ? sales.map((sale) => (
+              ? (
+                  sales.map(sale => (
                 <TableRow key={sale.id}>
-                  <TableCell>{Intl.DateTimeFormat('es').format(Date.parse(sale.created_at))}</TableCell>
+                  <TableCell>
+                    {Intl.DateTimeFormat('es').format(
+                      Date.parse(sale.created_at)
+                    )}
+                  </TableCell>
                   <TableCell>{sale.customer_id}</TableCell>
                   <TableCell>{sale.employee_id}</TableCell>
-                  <TableCell>${Intl.NumberFormat('es').format(sale.total)}</TableCell>
+                  <TableCell>
+                    ${Intl.NumberFormat('es').format(sale.total)}
+                  </TableCell>
                 </TableRow>
-              ))
-              : <TableRow>
-                <TableCell>
-                  No hay ventas
-                </TableCell>
-              </TableRow>}
+                  ))
+                )
+              : (
+              <TableRow>
+                <TableCell>No hay ventas</TableCell>
+              </TableRow>
+                )}
           </TableBody>
         </Table>
       </Card>

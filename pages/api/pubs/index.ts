@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   if (req.method === 'POST') {
     const supabase = createServerSupabaseClient({ req, res })
 
@@ -23,7 +26,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
 
     const { owner } = req.query
 
-    const { data, error } = await supabase.from('pubs').select()
+    const { data, error } = await supabase
+      .from('pubs')
+      .select()
       .eq('owner', owner)
 
     if (error != null) {

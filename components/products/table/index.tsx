@@ -24,13 +24,13 @@ const ProductsTable: FC = () => {
   }
 
   const pub = usePub()
-  const {
-    data: products
-  } = useQuery(['products'],
+  const { data: products } = useQuery(
+    ['products'],
     async () => await loadProducts(pub?.id ?? ''),
     {
       enabled: pub !== undefined
-    })
+    }
+  )
   const queryClient = useQueryClient()
 
   const [isOpeningDeleteModal, setIsOpeningDeleteModal] = useState(false)
@@ -75,21 +75,31 @@ const ProductsTable: FC = () => {
 
           <TableBody>
             {products !== undefined && products !== null
-              ? products.map((product) => (
+              ? (
+                  products.map(product => (
                 <TableRow key={product.code}>
                   <TableCell>{product.code}</TableCell>
                   <TableCell>{product.name}</TableCell>
-                  <TableCell>{Intl.NumberFormat('es').format(product.quantity)}</TableCell>
-                  <TableCell>$ {Intl.NumberFormat('es').format(product.cost)}</TableCell>
-                  <TableCell>$ {Intl.NumberFormat('es').format(product.cold_spot_price)}</TableCell>
-                  <TableCell>$ {Intl.NumberFormat('es').format(product.watertight_price)}</TableCell>
+                  <TableCell>
+                    {Intl.NumberFormat('es').format(product.quantity)}
+                  </TableCell>
+                  <TableCell>
+                    $ {Intl.NumberFormat('es').format(product.cost)}
+                  </TableCell>
+                  <TableCell>
+                    $ {Intl.NumberFormat('es').format(product.cold_spot_price)}
+                  </TableCell>
+                  <TableCell>
+                    $ {Intl.NumberFormat('es').format(product.watertight_price)}
+                  </TableCell>
                   <TableCell>
                     <button
                       onClick={() => {
                         setProductToEdit(product)
                         openEditModal()
                       }}
-                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'>
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'
+                    >
                       <PencilIcon className='h-5 w-5 text-indigo-700' />
                     </button>
 
@@ -98,17 +108,19 @@ const ProductsTable: FC = () => {
                         setProductToDelete(product)
                         openDeleteModal()
                       }}
-                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'>
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
+                    >
                       <TrashIcon className='h-5 w-5 text-red-700' />
                     </button>
                   </TableCell>
                 </TableRow>
-              ))
-              : <TableRow>
-                <TableCell>
-                  No hay productos
-                </TableCell>
-              </TableRow>}
+                  ))
+                )
+              : (
+              <TableRow>
+                <TableCell>No hay productos</TableCell>
+              </TableRow>
+                )}
           </TableBody>
         </Table>
       </Card>
@@ -128,8 +140,7 @@ const ProductsTable: FC = () => {
           </Transition.Child>
 
           <div className='fixed inset-0 overflow-y-auto'>
-            <div
-              className='flex min-h-full items-center justify-center p-4 text-center'>
+            <div className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -139,16 +150,14 @@ const ProductsTable: FC = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel
-                  className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'
                   >
                     <div className='flex flex-col mb-5'>
                       <div className='flex flex-row justify-between'>
-                        <h3
-                          className='text-xl font-semibold text-gray-900'>
+                        <h3 className='text-xl font-semibold text-gray-900'>
                           ¿Estás seguro que deseas eliminar este producto?
                         </h3>
                       </div>
@@ -194,8 +203,7 @@ const ProductsTable: FC = () => {
       </Transition>
 
       <Transition appear show={isOpeningEditModal} as={Fragment}>
-        <Dialog onClose={closeEditModal} as='div'
-                className='relative z-10'>
+        <Dialog onClose={closeEditModal} as='div' className='relative z-10'>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -209,8 +217,7 @@ const ProductsTable: FC = () => {
           </Transition.Child>
 
           <div className='fixed inset-0 overflow-y-auto'>
-            <div
-              className='flex min-h-full items-center justify-center p-4 text-center'>
+            <div className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -220,34 +227,33 @@ const ProductsTable: FC = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel
-                  className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'
                   >
                     <div className='flex flex-col mb-5'>
                       <div className='flex flex-row justify-between'>
-                        <h3
-                          className='text-xl font-semibold text-gray-900'>
+                        <h3 className='text-xl font-semibold text-gray-900'>
                           Actualizar producto
                         </h3>
                         <button
                           onClick={() => setIsOpeningEditModal(false)}
-                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'>
-                          <XMarkIcon
-                            className='h-5 w-5 text-red-700'
-                          />
+                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
+                        >
+                          <XMarkIcon className='h-5 w-5 text-red-700' />
                         </button>
                       </div>
                     </div>
                   </Dialog.Title>
 
                   <div className='mt-2'>
-                    {productToEdit !== null &&
-                      <EditProductForm onUpdate={closeEditModal}
-                                       product={productToEdit} />
-                    }
+                    {productToEdit !== null && (
+                      <EditProductForm
+                        onUpdate={closeEditModal}
+                        product={productToEdit}
+                      />
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

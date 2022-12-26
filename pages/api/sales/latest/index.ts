@@ -10,17 +10,18 @@ const handler = async (
     const { pubId } = req.query
 
     const { data, error } = await supabase
-      .from('daily_reports')
+      .from('sales')
       .select()
-      .eq('created_at', new Date().toISOString().split('T')[0])
       .eq('pub_id', pubId)
+      .limit(5)
+      .order('created_at', { ascending: false })
 
     if (error !== null) {
       res.status(500).json({ error: error.message })
       return
     }
 
-    res.status(200).json(data[0])
+    res.status(200).json(data)
     return
   }
 

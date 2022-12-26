@@ -12,20 +12,31 @@ interface UseCurrentEmployee {
 export const useCurrentEmployee = (): UseCurrentEmployee => {
   const user = useUser()
 
-  const loadEmployee = async (userId: string | undefined): Promise<Employee | undefined> => {
+  const loadEmployee = async (
+    userId: string | undefined
+  ): Promise<Employee | undefined> => {
     if (userId === undefined) {
       return undefined
     }
 
-    const { data } = await axios.get<Employee>(`/api/employees?userId=${userId}`)
+    const { data } = await axios.get<Employee>(
+      `/api/employees?userId=${userId}`
+    )
 
     return data
   }
 
-  const { data: employee, isLoading, error } = useQuery(['employee', user?.id ?? ''],
-    async () => await loadEmployee(user?.id), {
+  const {
+    data: employee,
+    isLoading,
+    error
+  } = useQuery(
+    ['employee', user?.id ?? ''],
+    async () => await loadEmployee(user?.id),
+    {
       enabled: user !== undefined && user !== null
-    })
+    }
+  )
 
   return {
     employee,

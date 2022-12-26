@@ -18,15 +18,11 @@ const withRequiredPub = (Component: ComponentType): FC => {
       return data
     }
 
-    const { data: pub } = useQuery(
-      ['pubs', user?.id],
-      fetchPub,
-      {
-        enabled: user !== undefined && user !== null,
-        retry: false,
-        refetchOnWindowFocus: false
-      }
-    )
+    const { data: pub } = useQuery(['pubs', user?.id], fetchPub, {
+      enabled: user !== undefined && user !== null,
+      retry: false,
+      refetchOnWindowFocus: false
+    })
 
     const router = useRouter()
     useEffect(() => {
@@ -38,9 +34,7 @@ const withRequiredPub = (Component: ComponentType): FC => {
       void router.push('/pubs/register')
     }, [pub])
 
-    return <>
-      {(pub !== undefined && pub !== null) && <Component />}
-    </>
+    return <>{pub !== undefined && pub !== null && <Component />}</>
   }
 
   return WithRequiredPub

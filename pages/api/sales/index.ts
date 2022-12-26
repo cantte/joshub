@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   if (req.method === 'GET') {
     const supabase = createServerSupabaseClient({ req, res })
 
@@ -22,10 +25,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     const { body } = req
     const { items, ...rest } = body
 
-    const {
-      data: sale,
-      error: createSaleError
-    } = await supabase.from('sales').insert(rest).select()
+    const { data: sale, error: createSaleError } = await supabase
+      .from('sales')
+      .insert(rest)
+      .select()
 
     if (createSaleError !== null) {
       res.status(500).json({ error: createSaleError.message })
@@ -33,7 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     }
 
     if (sale === null) {
-      res.status(500).json({ error: 'Can\'t create sale' })
+      res.status(500).json({ error: "Can't create sale" })
       return
     }
 
@@ -42,9 +45,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
       sale_id: sale[0].id
     }))
 
-    const {
-      error: createSaleItemsError
-    } = await supabase.from('sales_detail').insert(saleItems)
+    const { error: createSaleItemsError } = await supabase
+      .from('sales_detail')
+      .insert(saleItems)
 
     if (createSaleItemsError !== null) {
       // Delete sale if sale items failed to create

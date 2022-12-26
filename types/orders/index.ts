@@ -12,8 +12,12 @@ export interface OrderInputs {
   total: number
 
   items?: OrderDetailInput[]
+
+  pub_id: string
 }
 
-export type Order =
-  Omit<OrderInputs, 'id'>
-  & { id: number, created_at: string, items: OrderDetail[] }
+export type Order = Omit<OrderInputs, 'id'> & {
+  id: number
+  created_at: string
+  items: OrderDetail[]
+}

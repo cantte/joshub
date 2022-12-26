@@ -7,6 +7,7 @@ export interface TransactionDetailInput {
   price: number
 }
 
-export type TransactionDetail =
-  Omit<TransactionDetailInput, 'product'>
-  & { product_code: string, total: number }
+export type TransactionDetail = Omit<TransactionDetailInput, 'product'> & {
+  product_code: string
+  total: number
+}

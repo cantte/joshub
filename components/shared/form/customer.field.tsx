@@ -14,9 +14,7 @@ const CustomerField: FC<Props> = ({ onSelected }) => {
     return data
   }
 
-  const {
-    data: customers
-  } = useQuery(['customers'], loadCustomers)
+  const { data: customers } = useQuery(['customers'], loadCustomers)
 
   const handleSelect = (customer: Customer): void => {
     onSelected(customer)
@@ -24,21 +22,29 @@ const CustomerField: FC<Props> = ({ onSelected }) => {
 
   return (
     <>
-      <label htmlFor="quantity"
-             className="block text-sm mb-1 font-medium text-gray-700">
+      <label
+        htmlFor='quantity'
+        className='block text-sm mb-1 font-medium text-gray-700'
+      >
         Cliente
       </label>
-      <SelectBox handleSelect={handleSelect}
-                 placeholder="Seleccione un cliente">
-        {
-          customers !== undefined && customers !== null
-            ? (
-                customers.map((customer) => (
-                <SelectBoxItem key={customer.id} value={customer}
-                               text={`${customer.name}`}/>))
-              )
-            : <SelectBoxItem value={undefined} text=""/>
-        }
+      <SelectBox
+        handleSelect={handleSelect}
+        placeholder='Seleccione un cliente'
+      >
+        {customers !== undefined && customers !== null
+          ? (
+              customers.map(customer => (
+            <SelectBoxItem
+              key={customer.id}
+              value={customer}
+              text={`${customer.name}`}
+            />
+              ))
+            )
+          : (
+          <SelectBoxItem value={undefined} text='' />
+            )}
       </SelectBox>
     </>
   )

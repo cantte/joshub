@@ -8,23 +8,31 @@ import {
   TableHeaderCell,
   TableRow
 } from '@tremor/react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Order } from '@joshub/types/orders'
 import { useQuery } from '@tanstack/react-query'
+import { usePub } from '@joshub/store/pubs'
+import axios from 'axios'
 
 const OrdersTable: FC = () => {
-  const supabase = useSupabaseClient()
+  const pub = usePub()
+  const loadOrders = async (pubId: string): Promise<Order[] | null> => {
+    const { data } = await axios.get<Order[]>(
+      `/api/orders/latest?pubId=${pubId}`
+    )
 
-  const loadOrders = async (): Promise<Order[] | null> => {
-    const { data } = await supabase.from('orders')
-      .select().limit(5).order('created_at', { ascending: false })
     return data
   }
 
-  const { data: orders } = useQuery(['orders'], loadOrders)
+  const { data: orders } = useQuery(
+    ['orders'],
+    async () => await loadOrders(pub?.id ?? ''),
+    {
+      enabled: pub !== undefined
+    }
+  )
 
   return (
-    <div className="col-span-6 mt-5">
+    <div className='col-span-6 mt-5'>
       <Card>
         <Table>
           <TableHead>
@@ -39,20 +47,28 @@ const OrdersTable: FC = () => {
 
           <TableBody>
             {orders !== undefined && orders !== null
-              ? orders.map((order) => (
+              ? (
+                  orders.map(order => (
                 <TableRow key={order.id}>
-                  <TableCell>{Intl.DateTimeFormat('es').format(Date.parse(order.created_at))}</TableCell>
+                  <TableCell>
+                    {Intl.DateTimeFormat('es').format(
+                      Date.parse(order.created_at)
+                    )}
+                  </TableCell>
                   <TableCell>{order.customer_id}</TableCell>
                   <TableCell>{order.address}</TableCell>
                   <TableCell>{order.employee_id}</TableCell>
-                  <TableCell>${Intl.NumberFormat('es').format(order.total)}</TableCell>
+                  <TableCell>
+                    ${Intl.NumberFormat('es').format(order.total)}
+                  </TableCell>
                 </TableRow>
-              ))
-              : <TableRow>
-                <TableCell textAlignment="text-center">
-                  No hay ventas
-                </TableCell>
-              </TableRow>}
+                  ))
+                )
+              : (
+              <TableRow>
+                <TableCell textAlignment='text-center'>No hay ventas</TableCell>
+              </TableRow>
+                )}
           </TableBody>
         </Table>
       </Card>
