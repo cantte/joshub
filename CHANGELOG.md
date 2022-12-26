@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.0](https://github.com/arkews/joshub/compare/v1.2.0...v1.3.0) (2022-12-26)
+
+
+### Features
+
+* improve navbar ui ([ad7a877](https://github.com/arkews/joshub/commit/ad7a877097bfcce16ab9f66d95a262b249778785))
+* **order/sales:** move get last orders/sales to api route endpoints ([68d6b99](https://github.com/arkews/joshub/commit/68d6b997ee8840469ba9770abc0f6584973bbdc0))
+* **orders/sales:** linking to a pub ([fde6451](https://github.com/arkews/joshub/commit/fde6451d4c496874da18b0ef890217e036140d31))
+* **reports:** linking to a pub ([d09e00e](https://github.com/arkews/joshub/commit/d09e00e3b2fc806ddbeac9bee7af9b17e655dd89))
+
 ## [1.2.0](https://github.com/arkews/joshub/compare/v1.1.0...v1.2.0) (2022-12-25)
 
 
