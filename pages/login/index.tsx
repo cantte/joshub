@@ -5,7 +5,7 @@ import Login from '@components/users/login'
 const LoginPage: FC = () => {
   return (
     <DefaultLayout>
-      <Login/>
+      <Login />
     </DefaultLayout>
   )
 }

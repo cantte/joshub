@@ -23,17 +23,19 @@ const EmployeesTable: FC = () => {
 
   const pub = usePub()
   const loadEmployees = async (pubId: string): Promise<Employee[] | null> => {
-    const { data } = await axios.get<Employee[]>(`/api/employees?pubId=${pubId}`)
+    const { data } = await axios.get<Employee[]>(
+      `/api/employees?pubId=${pubId}`
+    )
     return data
   }
 
-  const {
-    data: employees
-  } = useQuery(['employees'],
+  const { data: employees } = useQuery(
+    ['employees'],
     async () => await loadEmployees(pub?.id ?? ''),
     {
       enabled: pub !== undefined
-    })
+    }
+  )
   const queryClient = useQueryClient()
 
   const [isOpeningDeleteModal, setIsOpeningDeleteModal] = useState(false)
@@ -42,13 +44,17 @@ const EmployeesTable: FC = () => {
     setIsOpeningDeleteModal(false)
     void queryClient.invalidateQueries(['employees'])
   }
-  const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null)
+  const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(
+    null
+  )
 
   const deleteEmployee = async (id: string): Promise<void> => {
     await axios.delete(`/api/employees/${id}`)
   }
 
-  const { mutate } = useMutation(deleteEmployee, { onSuccess: closeDeleteModal })
+  const { mutate } = useMutation(deleteEmployee, {
+    onSuccess: closeDeleteModal
+  })
 
   const [isOpeningEditModal, setIsOpeningEditModal] = useState(false)
   const openEditModal = (): void => setIsOpeningEditModal(true)
@@ -75,19 +81,26 @@ const EmployeesTable: FC = () => {
 
           <TableBody>
             {employees !== undefined && employees !== null
-              ? employees.map(employee => (
+              ? (
+                  employees.map(employee => (
                 <TableRow key={employee.id}>
                   <TableCell>{employee.id}</TableCell>
-                  <TableCell>{employee.name} {currentEmployee?.id === employee.id ? '(Yo)' : ''}</TableCell>
+                  <TableCell>
+                    {employee.name}{' '}
+                    {currentEmployee?.id === employee.id ? '(Yo)' : ''}
+                  </TableCell>
                   <TableCell>{employee.phone}</TableCell>
-                  <TableCell>$ {Intl.NumberFormat('es').format(employee.salary)}</TableCell>
+                  <TableCell>
+                    $ {Intl.NumberFormat('es').format(employee.salary)}
+                  </TableCell>
                   <TableCell>
                     <button
                       onClick={() => {
                         setEmployeeToEdit(employee)
                         openEditModal()
                       }}
-                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'>
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'
+                    >
                       <PencilIcon className='h-5 w-5 text-indigo-700' />
                     </button>
 
@@ -96,17 +109,19 @@ const EmployeesTable: FC = () => {
                         setEmployeeToDelete(employee)
                         openDeleteModal()
                       }}
-                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'>
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
+                    >
                       <TrashIcon className='h-5 w-5 text-red-700' />
                     </button>
                   </TableCell>
                 </TableRow>
-              ))
-              : <TableRow>
-                <TableCell>
-                  No hay empleados
-                </TableCell>
-              </TableRow>}
+                  ))
+                )
+              : (
+              <TableRow>
+                <TableCell>No hay empleados</TableCell>
+              </TableRow>
+                )}
           </TableBody>
         </Table>
       </Card>
@@ -126,8 +141,7 @@ const EmployeesTable: FC = () => {
           </Transition.Child>
 
           <div className='fixed inset-0 overflow-y-auto'>
-            <div
-              className='flex min-h-full items-center justify-center p-4 text-center'>
+            <div className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -137,16 +151,14 @@ const EmployeesTable: FC = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel
-                  className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'
                   >
                     <div className='flex flex-col mb-5'>
                       <div className='flex flex-row justify-between'>
-                        <h3
-                          className='text-xl font-semibold text-gray-900'>
+                        <h3 className='text-xl font-semibold text-gray-900'>
                           ¿Estás seguro que deseas eliminar este empleado?
                         </h3>
                       </div>
@@ -155,8 +167,7 @@ const EmployeesTable: FC = () => {
 
                   <div className='mt-2'>
                     <p className='text-sm text-gray-500'>
-                      Esta seguro que desea eliminar al
-                      empleado{' '}
+                      Esta seguro que desea eliminar al empleado{' '}
                       <span className='font-bold text-gray-700 inline'>
                         {employeeToDelete?.name}
                       </span>{' '}
@@ -207,8 +218,7 @@ const EmployeesTable: FC = () => {
           </Transition.Child>
 
           <div className='fixed inset-0 overflow-y-auto'>
-            <div
-              className='flex min-h-full items-center justify-center p-4 text-center'>
+            <div className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -218,34 +228,33 @@ const EmployeesTable: FC = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel
-                  className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'
                   >
                     <div className='flex flex-col mb-5'>
                       <div className='flex flex-row justify-between'>
-                        <h3
-                          className='text-xl font-semibold text-gray-900'>
+                        <h3 className='text-xl font-semibold text-gray-900'>
                           Editar empleado
                         </h3>
                         <button
                           onClick={() => setIsOpeningEditModal(false)}
-                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'>
-                          <XMarkIcon
-                            className='h-5 w-5 text-red-700'
-                          />
+                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
+                        >
+                          <XMarkIcon className='h-5 w-5 text-red-700' />
                         </button>
                       </div>
                     </div>
                   </Dialog.Title>
 
                   <div className='mt-2'>
-                    {employeeToEdit !== null &&
-                      <EditEmployeeForm onUpdated={closeEditModal}
-                                        employee={employeeToEdit} />
-                    }
+                    {employeeToEdit !== null && (
+                      <EditEmployeeForm
+                        onUpdated={closeEditModal}
+                        employee={employeeToEdit}
+                      />
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

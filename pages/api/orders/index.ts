@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   if (req.method === 'GET') {
     const supabase = createServerSupabaseClient({ req, res })
 
@@ -22,10 +25,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     const { body } = req
     const { items, ...rest } = body
 
-    const {
-      data: order,
-      error: createOrderError
-    } = await supabase.from('orders').insert(rest).select()
+    const { data: order, error: createOrderError } = await supabase
+      .from('orders')
+      .insert(rest)
+      .select()
 
     if (createOrderError !== null) {
       res.status(500).json({ error: createOrderError.message })
@@ -33,7 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     }
 
     if (order === null) {
-      res.status(500).json({ error: 'Can\'t create order' })
+      res.status(500).json({ error: "Can't create order" })
       return
     }
 
@@ -42,9 +45,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
       order_id: order[0].id
     }))
 
-    const {
-      error: createOrderItemsError
-    } = await supabase.from('orders_detail').insert(orderItems)
+    const { error: createOrderItemsError } = await supabase
+      .from('orders_detail')
+      .insert(orderItems)
 
     if (createOrderItemsError !== null) {
       // Delete order if order items failed to create

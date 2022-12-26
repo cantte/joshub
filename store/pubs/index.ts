@@ -7,8 +7,8 @@ interface PubsState {
   setPub: (pub: Pub) => void
 }
 
-export const usePubsStore = create<PubsState>((set) => ({
-  setPub: (pub) => set({ pub })
+export const usePubsStore = create<PubsState>(set => ({
+  setPub: pub => set({ pub })
 }))
 
 type UsePub = () => Pub | undefined

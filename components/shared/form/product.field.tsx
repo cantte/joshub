@@ -16,13 +16,13 @@ const ProductField: FC<Props> = ({ onSelected }) => {
   }
 
   const pub = usePub()
-  const {
-    data: products
-  } = useQuery(['products'],
+  const { data: products } = useQuery(
+    ['products'],
     async () => await loadProducts(pub?.id ?? ''),
     {
       enabled: pub !== undefined
-    })
+    }
+  )
 
   const handleSelect = (product: Product): void => {
     onSelected(product)
@@ -30,21 +30,31 @@ const ProductField: FC<Props> = ({ onSelected }) => {
 
   return (
     <>
-      <label htmlFor='quantity'
-             className='block text-sm mb-1 font-medium text-gray-700'>
+      <label
+        htmlFor='quantity'
+        className='block text-sm mb-1 font-medium text-gray-700'
+      >
         Producto
       </label>
-      <SelectBox handleSelect={handleSelect}
-                 placeholder='Seleccione un producto'>
-        {
-          products !== undefined && products !== null
-            ? (
-                products.map((product) => (
-                <SelectBoxItem key={product.code} value={product}
-                               text={`${product.name}, $${Intl.NumberFormat('es').format(product.cold_spot_price)}`} />))
-              )
-            : <SelectBoxItem value={undefined} text='' />
-        }
+      <SelectBox
+        handleSelect={handleSelect}
+        placeholder='Seleccione un producto'
+      >
+        {products !== undefined && products !== null
+          ? (
+              products.map(product => (
+            <SelectBoxItem
+              key={product.code}
+              value={product}
+              text={`${product.name}, $${Intl.NumberFormat('es').format(
+                product.cold_spot_price
+              )}`}
+            />
+              ))
+            )
+          : (
+          <SelectBoxItem value={undefined} text='' />
+            )}
       </SelectBox>
     </>
   )

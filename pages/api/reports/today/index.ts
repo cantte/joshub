@@ -1,15 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
-const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   if (req.method === 'GET') {
     const supabase = createServerSupabaseClient({ req, res })
     const { pubId } = req.query
 
-    const {
-      data,
-      error
-    } = await supabase.from('daily_reports').select()
+    const { data, error } = await supabase
+      .from('daily_reports')
+      .select()
       .eq('created_at', new Date().toISOString().split('T')[0])
       .eq('pub_id', pubId)
 

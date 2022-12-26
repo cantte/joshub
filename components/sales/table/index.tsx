@@ -16,15 +16,18 @@ const SalesTable: FC = () => {
   const supabase = useSupabaseClient()
 
   const loadSales = async (): Promise<Sale[] | null> => {
-    const { data } = await supabase.from('sales')
-      .select().limit(5).order('created_at', { ascending: false })
+    const { data } = await supabase
+      .from('sales')
+      .select()
+      .limit(5)
+      .order('created_at', { ascending: false })
     return data
   }
 
   const { data: sales } = useQuery(['sales'], loadSales)
 
   return (
-    <div className="col-span-6 mt-5">
+    <div className='col-span-6 mt-5'>
       <Card>
         <Table>
           <TableHead>
@@ -38,19 +41,27 @@ const SalesTable: FC = () => {
 
           <TableBody>
             {sales !== undefined && sales !== null
-              ? sales.map((sale) => (
+              ? (
+                  sales.map(sale => (
                 <TableRow key={sale.id}>
-                  <TableCell>{Intl.DateTimeFormat('es').format(Date.parse(sale.created_at))}</TableCell>
+                  <TableCell>
+                    {Intl.DateTimeFormat('es').format(
+                      Date.parse(sale.created_at)
+                    )}
+                  </TableCell>
                   <TableCell>{sale.customer_id}</TableCell>
                   <TableCell>{sale.employee_id}</TableCell>
-                  <TableCell>${Intl.NumberFormat('es').format(sale.total)}</TableCell>
+                  <TableCell>
+                    ${Intl.NumberFormat('es').format(sale.total)}
+                  </TableCell>
                 </TableRow>
-              ))
-              : <TableRow>
-                <TableCell>
-                  No hay ventas
-                </TableCell>
-              </TableRow>}
+                  ))
+                )
+              : (
+              <TableRow>
+                <TableCell>No hay ventas</TableCell>
+              </TableRow>
+                )}
           </TableBody>
         </Table>
       </Card>

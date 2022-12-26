@@ -16,21 +16,17 @@ const Home: FC = () => {
     <DefaultLayout>
       <div className='flex flex-col mb-10'>
         <div className='flex flex-row justify-between'>
-          <h1 className='text-4xl text-gray-900'>
-            Bienvenido
-          </h1>
+          <h1 className='text-4xl text-gray-900'>Bienvenido</h1>
 
           <div>
             <NextLink href='/sales/register'>
-              <button
-                className='inline-flex justify-center mr-3 rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2'>
+              <button className='inline-flex justify-center mr-3 rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2'>
                 <PlusIcon className='-ml-1 mr-2 h-5 w-5 text-indigo-900' />
                 Registrar venta
               </button>
             </NextLink>
             <NextLink href='/orders/register'>
-              <button
-                className='inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2'>
+              <button className='inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-indigo-300 focus-visible:ring-offset-2'>
                 <PlusIcon className='-ml-1 mr-2 h-5 w-5 text-indigo-900' />
                 Registrar domicilio
               </button>
@@ -39,9 +35,7 @@ const Home: FC = () => {
         </div>
       </div>
 
-      <h2 className='text-2xl text-gray-700'>
-        Reporte diario
-      </h2>
+      <h2 className='text-2xl text-gray-700'>Reporte diario</h2>
 
       <div className='sm:rounded-md'>
         <div className='mb-7'>
@@ -55,14 +49,10 @@ const Home: FC = () => {
         </div>
       </div>
 
-      <h2 className='text-2xl text-gray-700'>
-        Últimas ventas
-      </h2>
+      <h2 className='text-2xl text-gray-700'>Últimas ventas</h2>
       <SalesTable />
 
-      <h2 className='text-2xl text-gray-700 mt-7'>
-        Últimos domicilios
-      </h2>
+      <h2 className='text-2xl text-gray-700 mt-7'>Últimos domicilios</h2>
       <OrdersTable />
     </DefaultLayout>
   )

@@ -10,20 +10,24 @@ interface UseDailyReport {
 }
 
 const useDailyReport = (): UseDailyReport => {
-  const loadDailyReport = async (pubId: string): Promise<DailyReport | undefined> => {
-    const { data } = await axios.get<DailyReport>(`/api/reports/today?pubId=${pubId}`)
+  const loadDailyReport = async (
+    pubId: string
+  ): Promise<DailyReport | undefined> => {
+    const { data } = await axios.get<DailyReport>(
+      `/api/reports/today?pubId=${pubId}`
+    )
 
     return data
   }
 
   const pub = usePub()
-  const {
-    data,
-    isLoading,
-    error
-  } = useQuery(['daily_reports'], async () => await loadDailyReport(pub?.id ?? ''), {
-    enabled: pub !== undefined
-  })
+  const { data, isLoading, error } = useQuery(
+    ['daily_reports'],
+    async () => await loadDailyReport(pub?.id ?? ''),
+    {
+      enabled: pub !== undefined
+    }
+  )
 
   return {
     dailyReport: data,

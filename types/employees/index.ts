@@ -8,6 +8,6 @@ export interface EmployeeInputs {
   pub_id: string
 }
 
-export type Employee =
-  Omit<EmployeeInputs, 'password' | 'email'>
-  & { user_id: string }
+export type Employee = Omit<EmployeeInputs, 'password' | 'email'> & {
+  user_id: string
+}

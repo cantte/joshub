@@ -17,7 +17,11 @@ const useTransactionDetails = (): UseTransactionDetails => {
   const [total, setTotal] = useState(0)
 
   const addDetail = (detail: TransactionDetailInput): void => {
-    const exists = details.find(d => d.product?.code === detail.product?.code && d.price === Number(detail.price))
+    const exists = details.find(
+      d =>
+        d.product?.code === detail.product?.code &&
+        d.price === Number(detail.price)
+    )
     if (exists === undefined) {
       setDetails([...details, detail])
       return
@@ -35,10 +39,11 @@ const useTransactionDetails = (): UseTransactionDetails => {
   const closeAddDetailModal = (): void => setAddDetailModalOpen(false)
 
   useEffect(() => {
-    setTotal(details
-      .map(item => Number(item.price) * Number(item.quantity))
-      .reduce((accumulator, currentValue) =>
-        accumulator + currentValue, 0))
+    setTotal(
+      details
+        .map(item => Number(item.price) * Number(item.quantity))
+        .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    )
   }, [details])
 
   return {

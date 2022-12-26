@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,41 +16,17 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@joshub/*": [
-        "/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@pages/*": [
-        "pages/*"
-      ],
-      "@joshub/hooks/*": [
-        "hooks/*"
-      ],
-      "@joshub/types/*": [
-        "types/*"
-      ],
-      "@joshub/shared/*": [
-        "shared/*"
-      ],
-      "@joshub/styles/*": [
-        "styles/*"
-      ],
-      "@joshub/store/*": [
-        "store/*"
-      ],
-      "@joshub/hocs/*": [
-        "hocs/*"
-      ]
+      "@joshub/*": ["/*"],
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@joshub/hooks/*": ["hooks/*"],
+      "@joshub/types/*": ["types/*"],
+      "@joshub/shared/*": ["shared/*"],
+      "@joshub/styles/*": ["styles/*"],
+      "@joshub/store/*": ["store/*"],
+      "@joshub/hocs/*": ["hocs/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
