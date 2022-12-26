@@ -8,23 +8,26 @@ import {
   TableHeaderCell,
   TableRow
 } from '@tremor/react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Sale } from '@joshub/types/sales'
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { usePub } from '@joshub/store/pubs'
 
 const SalesTable: FC = () => {
-  const supabase = useSupabaseClient()
+  const pub = usePub()
+  const loadSales = async (pubId: string): Promise<Sale[] | null> => {
+    const { data } = await axios.get<Sale[]>(`/api/sales/latest?pubId=${pubId}`)
 
-  const loadSales = async (): Promise<Sale[] | null> => {
-    const { data } = await supabase
-      .from('sales')
-      .select()
-      .limit(5)
-      .order('created_at', { ascending: false })
     return data
   }
 
-  const { data: sales } = useQuery(['sales'], loadSales)
+  const { data: sales } = useQuery(
+    ['sales'],
+    async () => await loadSales(pub?.id ?? ''),
+    {
+      enabled: pub !== undefined
+    }
+  )
 
   return (
     <div className='col-span-6 mt-5'>
