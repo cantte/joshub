@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.5.0](https://github.com/arkews/joshub/compare/v1.4.0...v1.5.0) (2022-12-27)
+
+
+### Features
+
+* add initial version on landing page ([4b273e8](https://github.com/arkews/joshub/commit/4b273e86042bc052ca60db83ac8dbe302809892b))
+* add sign up form, page and api route ([e1473a2](https://github.com/arkews/joshub/commit/e1473a2e64ccc82ab3480b76fbaebe6aa732726b))
+* add sign-in form, page and api route ([31fff43](https://github.com/arkews/joshub/commit/31fff437559368889b203e5f836c7616c25f2e40))
+* add sign-out api route ([a0a3771](https://github.com/arkews/joshub/commit/a0a3771f2a088906e0eab299651e834c4d75e4e6))
+* include initialSession on withRequiredAuth ([31422ee](https://github.com/arkews/joshub/commit/31422ee80528f298169a5e9bc29e792fcc0f9a09))
+* use new sign-in and sign-up links ([4bd9a33](https://github.com/arkews/joshub/commit/4bd9a330f37aa79d05049efefe664be1b8ba1c79))
+
+
+### Build System
+
+* add zod and @hookform/resolvers ([cc3fa27](https://github.com/arkews/joshub/commit/cc3fa27d525d0efb28a8c4f3f0f5242fd67182fa))
+
 ## [1.4.0](https://github.com/arkews/joshub/compare/v1.3.0...v1.4.0) (2022-12-26)
 
 
