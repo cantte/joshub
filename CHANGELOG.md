@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/arkews/joshub/compare/v1.3.0...v1.4.0) (2022-12-26)
+
+
+### Features
+
+* add notifications system ([e2b36a3](https://github.com/arkews/joshub/commit/e2b36a38902bfa6835370069be3edaa9949cb628))
+
+
+### Build System
+
+* add react-hot-toast ([3115414](https://github.com/arkews/joshub/commit/31154143747c2e2fddc944f3f446b1081138f7dd))
+* update pnpm-lock.yaml ([eb737ad](https://github.com/arkews/joshub/commit/eb737adbf0254ff77b7a293beb5c2f1e3e13e7a0))
+
 ## [1.3.0](https://github.com/arkews/joshub/compare/v1.2.0...v1.3.0) (2022-12-26)
 
 ### Features
