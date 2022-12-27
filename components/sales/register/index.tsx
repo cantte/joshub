@@ -56,7 +56,7 @@ const RegisterSaleForm: FC = () => {
       toast.custom(t => (
         <Alert id={t.id} title='Venta registrada!' variant='success' />
       ))
-      void router.push('/')
+      void router.push('/dashboard')
     }
   })
 

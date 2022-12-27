@@ -33,7 +33,7 @@ const RegisterPubForm: FC = () => {
   const router = useRouter()
   const { mutate, isLoading, error } = useMutation(savePub, {
     onSuccess: () => {
-      void router.push('/')
+      void router.push('/dashboard')
     }
   })
 
