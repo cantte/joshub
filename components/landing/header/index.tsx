@@ -62,7 +62,7 @@ const HeaderSection: FC = () => {
             </p>
             <div className='mt-8 flex gap-x-4 sm:justify-center'>
               <NextLink
-                href='/auth/signup'
+                href='/auth/sign-up'
                 className='text-base px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent'
               >
                 Comenzar ahora

@@ -8,8 +8,9 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline'
 import NextLink from 'next/link'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSession } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 const navigation = [
   { name: 'Registrar venta', href: '/sales/register' },
@@ -47,18 +48,19 @@ function classNames (...classes: string[]) {
 
 const Navbar: FC = () => {
   const session = useSession()
-  const supabase = useSupabaseClient()
 
   const router = useRouter()
   const handleLogout = async (): Promise<void> => {
-    await supabase.auth.signOut()
-    await router.push('/login')
+    await axios.post('/api/auth/sign-out')
+    router.reload()
   }
 
   return (
-    <Popover className='relative sticky top-0 z-50 bg-transparent backdrop-blur'>
+    <Popover
+      className='relative sticky top-0 z-50 bg-transparent backdrop-blur'>
       <div className='mx-auto w-full'>
-        <div className='flex items-center justify-between py-6 md:justify-start md:space-x-10 px-4 sm:px-6'>
+        <div
+          className='flex items-center justify-between py-6 md:justify-start md:space-x-10 px-4 sm:px-6'>
           <div className='flex justify-start lg:w-0 lg:flex-1'>
             <NextLink href='/' className='-m-1.5 p-1.5'>
               <span className='text-2xl font-medium text-gray-900'>Joshub</span>
@@ -66,7 +68,8 @@ const Navbar: FC = () => {
           </div>
 
           <div className='-my-2 -mr-2 md:hidden'>
-            <Popover.Button className='inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none'>
+            <Popover.Button
+              className='inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none'>
               <span className='sr-only'>Open menu</span>
               <Bars3Icon className='h-6 w-6' aria-hidden='true' />
             </Popover.Button>
@@ -103,9 +106,12 @@ const Navbar: FC = () => {
                         leaveFrom='opacity-100 translate-y-0'
                         leaveTo='opacity-0 translate-y-1'
                       >
-                        <Popover.Panel className='absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2'>
-                          <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5'>
-                            <div className='relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8'>
+                        <Popover.Panel
+                          className='absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2'>
+                          <div
+                            className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5'>
+                            <div
+                              className='relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8'>
                               {storeNavigation.map(item => (
                                 <NextLink
                                   key={item.name}
@@ -134,7 +140,8 @@ const Navbar: FC = () => {
                   )}
                 </Popover>
 
-                <div className='hidden lg:flex lg:min-w-0 lg:justify-center space-x-10'>
+                <div
+                  className='hidden lg:flex lg:min-w-0 lg:justify-center space-x-10'>
                   {navigation.map(item => (
                     <NextLink
                       key={item.name}
@@ -149,18 +156,19 @@ const Navbar: FC = () => {
             )}
           </Popover.Group>
 
-          <div className='hidden items-center justify-end md:flex md:flex-1 lg:w-0'>
+          <div
+            className='hidden items-center justify-end md:flex md:flex-1 lg:w-0'>
             {session === null && (
               <>
                 <NextLink
-                  href='/auth/login'
+                  href='/auth/sign-in'
                   className='py-2 px-3 text-sm font-medium text-center inline-flex text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent'
                 >
                   Iniciar sesión
                 </NextLink>
 
                 <NextLink
-                  href='/register'
+                  href='/auth/sign-up'
                   className='ml-4 py-2 px-3 text-sm font-medium text-center inline-flex text-indigo-900 border-indigo-100 rounded-full hover:border-indigo-200 border border-transparent'
                 >
                   Registrarse
@@ -194,7 +202,8 @@ const Navbar: FC = () => {
           focus
           className='absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden z-50'
         >
-          <div className='divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5'>
+          <div
+            className='divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5'>
             <div className='px-5 pt-5 pb-6'>
               <div className='flex items-center justify-between'>
                 <div>
@@ -203,7 +212,8 @@ const Navbar: FC = () => {
                   </span>
                 </div>
                 <div className='-mr-2'>
-                  <Popover.Button className='inline-flex items-center justify-center rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none'>
+                  <Popover.Button
+                    className='inline-flex items-center justify-center rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none'>
                     <span className='sr-only'>Close menu</span>
                     <XMarkIcon className='h-6 w-6' aria-hidden='true' />
                   </Popover.Button>
@@ -218,7 +228,8 @@ const Navbar: FC = () => {
                         href={item.href}
                         className='-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50'
                       >
-                        <div className='ml-4 text-base font-medium text-gray-900'>
+                        <div
+                          className='ml-4 text-base font-medium text-gray-900'>
                           {item.name}
                         </div>
                       </NextLink>
@@ -232,14 +243,14 @@ const Navbar: FC = () => {
                 {session === null && (
                   <>
                     <NextLink
-                      href='/auth/login'
+                      href='/auth/sign-in'
                       className='inline-block w-full rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100'
                     >
                       Iniciar sesión
                     </NextLink>
 
                     <NextLink
-                      href='/register'
+                      href='/auth/sign-up'
                       className='inline-block w-full rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100'
                     >
                       Registrarse
