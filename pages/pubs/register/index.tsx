@@ -27,7 +27,7 @@ const RegisterPubPage: NextPage = () => {
   const router = useRouter()
   useEffect(() => {
     if (pubs !== undefined && pubs !== null) {
-      void router.push('/')
+      void router.push('/dashboard')
     }
   }, [pubs])
 
