@@ -62,7 +62,8 @@ const Navbar: FC = () => {
         <div
           className='flex items-center justify-between py-6 md:justify-start md:space-x-10 px-4 sm:px-6'>
           <div className='flex justify-start lg:w-0 lg:flex-1'>
-            <NextLink href='/' className='-m-1.5 p-1.5'>
+            <NextLink href={session === null ? '/' : '/dashboard'}
+                      className='-m-1.5 p-1.5'>
               <span className='text-2xl font-medium text-gray-900'>Joshub</span>
             </NextLink>
           </div>

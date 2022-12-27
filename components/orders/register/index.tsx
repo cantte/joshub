@@ -56,7 +56,7 @@ const RegisterOrderForm: FC = () => {
       toast.custom(t => (
         <Alert id={t.id} title='Domicilio registrado!' variant='success' />
       ))
-      void router.push('/')
+      void router.push('/dashboard')
     }
   })
 
