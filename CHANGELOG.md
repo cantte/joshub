@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.1](https://github.com/arkews/joshub/compare/v1.5.0...v1.5.1) (2022-12-27)
+
+
+### Bug Fixes
+
+* **pubs:** redirect to dashboard page ([81993f5](https://github.com/arkews/joshub/commit/81993f51ca658f07fa964510332854d8bd5cc8db))
+
+
+### Refactors
+
+* redirect to dashboard page ([76891a4](https://github.com/arkews/joshub/commit/76891a40b6f4387e57a505e0a50ee134c44aa965))
+
 ## [1.5.0](https://github.com/arkews/joshub/compare/v1.4.0...v1.5.0) (2022-12-27)
 
 
