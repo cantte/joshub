@@ -10,7 +10,7 @@ const Login: FC = () => {
 
   useEffect(() => {
     if (session != null) {
-      void router.push('/').then(() => {})
+      void router.push('/dashboard').then(() => {})
     }
   }, [session, router])
 

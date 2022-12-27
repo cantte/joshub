@@ -12,13 +12,15 @@ export const withRequiredAuth: GetServerSideProps<{}> = async (
   if (session == null) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/auth/sign-in',
         permanent: false
       }
     }
   }
 
   return {
-    props: {}
+    props: {
+      initialSession: session
+    }
   }
 }

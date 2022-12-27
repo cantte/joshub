@@ -1,8 +1,9 @@
+import React from 'react'
+import { NextPage } from 'next'
 import DefaultLayout from '@components/shared/layout/default'
 import HeaderSection from '@components/landing/header'
-import { NextPage } from 'next'
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <DefaultLayout>
       <HeaderSection />
@@ -10,4 +11,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default HomePage
