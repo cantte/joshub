@@ -56,12 +56,12 @@ const Navbar: FC = () => {
   }
 
   return (
-    <Popover className='relative sticky top-0 z-50 bg-white shadow'>
+    <Popover className='relative sticky top-0 z-50 bg-transparent backdrop-blur'>
       <div className='mx-auto w-full'>
         <div className='flex items-center justify-between py-6 md:justify-start md:space-x-10 px-4 sm:px-6'>
           <div className='flex justify-start lg:w-0 lg:flex-1'>
             <NextLink href='/' className='-m-1.5 p-1.5'>
-              <span className='text-2xl'>Joshub</span>
+              <span className='text-2xl font-medium text-gray-900'>Joshub</span>
             </NextLink>
           </div>
 
@@ -151,19 +151,28 @@ const Navbar: FC = () => {
 
           <div className='hidden items-center justify-end md:flex md:flex-1 lg:w-0'>
             {session === null && (
-              <NextLink
-                href='/login'
-                className='inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20'
-              >
-                Iniciar sesión
-              </NextLink>
+              <>
+                <NextLink
+                  href='/auth/login'
+                  className='py-2 px-3 text-sm font-medium text-center inline-flex text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent'
+                >
+                  Iniciar sesión
+                </NextLink>
+
+                <NextLink
+                  href='/register'
+                  className='ml-4 py-2 px-3 text-sm font-medium text-center inline-flex text-indigo-900 border-indigo-100 rounded-full hover:border-indigo-200 border border-transparent'
+                >
+                  Registrarse
+                </NextLink>
+              </>
             )}
 
             {session !== null && (
               <button
                 type='button'
                 onClick={handleLogout}
-                className='inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20'
+                className='py-2 px-3 text-sm font-medium text-center inline-flex text-red-900 bg-red-100 rounded-full hover:bg-red-200 border border-transparent'
               >
                 Cerrar sesión
               </button>
@@ -189,7 +198,9 @@ const Navbar: FC = () => {
             <div className='px-5 pt-5 pb-6'>
               <div className='flex items-center justify-between'>
                 <div>
-                  <span className='text-2xl'>Joshub</span>
+                  <span className='text-2xl font-medium text-gray-900'>
+                    Joshub
+                  </span>
                 </div>
                 <div className='-mr-2'>
                   <Popover.Button className='inline-flex items-center justify-center rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none'>
@@ -200,42 +211,52 @@ const Navbar: FC = () => {
               </div>
               <div className='mt-6'>
                 <nav className='grid gap-y-8'>
-                  {mobileNavigation.map(item => (
-                    <NextLink
-                      key={item.name}
-                      href={item.href}
-                      className='-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50'
-                    >
-                      <div className='ml-4 text-base font-medium text-gray-900'>
-                        {item.name}
-                      </div>
-                    </NextLink>
-                  ))}
+                  {session !== null &&
+                    mobileNavigation.map(item => (
+                      <NextLink
+                        key={item.name}
+                        href={item.href}
+                        className='-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50'
+                      >
+                        <div className='ml-4 text-base font-medium text-gray-900'>
+                          {item.name}
+                        </div>
+                      </NextLink>
+                    ))}
                 </nav>
               </div>
             </div>
 
-            <div className='space-y-6 py-6 px-5'>
-              <div className='grid grid-cols-2 gap-y-4 gap-x-8'>
+            <div className='space-y-2 px-5 py-5'>
+              <>
                 {session === null && (
-                  <NextLink
-                    href='/login'
-                    className='text-base font-medium text-gray-900 hover:text-gray-700'
-                  >
-                    Iniciar sesión
-                  </NextLink>
+                  <>
+                    <NextLink
+                      href='/auth/login'
+                      className='inline-block w-full rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100'
+                    >
+                      Iniciar sesión
+                    </NextLink>
+
+                    <NextLink
+                      href='/register'
+                      className='inline-block w-full rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100'
+                    >
+                      Registrarse
+                    </NextLink>
+                  </>
                 )}
 
                 {session !== null && (
                   <button
                     type='button'
                     onClick={handleLogout}
-                    className='text-base font-medium text-gray-900 text-left hover:text-gray-700'
+                    className='inline-block w-full rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100'
                   >
                     Cerrar sesión
                   </button>
                 )}
-              </div>
+              </>
             </div>
           </div>
         </Popover.Panel>

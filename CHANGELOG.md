@@ -2,28 +2,25 @@
 
 ## [1.3.0](https://github.com/arkews/joshub/compare/v1.2.0...v1.3.0) (2022-12-26)
 
-
 ### Features
 
-* improve navbar ui ([ad7a877](https://github.com/arkews/joshub/commit/ad7a877097bfcce16ab9f66d95a262b249778785))
-* **order/sales:** move get last orders/sales to api route endpoints ([68d6b99](https://github.com/arkews/joshub/commit/68d6b997ee8840469ba9770abc0f6584973bbdc0))
-* **orders/sales:** linking to a pub ([fde6451](https://github.com/arkews/joshub/commit/fde6451d4c496874da18b0ef890217e036140d31))
-* **reports:** linking to a pub ([d09e00e](https://github.com/arkews/joshub/commit/d09e00e3b2fc806ddbeac9bee7af9b17e655dd89))
+- improve navbar ui ([ad7a877](https://github.com/arkews/joshub/commit/ad7a877097bfcce16ab9f66d95a262b249778785))
+- **order/sales:** move get last orders/sales to api route endpoints ([68d6b99](https://github.com/arkews/joshub/commit/68d6b997ee8840469ba9770abc0f6584973bbdc0))
+- **orders/sales:** linking to a pub ([fde6451](https://github.com/arkews/joshub/commit/fde6451d4c496874da18b0ef890217e036140d31))
+- **reports:** linking to a pub ([d09e00e](https://github.com/arkews/joshub/commit/d09e00e3b2fc806ddbeac9bee7af9b17e655dd89))
 
 ## [1.2.0](https://github.com/arkews/joshub/compare/v1.1.0...v1.2.0) (2022-12-25)
 
-
 ### Features
 
-* **employees:** linking employees to a pub ([88a3372](https://github.com/arkews/joshub/commit/88a3372182789bfb796bbc137054b962c4065281))
-* **products:** linking to a pub ([cafad1b](https://github.com/arkews/joshub/commit/cafad1b2addc98efd45fb61350941f452e284580))
-* **pubs:** add pub verification ([b3d2b0b](https://github.com/arkews/joshub/commit/b3d2b0b8e60f3b6792fc4b36719fd9a6e7fdb993))
-* **pubs:** remove nit whitespaces ([4f64456](https://github.com/arkews/joshub/commit/4f644565898aa02383cee490cbba37bb7ac33fb4))
-
+- **employees:** linking employees to a pub ([88a3372](https://github.com/arkews/joshub/commit/88a3372182789bfb796bbc137054b962c4065281))
+- **products:** linking to a pub ([cafad1b](https://github.com/arkews/joshub/commit/cafad1b2addc98efd45fb61350941f452e284580))
+- **pubs:** add pub verification ([b3d2b0b](https://github.com/arkews/joshub/commit/b3d2b0b8e60f3b6792fc4b36719fd9a6e7fdb993))
+- **pubs:** remove nit whitespaces ([4f64456](https://github.com/arkews/joshub/commit/4f644565898aa02383cee490cbba37bb7ac33fb4))
 
 ### Build System
 
-* **deps:** add zustand ([ea553d4](https://github.com/arkews/joshub/commit/ea553d41c2e1fe8af4a591019064d296045f4f9c))
+- **deps:** add zustand ([ea553d4](https://github.com/arkews/joshub/commit/ea553d41c2e1fe8af4a591019064d296045f4f9c))
 
 ## [1.1.0](https://github.com/arkews/joshub/compare/v1.0.2...v1.1.0) (2022-12-25)
 

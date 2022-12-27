@@ -16,7 +16,7 @@ const DefaultLayout: FC<PropsWithChildren<{}>> = ({ children }) => {
 
       <Navbar />
 
-      <main className='bg-white lg:overflow-x-hidden'>
+      <main className='lg:overflow-x-hidden'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='pt-10 sm:pt-16 lg:pt-0 lg:pb-14'>
             <div className='mt-8'>{children}</div>
