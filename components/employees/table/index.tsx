@@ -21,7 +21,7 @@ import { usePub } from '@joshub/store/pubs'
 const EmployeesTable: FC = () => {
   const { employee: currentEmployee } = useCurrentEmployee()
 
-  const pub = usePub()
+  const { pub } = usePub()
   const loadEmployees = async (pubId: string): Promise<Employee[] | null> => {
     const { data } = await axios.get<Employee[]>(
       `/api/employees?pubId=${pubId}`

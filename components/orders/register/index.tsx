@@ -27,7 +27,7 @@ const RegisterOrderSchema = z.object({
 })
 
 const RegisterOrderForm: FC = () => {
-  const pub = usePub()
+  const { pub } = usePub()
   const {
     register,
     setValue,

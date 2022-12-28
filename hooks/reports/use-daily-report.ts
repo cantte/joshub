@@ -20,7 +20,7 @@ const useDailyReport = (): UseDailyReport => {
     return data
   }
 
-  const pub = usePub()
+  const { pub } = usePub()
   const { data, isLoading, error } = useQuery(
     ['daily_reports'],
     async () => await loadDailyReport(pub?.id ?? ''),
