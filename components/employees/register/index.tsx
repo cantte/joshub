@@ -6,6 +6,18 @@ import axios from 'axios'
 import { usePub } from '@joshub/store/pubs'
 import toast from 'react-hot-toast'
 import Alert from '@components/shared/feedback/alerts'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+
+const RegisterEmployeeSchema = z.object({
+  id: z.string().min(1, 'La identificación es requerida'),
+  name: z.string().min(1, 'El nombre es requerido'),
+  phone: z.string().min(1, 'El teléfono es requerido'),
+  salary: z.coerce.number().min(1, 'El salario es requerido'),
+  email: z.string().email('El email no es válido'),
+  password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
+  pub_id: z.string().min(1, 'El bar es requerido')
+})
 
 interface Props {
   onRegister: () => void
@@ -16,8 +28,9 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<EmployeeInputs>({
+    resolver: zodResolver(RegisterEmployeeSchema),
     defaultValues: {
       pub_id: pub?.id
     }
@@ -45,161 +58,131 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
   }
 
   return (
-    <div className='mt-5'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='sm:rounded-md'>
-          <div className='bg-white px-4 py-5 pb-0'>
-            <div className='grid grid-cols-6 gap-6'>
-              <div className='col-span-6'>
-                <label
-                  htmlFor='id'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Cédula
-                </label>
-                <input
-                  type='text'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='id'
-                  {...register('id', { required: true })}
-                />
+    <form className='space-y-10' onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <div className='grid grid-cols-6 gap-4'>
+          <div className='col-span-6'>
+            <label className='block'>
+              <span className='block'>Identificación</span>
+              <input
+                type='text'
+                className='block border text-lg px-4 py-2 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                {...register('id')}
+                disabled={isSubmitting || isLoading}
+              />
+            </label>
 
-                {errors.id != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
+            {(errors.id != null) && (
+              <p className='text-sm text-red-600 mt-1'>{errors.id.message}</p>
+            )}
+          </div>
 
-              <div className='col-span-6'>
-                <label
-                  htmlFor='name'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Nombre
-                </label>
-                <input
-                  type='text'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='name'
-                  {...register('name', { required: true })}
-                />
+          <div className='col-span-6'>
+            <label className='block'>
+              <span className='block'>Nombre</span>
+              <input
+                type='text'
+                className='block border text-lg px-4 py-2 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                {...register('name')}
+                disabled={isSubmitting || isLoading}
+              />
+            </label>
 
-                {errors.name != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
+            {(errors.name != null) && (
+              <p className='text-sm text-red-600 mt-1'>{errors.name.message}</p>
+            )}
+          </div>
 
-              <div className='col-span-6 sm:col-span-3'>
-                <label
-                  htmlFor='phone'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Teléfono
-                </label>
-                <input
-                  type='text'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='phone'
-                  {...register('phone', { required: true })}
-                />
+          <div className='col-span-6 sm:col-span-3'>
+            <label className='block'>
+              <span className='block'>Teléfono</span>
+              <input
+                type='text'
+                className='block border text-lg px-4 py-2 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                {...register('phone')}
+                disabled={isSubmitting || isLoading}
+              />
+            </label>
 
-                {errors.phone != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
+            {(errors.phone != null) && (
+              <p
+                className='text-sm text-red-600 mt-1'>{errors.phone.message}</p>
+            )}
+          </div>
 
-              <div className='col-span-6 sm:col-span-3'>
-                <label
-                  htmlFor='salary'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Salario
-                </label>
-                <input
-                  type='number'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='salary'
-                  {...register('salary', { required: true })}
-                />
+          <div className='col-span-6 sm:col-span-3'>
+            <label className='block'>
+              <span className='block'>Salario</span>
+              <input
+                type='number'
+                className='block border text-lg px-4 py-2 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                {...register('salary')}
+                disabled={isSubmitting || isLoading}
+              />
+            </label>
 
-                {errors.salary != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
+            {(errors.salary != null) && (
+              <p
+                className='text-sm text-red-600 mt-1'>{errors.salary.message}</p>
+            )}
+          </div>
 
-              <div className='col-span-6'>
-                <label
-                  htmlFor='email'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Correo electrónico
-                </label>
-                <input
-                  type='email'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='email'
-                  {...register('email', { required: true })}
-                />
+          <div className='col-span-6'>
+            <label className='block'>
+              <span className='block'>Email</span>
+              <input
+                type='email'
+                className='block border text-lg px-4 py-2 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                {...register('email')}
+                disabled={isSubmitting || isLoading}
+              />
+            </label>
 
-                {errors.email != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
+            {(errors.email != null) && (
+              <p
+                className='text-sm text-red-600 mt-1'>{errors.email.message}</p>
+            )}
+          </div>
 
-              <div className='col-span-6'>
-                <label
-                  htmlFor='password'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Contraseña
-                </label>
-                <input
-                  type='password'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='password'
-                  {...register('password', { required: true })}
-                />
+          <div className='col-span-6'>
+            <label className='block'>
+              <span className='block'>Contraseña</span>
+              <input
+                type='password'
+                className='block border text-lg px-4 py-2 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                {...register('password')}
+                disabled={isSubmitting || isLoading}
+              />
+            </label>
 
-                {errors.password != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
+            {(errors.password != null) && (
+              <p
+                className='text-sm text-red-600 mt-1'>{errors.password.message}</p>
+            )}
+          </div>
 
-              {Boolean(error) && (
-                <div
-                  className='p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800'
-                  role='alert'
-                >
-                  Error al registrar el empleado, verifique los datos e intente
-                  de nuevo
-                </div>
-              )}
-
-              <div className='pt-3 col-span-6'>
-                <button
-                  type='submit'
-                  disabled={isLoading}
-                  className='inline-flex w-full justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400'
-                >
-                  Guardar
-                </button>
-              </div>
+          {Boolean(error) && (
+            <div
+              className='p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800'
+              role='alert'
+            >
+              Error al registrar el empleado, verifique los datos e intente
+              de nuevo
             </div>
+          )}
+
+          <div className='mt-6 col-span-6'>
+            <button
+              type='submit'
+              disabled={isLoading || isSubmitting}
+              className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+            >
+              Guardar
+            </button>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   )
 }
 
