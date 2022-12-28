@@ -72,7 +72,7 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
               />
             </label>
 
-            {(errors.id != null) && (
+            {errors.id != null && (
               <p className='text-sm text-red-600 mt-1'>{errors.id.message}</p>
             )}
           </div>
@@ -88,7 +88,7 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
               />
             </label>
 
-            {(errors.name != null) && (
+            {errors.name != null && (
               <p className='text-sm text-red-600 mt-1'>{errors.name.message}</p>
             )}
           </div>
@@ -104,9 +104,10 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
               />
             </label>
 
-            {(errors.phone != null) && (
-              <p
-                className='text-sm text-red-600 mt-1'>{errors.phone.message}</p>
+            {errors.phone != null && (
+              <p className='text-sm text-red-600 mt-1'>
+                {errors.phone.message}
+              </p>
             )}
           </div>
 
@@ -121,9 +122,10 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
               />
             </label>
 
-            {(errors.salary != null) && (
-              <p
-                className='text-sm text-red-600 mt-1'>{errors.salary.message}</p>
+            {errors.salary != null && (
+              <p className='text-sm text-red-600 mt-1'>
+                {errors.salary.message}
+              </p>
             )}
           </div>
 
@@ -138,9 +140,10 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
               />
             </label>
 
-            {(errors.email != null) && (
-              <p
-                className='text-sm text-red-600 mt-1'>{errors.email.message}</p>
+            {errors.email != null && (
+              <p className='text-sm text-red-600 mt-1'>
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -155,9 +158,10 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
               />
             </label>
 
-            {(errors.password != null) && (
-              <p
-                className='text-sm text-red-600 mt-1'>{errors.password.message}</p>
+            {errors.password != null && (
+              <p className='text-sm text-red-600 mt-1'>
+                {errors.password.message}
+              </p>
             )}
           </div>
 
@@ -166,8 +170,8 @@ const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
               className='p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800'
               role='alert'
             >
-              Error al registrar el empleado, verifique los datos e intente
-              de nuevo
+              Error al registrar el empleado, verifique los datos e intente de
+              nuevo
             </div>
           )}
 

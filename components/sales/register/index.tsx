@@ -14,8 +14,7 @@ import useTransactionDetails from '@joshub/hooks/shared/use-transaction-details'
 import { usePub } from '@joshub/store/pubs'
 import toast from 'react-hot-toast'
 import Alert from '@components/shared/feedback/alerts'
-import TransactionDetailInputCard
-  from '@components/shared/transactions/details/card'
+import TransactionDetailInputCard from '@components/shared/transactions/details/card'
 
 const RegisterSaleForm: FC = () => {
   const pub = usePub()
@@ -105,34 +104,40 @@ const RegisterSaleForm: FC = () => {
                 </button>
 
                 <div className='mt-1 min-h-[20rem] overflow-auto'>
-                  {
-                    details.length > 0 && (
-                      details.map(detail => <TransactionDetailInputCard
-                        key={`${detail.product?.code ?? ''}-${String(detail.price)}`}
+                  {details.length > 0 &&
+                    details.map(detail => (
+                      <TransactionDetailInputCard
+                        key={`${detail.product?.code ?? ''}-${String(
+                          detail.price
+                        )}`}
                         detail={detail}
-                        onDeleted={removeDetail} />)
-                    )
-                  }
-                  {
-                    details.length === 0 && (
-                      <div>
-                        <div
-                          className='w-12 h-12 rounded-full bg-gray-100 p-2 flex items-center justify-center mx-auto mb-3.5'>
-                          <svg className='w-8 h-8 text-gray-500' fill='none'
-                               stroke='currentColor' viewBox='0 0 24 24'
-                               xmlns='http://www.w3.org/2000/svg'>
-                            <path strokeLinecap='round' strokeLinejoin='round'
-                                  strokeWidth='2'
-                                  d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'></path>
-                          </svg>
-                          <span className='sr-only'>Success</span>
-                        </div>
-                        <div className='text-center text-gray-500'>
-                          No hay productos agregados.
-                        </div>
+                        onDeleted={removeDetail}
+                      />
+                    ))}
+                  {details.length === 0 && (
+                    <div>
+                      <div className='w-12 h-12 rounded-full bg-gray-100 p-2 flex items-center justify-center mx-auto mb-3.5'>
+                        <svg
+                          className='w-8 h-8 text-gray-500'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+                          ></path>
+                        </svg>
+                        <span className='sr-only'>Success</span>
                       </div>
-                    )
-                  }
+                      <div className='text-center text-gray-500'>
+                        No hay productos agregados.
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -144,21 +149,22 @@ const RegisterSaleForm: FC = () => {
               <CustomerField
                 onSelected={customer => setValue('customer_id', customer.id)}
               />
-
             </div>
 
             <div className='col-span-6 sm:col-span-3 sm:col-start-4'>
-              <div
-                className='w-full text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-400'>
+              <div className='w-full text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-400'>
                 <div className='flex'>
                   <div className='ml-3 text-sm font-normal'>
-                    <h3
-                      className='mb-2 text-2xl font-semibold text-gray-900 dark:text-white'>
+                    <h3 className='mb-2 text-2xl font-semibold text-gray-900 dark:text-white'>
                       Resumen
                     </h3>
                     <div className='text-base font-normal'>
-                      Productos
-                      comprados: {Intl.NumberFormat('es').format(details.map(detail => Number(detail.quantity)).reduce((a, b) => a + b, 0))}
+                      Productos comprados:{' '}
+                      {Intl.NumberFormat('es').format(
+                        details
+                          .map(detail => Number(detail.quantity))
+                          .reduce((a, b) => a + b, 0)
+                      )}
                     </div>
                     <div className='text-base font-normal'>
                       Total: $ {Intl.NumberFormat('es').format(total)}
@@ -206,8 +212,7 @@ const RegisterSaleForm: FC = () => {
           </Transition.Child>
 
           <div className='fixed inset-0 overflow-y-auto'>
-            <div
-              className='flex min-h-full items-center justify-center p-4 text-center'>
+            <div className='flex min-h-full items-center justify-center p-4 text-center'>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -217,8 +222,7 @@ const RegisterSaleForm: FC = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel
-                  className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'

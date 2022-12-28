@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 const SignUpSchema = z.object({
   email: z.string().email('El email no es válido'),
   password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
-  acceptTerms: z.boolean().refine((v) => v, {
+  acceptTerms: z.boolean().refine(v => v, {
     message: 'Debes aceptar los términos y condiciones'
   })
 })
@@ -25,7 +25,9 @@ const SignUpForm: FC = () => {
     resolver: zodResolver(SignUpSchema)
   })
 
-  const signUp = async (data: Omit<SignUpSchemaType, 'acceptTerms'>): Promise<unknown> => {
+  const signUp = async (
+    data: Omit<SignUpSchemaType, 'acceptTerms'>
+  ): Promise<unknown> => {
     const { data: response } = await axios.post('/api/auth/sign-up', data)
     return response
   }
@@ -37,7 +39,7 @@ const SignUpForm: FC = () => {
     }
   })
 
-  const onSubmit: SubmitHandler<SignUpSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<SignUpSchemaType> = data => {
     const { email, password } = data
     mutate({ email, password })
   }
@@ -55,7 +57,7 @@ const SignUpForm: FC = () => {
               disabled={isSubmitting || isLoading}
             />
           </label>
-          {(errors.email != null) && (
+          {errors.email != null && (
             <p className='text-sm text-red-600 mt-1'>{errors.email.message}</p>
           )}
         </div>
@@ -70,9 +72,10 @@ const SignUpForm: FC = () => {
               disabled={isSubmitting || isLoading}
             />
           </label>
-          {(errors.password != null) && (
-            <p
-              className='text-sm text-red-600 mt-1'>{errors.password.message}</p>
+          {errors.password != null && (
+            <p className='text-sm text-red-600 mt-1'>
+              {errors.password.message}
+            </p>
           )}
         </div>
 
@@ -88,9 +91,10 @@ const SignUpForm: FC = () => {
               Acepto los términos y condiciones de uso.
             </span>
           </label>
-          {(errors.acceptTerms != null) && (
-            <p
-              className='text-sm text-red-600 mt-1'>{errors.acceptTerms.message}</p>
+          {errors.acceptTerms != null && (
+            <p className='text-sm text-red-600 mt-1'>
+              {errors.acceptTerms.message}
+            </p>
           )}
         </div>
 

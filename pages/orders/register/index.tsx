@@ -13,8 +13,7 @@ const RegisterOrderPage: FC = () => {
             <h1 className='text-gray-900 font-bold text-3xl'>
               Registrar orden
             </h1>
-            <p className='text-gray-600 mt-4 mb-8 leading-relaxed'>
-            </p>
+            <p className='text-gray-600 mt-4 mb-8 leading-relaxed'></p>
 
             <RegisterOrderForm />
           </div>
