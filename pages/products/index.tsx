@@ -34,7 +34,7 @@ const ProductsPage: FC = () => {
         <Dialog
           onClose={closeAddProductModal}
           as='div'
-          className='relative z-10'
+          className='relative z-50'
         >
           <Transition.Child
             as={Fragment}
@@ -66,7 +66,7 @@ const ProductsPage: FC = () => {
                   >
                     <div className='flex flex-col mb-5'>
                       <div className='flex flex-row justify-between'>
-                        <h3 className='text-xl font-semibold text-gray-900'>
+                        <h3 className='text-gray-900 font-bold text-2xl sm:text-3xl'>
                           Registrar producto
                         </h3>
                         <button

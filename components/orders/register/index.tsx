@@ -5,15 +5,6 @@ import { Order, OrderDetailInput, OrderInputs } from '@joshub/types/orders'
 import { useMutation } from '@tanstack/react-query'
 import CustomerField from '@components/shared/form/customer.field'
 import { useRouter } from 'next/router'
-import {
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow
-} from '@tremor/react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import OrderDetailForm from '@components/orders/register/detail'
@@ -23,10 +14,28 @@ import useTransactionDetails from '@joshub/hooks/shared/use-transaction-details'
 import { usePub } from '@joshub/store/pubs'
 import toast from 'react-hot-toast'
 import Alert from '@components/shared/feedback/alerts'
+import TransactionDetailInputCard from '@components/shared/transactions/details/card'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const RegisterOrderSchema = z.object({
+  customer_id: z.string().min(1, 'Debe seleccionar un cliente'),
+  employee_id: z.string().min(1, 'Debe seleccionar un empleado'),
+  address: z.string().min(1, 'Debe ingresar una dirección'),
+  items: z.array(z.any()).min(1, 'Debe ingresar al menos un producto'),
+  pub_id: z.string().min(1, 'Debe seleccionar un bar')
+})
 
 const RegisterOrderForm: FC = () => {
   const pub = usePub()
-  const { register, setValue, handleSubmit } = useForm<OrderInputs>({
+  const {
+    register,
+    setValue,
+    resetField,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<OrderInputs>({
+    resolver: zodResolver(RegisterOrderSchema),
     defaultValues: {
       pub_id: pub?.id
     }
@@ -66,6 +75,7 @@ const RegisterOrderForm: FC = () => {
     total,
 
     addDetail,
+    removeDetail,
     openAddDetailModal,
     closeAddDetailModal
   } = useTransactionDetails()
@@ -92,114 +102,134 @@ const RegisterOrderForm: FC = () => {
   }
 
   return (
-    <div className='mt-5'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='overflow-hidden shadow sm:rounded-md'>
-          <div className='bg-white px-4 py-5 sm:p-6'>
-            <div className='grid grid-cols-6 gap-6'>
-              <div className='col-span-6 sm:col-span-6'>
-                <input
-                  type='hidden'
-                  {...register('customer_id', { required: true })}
-                />
-                <CustomerField
-                  onSelected={customer => setValue('customer_id', customer.id)}
-                />
-              </div>
+    <>
+      <form className='space-y-10' onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <div className='grid grid-cols-6 gap-6'>
+            <div className='col-span-6 sm:col-span-3'>
+              <h3 className='text-2xl text-gray-900 mb-3'>Productos</h3>
 
-              <div className='col-span-6'>
-                <label
-                  htmlFor='address'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Dirección
-                </label>
-                <input
-                  type='text'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='id'
-                  {...register('address', { required: true })}
-                />
-              </div>
-
-              <div className='col-span-6'>
+              <div>
                 <button
                   onClick={openAddDetailModal}
                   type='button'
-                  className='inline-flex justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400'
+                  className='text-sm px-5 py-2.5 text-center font-medium inline-flex text-indigo-900 border-indigo-100 rounded-lg hover:border-indigo-200 border border-transparent'
                 >
-                  Agregar producto
+                  Agregar
                 </button>
+
+                <div className='mt-1 min-h-[20rem] overflow-auto'>
+                  {details.length > 0 &&
+                    details.map(detail => (
+                      <TransactionDetailInputCard
+                        key={`${detail.product?.code ?? ''}-${String(
+                          detail.price
+                        )}`}
+                        detail={detail}
+                        onDeleted={removeDetail}
+                      />
+                    ))}
+                  {details.length === 0 && (
+                    <div>
+                      <div className='w-12 h-12 rounded-full bg-gray-100 p-2 flex items-center justify-center mx-auto mb-3.5'>
+                        <svg
+                          className='w-8 h-8 text-gray-500'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+                          ></path>
+                        </svg>
+                        <span className='sr-only'>Success</span>
+                      </div>
+                      <div className='text-center text-gray-500'>
+                        No hay productos agregados.
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
+            </div>
 
-              <div className='col-span-6'>
-                <div className='overflow-x-auto relative'>
-                  <Card>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableHeaderCell>Nombre</TableHeaderCell>
-                          <TableHeaderCell>Precio de venta</TableHeaderCell>
-                          <TableHeaderCell>Cantidad</TableHeaderCell>
-                          <TableHeaderCell>Total</TableHeaderCell>
-                        </TableRow>
-                      </TableHead>
+            <div className='col-span-6 sm:col-span-3'>
+              <input
+                type='hidden'
+                {...register('customer_id', { required: true })}
+              />
+              <CustomerField
+                onSelected={customer =>
+                  resetField('customer_id', { defaultValue: customer.id })
+                }
+              />
 
-                      <TableBody>
-                        {details.length > 0
-                          ? (
-                              details.map(detail => (
-                            <TableRow key={detail.product?.code}>
-                              <TableCell>{detail.product?.name}</TableCell>
-                              <TableCell>
-                                $ {Intl.NumberFormat('es').format(detail.price)}
-                              </TableCell>
-                              <TableCell>
-                                {Intl.NumberFormat('es').format(
-                                  detail.quantity
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                ${' '}
-                                {Intl.NumberFormat('es').format(
-                                  detail.quantity * detail.price
-                                )}
-                              </TableCell>
-                            </TableRow>
-                              ))
-                            )
-                          : (
-                          <TableCell>No ha agregado ningún producto</TableCell>
-                            )}
-                      </TableBody>
-                    </Table>
-                  </Card>
+              {errors.customer_id != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.customer_id.message}
+                </p>
+              )}
+
+              <label className='block mt-3'>
+                <span className='block'>Dirección</span>
+                <input
+                  type='text'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('address')}
+                  disabled={isSubmitting || isLoading}
+                />
+              </label>
+
+              {errors.address != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.address.message}
+                </p>
+              )}
+            </div>
+
+            <div className='col-span-6 sm:col-span-3 sm:col-start-4'>
+              <div className='w-full text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-400'>
+                <div className='flex'>
+                  <div className='ml-3 text-sm font-normal'>
+                    <h3 className='mb-2 text-2xl font-semibold text-gray-900 dark:text-white'>
+                      Resumen
+                    </h3>
+                    <div className='text-base font-normal'>
+                      Productos comprados:{' '}
+                      {Intl.NumberFormat('es').format(
+                        details
+                          .map(detail => Number(detail.quantity))
+                          .reduce((a, b) => a + b, 0)
+                      )}
+                    </div>
+                    <div className='text-base font-normal'>
+                      Total: $ {Intl.NumberFormat('es').format(total)}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className='col-span-6 sm:col-span-3'>
-                <p className='text-2xl'>
-                  Total: $ {Intl.NumberFormat('es').format(total)}
-                </p>
+              <div className='pt-6'>
+                <button
+                  type='submit'
+                  disabled={isLoading}
+                  className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+                >
+                  Guardar
+                </button>
               </div>
             </div>
-
-            <div className='py-5'>
-              <button
-                type='submit'
-                disabled={isLoading}
-                className='inline-flex w-full justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400'
-              >
-                Guardar
-              </button>
-            </div>
-
-            {Boolean(error) && (
-              <div className='text-red-400 text-xs block py-1'>
-                Error al guardar el domicilio
-              </div>
-            )}
           </div>
+
+          {Boolean(error) && (
+            <div className='text-red-400 text-xs block py-1'>
+              Error al guardar el domicilio
+            </div>
+          )}
         </div>
       </form>
 
@@ -261,7 +291,7 @@ const RegisterOrderForm: FC = () => {
           </div>
         </Dialog>
       </Transition>
-    </div>
+    </>
   )
 }
 

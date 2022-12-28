@@ -34,7 +34,7 @@ const SignInForm: FC = () => {
     }
   })
 
-  const onSubmit: SubmitHandler<SignInSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<SignInSchemaType> = data => {
     mutate(data)
   }
 
@@ -51,7 +51,7 @@ const SignInForm: FC = () => {
               disabled={isSubmitting || isLoading}
             />
           </label>
-          {(errors.email != null) && (
+          {errors.email != null && (
             <p className='text-sm text-red-600 mt-1'>{errors.email.message}</p>
           )}
         </div>
@@ -66,9 +66,10 @@ const SignInForm: FC = () => {
               disabled={isSubmitting || isLoading}
             />
           </label>
-          {(errors.password != null) && (
-            <p
-              className='text-sm text-red-600 mt-1'>{errors.password.message}</p>
+          {errors.password != null && (
+            <p className='text-sm text-red-600 mt-1'>
+              {errors.password.message}
+            </p>
           )}
         </div>
 

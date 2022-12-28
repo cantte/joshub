@@ -7,6 +7,7 @@ interface UseTransactionDetails {
   total: number
 
   addDetail: (detail: TransactionDetailInput) => void
+  removeDetail: (detail: TransactionDetailInput) => void
   openAddDetailModal: () => void
   closeAddDetailModal: () => void
 }
@@ -35,6 +36,16 @@ const useTransactionDetails = (): UseTransactionDetails => {
     })
     setDetails(newDetails)
   }
+
+  const removeDetail = (detail: TransactionDetailInput): void => {
+    const newDetails = details.filter(
+      d =>
+        d.product?.code !== detail.product?.code ||
+        d.price !== Number(detail.price)
+    )
+    setDetails(newDetails)
+  }
+
   const openAddDetailModal = (): void => setAddDetailModalOpen(true)
   const closeAddDetailModal = (): void => setAddDetailModalOpen(false)
 
@@ -52,6 +63,7 @@ const useTransactionDetails = (): UseTransactionDetails => {
     total,
 
     addDetail,
+    removeDetail,
     openAddDetailModal,
     closeAddDetailModal
   }

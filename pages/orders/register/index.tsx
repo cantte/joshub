@@ -7,15 +7,18 @@ import withRequiredPub from '@joshub/hocs/pubs/with-required-pub'
 const RegisterOrderPage: FC = () => {
   return (
     <DefaultLayout>
-      <div className='flex flex-col mb-5'>
-        <div className='flex flex-row justify-between'>
-          <h1 className='text-2xl font-semibold text-gray-900'>
-            Registrar domicilio
-          </h1>
-        </div>
-      </div>
+      <main>
+        <div className='w-full px-4'>
+          <div className='bg-white p-8 py-12 rounded-lg shadow-xl'>
+            <h1 className='text-gray-900 font-bold text-3xl'>
+              Registrar orden
+            </h1>
+            <p className='text-gray-600 mt-4 mb-8 leading-relaxed'></p>
 
-      <RegisterOrderForm />
+            <RegisterOrderForm />
+          </div>
+        </div>
+      </main>
     </DefaultLayout>
   )
 }
