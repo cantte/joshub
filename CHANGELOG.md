@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/arkews/joshub/compare/v1.7.0...v1.8.0) (2022-12-29)
+
+
+### Features
+
+* **pubs:** register pub owner when register a pub ([5cab5b2](https://github.com/arkews/joshub/commit/5cab5b2fe5dc34267676d6ce031c3a7cee8d87a0))
+
 ## [1.7.0](https://github.com/arkews/joshub/compare/v1.6.0...v1.7.0) (2022-12-29)
 
 ### Features
