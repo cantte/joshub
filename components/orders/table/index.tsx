@@ -14,7 +14,7 @@ import { usePub } from '@joshub/store/pubs'
 import axios from 'axios'
 
 const OrdersTable: FC = () => {
-  const pub = usePub()
+  const { pub } = usePub()
   const loadOrders = async (pubId: string): Promise<Order[] | null> => {
     const { data } = await axios.get<Order[]>(
       `/api/orders/latest?pubId=${pubId}`

@@ -33,7 +33,7 @@ interface Props {
 }
 
 const RegisterProductForm: FC<Props> = ({ onRegister }) => {
-  const pub = usePub()
+  const { pub } = usePub()
   const {
     register,
     handleSubmit,
@@ -110,8 +110,9 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
             </label>
 
             {errors.quantity != null && (
-              <p
-                className='text-sm text-red-600 mt-1'>{errors.quantity.message}</p>
+              <p className='text-sm text-red-600 mt-1'>
+                {errors.quantity.message}
+              </p>
             )}
           </div>
 
@@ -119,8 +120,7 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
             <label className='block'>
               <span className='block'>Costo</span>
               <div className='relative'>
-                <div
-                  className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
+                <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
                   <span className='text-gray-500'>$</span>
                 </div>
                 <input
@@ -142,8 +142,7 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
             <label className='block'>
               <span className='block'>Precio estanco</span>
               <div className='relative'>
-                <div
-                  className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
+                <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
                   <span className='text-gray-500'>$</span>
                 </div>
                 <input
@@ -157,8 +156,9 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
             </label>
 
             {errors.watertight_price != null && (
-              <p
-                className='text-sm text-red-600 mt-1'>{errors.watertight_price.message}</p>
+              <p className='text-sm text-red-600 mt-1'>
+                {errors.watertight_price.message}
+              </p>
             )}
           </div>
 
@@ -166,8 +166,7 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
             <label className='block'>
               <span className='block'>Precio punto frio</span>
               <div className='relative'>
-                <div
-                  className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
+                <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
                   <span className='text-gray-500'>$</span>
                 </div>
 
@@ -182,8 +181,9 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
             </label>
 
             {errors.cold_spot_price != null && (
-              <p
-                className='text-sm text-red-600 mt-1'>{errors.cold_spot_price.message}</p>
+              <p className='text-sm text-red-600 mt-1'>
+                {errors.cold_spot_price.message}
+              </p>
             )}
           </div>
 
@@ -192,8 +192,8 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
               className='p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800'
               role='alert'
             >
-              Error al registrar el producto, verifique los datos e intente
-              de nuevo
+              Error al registrar el producto, verifique los datos e intente de
+              nuevo
             </div>
           )}
 

@@ -14,7 +14,7 @@ import axios from 'axios'
 import { usePub } from '@joshub/store/pubs'
 
 const SalesTable: FC = () => {
-  const pub = usePub()
+  const { pub } = usePub()
   const loadSales = async (pubId: string): Promise<Sale[] | null> => {
     const { data } = await axios.get<Sale[]>(`/api/sales/latest?pubId=${pubId}`)
 

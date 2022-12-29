@@ -24,7 +24,7 @@ interface Props {
 }
 
 const RegisterEmployeeForm: FC<Props> = ({ onRegister }) => {
-  const pub = usePub()
+  const { pub } = usePub()
   const {
     register,
     handleSubmit,

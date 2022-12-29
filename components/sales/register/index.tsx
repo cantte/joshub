@@ -17,7 +17,7 @@ import Alert from '@components/shared/feedback/alerts'
 import TransactionDetailInputCard from '@components/shared/transactions/details/card'
 
 const RegisterSaleForm: FC = () => {
-  const pub = usePub()
+  const { pub } = usePub()
   const { register, setValue, handleSubmit } = useForm<SalesInputs>({
     defaultValues: {
       pub_id: pub?.id

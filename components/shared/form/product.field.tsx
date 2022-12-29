@@ -15,7 +15,7 @@ const ProductField: FC<Props> = ({ onSelected }) => {
     return data
   }
 
-  const pub = usePub()
+  const { pub } = usePub()
   const { data: products } = useQuery(
     ['products'],
     async () => await loadProducts(pub?.id ?? ''),
