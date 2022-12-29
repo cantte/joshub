@@ -34,7 +34,9 @@ export const useCurrentEmployee = (): UseCurrentEmployee => {
     ['employee', user?.id ?? ''],
     async () => await loadEmployee(user?.id),
     {
-      enabled: user !== undefined && user !== null
+      enabled: user !== undefined && user !== null,
+      refetchOnWindowFocus: false,
+      retry: false
     }
   )
 

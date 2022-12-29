@@ -21,7 +21,7 @@ const handler = async (
         return
       }
 
-      if (data === null) {
+      if (data === null || data.length === 0) {
         res.status(404).json({ error: 'No employee found' })
         return
       }
