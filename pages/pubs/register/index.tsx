@@ -57,12 +57,14 @@ const RegisterPubPage: NextPage = () => {
         )}
         {!isLoading && pubs === undefined && (
           <>
-            <div className='mb-5'>
-              <h1 className='text-4xl text-center text-gray-700 font-light'>
+            <div className='bg-white p-8 py-12 rounded-lg shadow-xl'>
+              <h1 className='text-gray-900 font-bold text-3xl'>
                 Registrar bar
               </h1>
+              <p className='text-gray-600 mt-4 mb-8 leading-relaxed'></p>
+
+              <RegisterPubForm />
             </div>
-            <RegisterPubForm />
           </>
         )}
       </div>

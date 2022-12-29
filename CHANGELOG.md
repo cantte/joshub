@@ -2,34 +2,30 @@
 
 ## [1.7.0](https://github.com/arkews/joshub/compare/v1.6.0...v1.7.0) (2022-12-29)
 
-
 ### Features
 
-* add session check logic ([a836245](https://github.com/arkews/joshub/commit/a83624549aaca1c88f28357820f972006315d422))
-
+- add session check logic ([a836245](https://github.com/arkews/joshub/commit/a83624549aaca1c88f28357820f972006315d422))
 
 ### Bug Fixes
 
-* avoid unnecessary redirections in the verification of the existence of a pub ([be2495c](https://github.com/arkews/joshub/commit/be2495cc60e693bb89c45b7f39c28471d1f22844))
+- avoid unnecessary redirections in the verification of the existence of a pub ([be2495c](https://github.com/arkews/joshub/commit/be2495cc60e693bb89c45b7f39c28471d1f22844))
 
 ## [1.6.0](https://github.com/arkews/joshub/compare/v1.5.1...v1.6.0) (2022-12-28)
 
-
 ### Features
 
-* add find customer by id api endpoint ([f62186a](https://github.com/arkews/joshub/commit/f62186a03e3e3cdad48960b7c42d53b1dafd293d))
-* **employees:** new register employee form ui ([ad3b233](https://github.com/arkews/joshub/commit/ad3b233f3c0f4fb468c5ae22997112b9815f8849))
-* new customer field ui ([44c5a6a](https://github.com/arkews/joshub/commit/44c5a6ad632e8b9d90b2e0cd86965f4fdf99c96c))
-* **products:** add new register form ui ([cc42c55](https://github.com/arkews/joshub/commit/cc42c556b56c07dcad7790fa4fc98b3e18337e22))
-* **sales:** new orders form ([e70b09e](https://github.com/arkews/joshub/commit/e70b09eaaf056d0579bd274b491daed64231d03a))
-* **sales:** new sales form ([bed19c0](https://github.com/arkews/joshub/commit/bed19c020abda008b0b7852037b63051d3536667))
-* **transaction-details:** add detail card ([601f5cd](https://github.com/arkews/joshub/commit/601f5cd33ffe3327a91142daf8cc64537602bddc))
-* **transaction-details:** add remove detail support ([94bf227](https://github.com/arkews/joshub/commit/94bf227a0662e674a5fe45dc753f6f4962ae7e35))
-
+- add find customer by id api endpoint ([f62186a](https://github.com/arkews/joshub/commit/f62186a03e3e3cdad48960b7c42d53b1dafd293d))
+- **employees:** new register employee form ui ([ad3b233](https://github.com/arkews/joshub/commit/ad3b233f3c0f4fb468c5ae22997112b9815f8849))
+- new customer field ui ([44c5a6a](https://github.com/arkews/joshub/commit/44c5a6ad632e8b9d90b2e0cd86965f4fdf99c96c))
+- **products:** add new register form ui ([cc42c55](https://github.com/arkews/joshub/commit/cc42c556b56c07dcad7790fa4fc98b3e18337e22))
+- **sales:** new orders form ([e70b09e](https://github.com/arkews/joshub/commit/e70b09eaaf056d0579bd274b491daed64231d03a))
+- **sales:** new sales form ([bed19c0](https://github.com/arkews/joshub/commit/bed19c020abda008b0b7852037b63051d3536667))
+- **transaction-details:** add detail card ([601f5cd](https://github.com/arkews/joshub/commit/601f5cd33ffe3327a91142daf8cc64537602bddc))
+- **transaction-details:** add remove detail support ([94bf227](https://github.com/arkews/joshub/commit/94bf227a0662e674a5fe45dc753f6f4962ae7e35))
 
 ### Refactors
 
-* remove unused component and page ([fd805ef](https://github.com/arkews/joshub/commit/fd805efb23ad5a6a4ae527c70f5fab0d9d52dc75))
+- remove unused component and page ([fd805ef](https://github.com/arkews/joshub/commit/fd805efb23ad5a6a4ae527c70f5fab0d9d52dc75))
 
 ## [1.5.1](https://github.com/arkews/joshub/compare/v1.5.0...v1.5.1) (2022-12-27)
 

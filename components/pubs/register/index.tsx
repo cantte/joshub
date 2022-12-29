@@ -5,6 +5,20 @@ import { PubInputs } from '@joshub/types/pubs'
 import { useRouter } from 'next/router'
 import { FC, useEffect } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const PubSchema = z.object({
+  name: z.string().min(1, 'El nombre es requerido'),
+  address: z.string().min(1, 'La dirección es requerida'),
+  user_id: z.string().min(1, 'El dueño es requerido'),
+  owner: z.object({
+    id: z.string().min(1, 'La identificación es requerida'),
+    name: z.string().min(1, 'El nombre es requerido'),
+    phone: z.string().min(1, 'El teléfono es requerido'),
+    salary: z.coerce.number().min(1, 'El salario es requerido')
+  })
+})
 
 const RegisterPubForm: FC = () => {
   const user = useUser()
@@ -12,17 +26,18 @@ const RegisterPubForm: FC = () => {
     register,
     setValue,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<PubInputs>({
+    resolver: zodResolver(PubSchema),
     defaultValues: {
-      owner: user?.id,
+      user_id: user?.id,
       nit: undefined
     }
   })
 
   useEffect(() => {
     if (user !== undefined && user !== null) {
-      setValue('owner', user.id)
+      setValue('user_id', user.id)
     }
   }, [user])
 
@@ -31,7 +46,7 @@ const RegisterPubForm: FC = () => {
   }
 
   const router = useRouter()
-  const { mutate, isLoading, error } = useMutation(savePub, {
+  const { mutate, isLoading } = useMutation(savePub, {
     onSuccess: () => {
       void router.push('/dashboard')
     }
@@ -44,91 +59,148 @@ const RegisterPubForm: FC = () => {
   }
 
   return (
-    <div className='mt-5'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='sm:shadow sm:rounded-md'>
-          <div className='bg-white sm:px-4 py-5 sm:p-6'>
-            <div className='grid grid-cols-6 gap-6'>
-              <div className='col-span-6'>
-                <label
-                  htmlFor='name'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Nombre
-                </label>
+    <form className='space-y-10' onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <div className='grid grid-cols-6 gap-6'>
+          <div className='col-span-6 sm:col-span-3'>
+            <h3 className='text-2xl text-gray-900 mb-3'>Bar</h3>
+
+            <div>
+              <label className='block'>
+                <span className='block'>Nombre</span>
                 <input
                   type='text'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='name'
-                  {...register('name', { required: true })}
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('name')}
+                  disabled={isSubmitting || isLoading}
                 />
-
-                {errors.name != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
-
-              <div className='col-span-6'>
-                <label
-                  htmlFor='nit'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Nit
-                </label>
-                <input
-                  type='text'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='nit'
-                  {...register('nit')}
-                />
-              </div>
-
-              <div className='col-span-6'>
-                <label
-                  htmlFor='address'
-                  className='block text-sm font-medium text-gray-700'
-                >
-                  Dirección
-                </label>
-                <input
-                  type='text'
-                  className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  id='address'
-                  {...register('address', { required: true })}
-                />
-
-                {errors.address != null && (
-                  <span className='text-red-400 text-xs block py-1'>
-                    Este campo es requerido
-                  </span>
-                )}
-              </div>
-
-              {Boolean(error) && (
-                <div
-                  className='p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800'
-                  role='alert'
-                >
-                  Error al registrar el bar.
-                </div>
+              </label>
+              {errors.name != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.name.message}
+                </p>
               )}
+            </div>
 
-              <div className='py-3 col-span-6'>
-                <button
-                  type='submit'
-                  className='inline-flex w-full justify-center rounded-full border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:bg-gray-200 disabled:text-gray-400'
-                  disabled={isLoading}
-                >
-                  Registrar
-                </button>
-              </div>
+            <div className='mt-6'>
+              <label className='block'>
+                <span className='block'>Nit</span>
+                <input
+                  type='text'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('nit')}
+                  disabled={isSubmitting || isLoading}
+                />
+              </label>
+              {errors.nit != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.nit.message}
+                </p>
+              )}
+            </div>
+
+            <div className='mt-6'>
+              <label className='block'>
+                <span className='block'>Dirección</span>
+                <input
+                  type='text'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('address')}
+                  disabled={isSubmitting || isLoading}
+                />
+              </label>
+              {errors.address != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.address.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className='col-span-6 sm:col-span-3'>
+            <h3 className='text-2xl text-gray-900 mb-3'>Propietario</h3>
+
+            <div>
+              <label className='block'>
+                <span className='block'>Identificación del propietario</span>
+                <input
+                  type='text'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('owner.id')}
+                  disabled={isSubmitting || isLoading}
+                />
+              </label>
+              {errors.owner?.id != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.owner.id.message}
+                </p>
+              )}
+            </div>
+
+            <div className='mt-6'>
+              <label className='block'>
+                <span className='block'>Nombre del propietario</span>
+                <input
+                  type='text'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('owner.name')}
+                  disabled={isSubmitting || isLoading}
+                />
+              </label>
+              {errors.owner?.name != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.owner.name.message}
+                </p>
+              )}
+            </div>
+
+            <div className='mt-6'>
+              <label className='block'>
+                <span className='block'>Teléfono del propietario</span>
+                <input
+                  type='text'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('owner.phone')}
+                  disabled={isSubmitting || isLoading}
+                />
+              </label>
+              {errors.owner?.phone != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.owner.phone.message}
+                </p>
+              )}
+            </div>
+
+            <div className='mt-6'>
+              <label className='block'>
+                <span className='block'>Salario del propietario</span>
+                <input
+                  type='text'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  {...register('owner.salary')}
+                  disabled={isSubmitting || isLoading}
+                />
+              </label>
+              {errors.owner?.salary != null && (
+                <p className='text-sm text-red-600 mt-1'>
+                  {errors.owner.salary.message}
+                </p>
+              )}
             </div>
           </div>
         </div>
-      </form>
-    </div>
+
+        <div className='mt-8'>
+          <button
+            type='submit'
+            className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+            disabled={isSubmitting || isLoading}
+          >
+            Registrar
+          </button>
+        </div>
+      </div>
+    </form>
   )
 }
 
