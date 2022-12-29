@@ -2,15 +2,13 @@
 
 ## [1.7.0](https://github.com/arkews/joshub/compare/v1.6.0...v1.7.0) (2022-12-29)
 
-
 ### Features
 
-* add session check logic ([a836245](https://github.com/arkews/joshub/commit/a83624549aaca1c88f28357820f972006315d422))
-
+- add session check logic ([a836245](https://github.com/arkews/joshub/commit/a83624549aaca1c88f28357820f972006315d422))
 
 ### Bug Fixes
 
-* avoid unnecessary redirections in the verification of the existence of a pub ([be2495c](https://github.com/arkews/joshub/commit/be2495cc60e693bb89c45b7f39c28471d1f22844))
+- avoid unnecessary redirections in the verification of the existence of a pub ([be2495c](https://github.com/arkews/joshub/commit/be2495cc60e693bb89c45b7f39c28471d1f22844))
 
 ## [1.6.0](https://github.com/arkews/joshub/compare/v1.5.1...v1.6.0) (2022-12-28)
 
