@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.9.1](https://github.com/arkews/joshub/compare/v1.9.0...v1.9.1) (2022-12-30)
+
+
+### Bug Fixes
+
+* include product code on zod schema ([#42](https://github.com/arkews/joshub/issues/42)) ([2aebc4e](https://github.com/arkews/joshub/commit/2aebc4e24effb8fb2c284b64d141f330acf902a6))
+
+## [1.9.0](https://github.com/arkews/joshub/compare/v1.8.0...v1.9.0) (2022-12-30)
+
+
+### Features
+
+* **employees:** add new ui to edit form ([ece967d](https://github.com/arkews/joshub/commit/ece967d9572a2c8276b192233290e3d4be5246fe))
+* **products:** add api endpoint for search products by name ([9a5fc3b](https://github.com/arkews/joshub/commit/9a5fc3be45e5ec58c9c62a0e909f673eb587c622))
+* **products:** add new ui on edit form ([24a6cdd](https://github.com/arkews/joshub/commit/24a6cdd9e5eddea79be4683e5b031b2fb55ee1ae))
+* re-design product field ([f11b825](https://github.com/arkews/joshub/commit/f11b825d72c89f3c5dc023f4510b81cc4d13e322))
+* re-design quantity field ([0bb8058](https://github.com/arkews/joshub/commit/0bb80587e441e981635d10f8d312a7c4907b66be))
+* **transactions:** re-design add transaction details forms ([aff80a1](https://github.com/arkews/joshub/commit/aff80a1d25494853cb536b320027ab6c0fab3a7e))
+
 ## [1.8.0](https://github.com/arkews/joshub/compare/v1.7.0...v1.8.0) (2022-12-29)
 
 ### Features
