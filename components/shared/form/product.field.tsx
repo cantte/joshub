@@ -16,16 +16,18 @@ const ProductField: FC<Props> = ({ onSelected }) => {
     setSearchText(text)
   }
 
-  const loadProducts = async (pubId: string, search: string): Promise<Product[] | null> => {
-    const { data } = await axios.get<Product[]>(`/api/products/search?pubId=${pubId}&search=${search}`)
+  const loadProducts = async (
+    pubId: string,
+    search: string
+  ): Promise<Product[] | null> => {
+    const { data } = await axios.get<Product[]>(
+      `/api/products/search?pubId=${pubId}&search=${search}`
+    )
     return data
   }
 
   const { pub } = usePub()
-  const {
-    data: products,
-    isFetching
-  } = useQuery(
+  const { data: products, isFetching } = useQuery(
     ['products', search],
     async () => await loadProducts(pub?.id ?? '', search),
     {
@@ -44,11 +46,11 @@ const ProductField: FC<Props> = ({ onSelected }) => {
 
   return (
     <>
-      <label className="block">
-        <span className="block">Producto</span>
-        <div className="relative">
+      <label className='block'>
+        <span className='block'>Producto</span>
+        <div className='relative'>
           <input
-            type="text"
+            type='text'
             onChange={e => handleChange(e.target.value)}
             onKeyDown={e => {
               if (e.key === 'Enter') {
@@ -56,52 +58,53 @@ const ProductField: FC<Props> = ({ onSelected }) => {
               }
             }}
             disabled={isFetching}
-            className="block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+            className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
           />
           <button
-            type="button"
+            type='button'
             onClick={handleEnter}
             disabled={isFetching}
-            className="absolute py-2 px-3 right-2.5 bottom-2.5 text-xs font-medium text-center inline-flex text-indigo-900 border-indigo-100 rounded-lg hover:border-indigo-200 border border-transparent"
+            className='absolute py-2 px-3 right-2.5 bottom-2.5 text-xs font-medium text-center inline-flex text-indigo-900 border-indigo-100 rounded-lg hover:border-indigo-200 border border-transparent'
           >
             Buscar
           </button>
         </div>
 
-        <span className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        <span className='mt-2 text-sm text-gray-500 dark:text-gray-400'>
           Digite el nombre del producto y presione enter para buscar
         </span>
       </label>
 
-      {(products != null) && products.length > 0 && (
-        <div className="mt-6">
-          <ul className="divide-y divide-gray-200">
+      {products != null && products.length > 0 && (
+        <div className='mt-6'>
+          <ul className='divide-y divide-gray-200'>
             {products.map(product => (
               <li
                 key={product.code}
-                className="py-4 flex justify-between items-center cursor-pointer hover:bg-gray-100"
+                className='py-4 flex justify-between items-center cursor-pointer hover:bg-gray-100'
                 onClick={() => handleSelect(product)}
               >
-                <div className="flex items-center">
-                  <div className="ml-4">
-                    <div className="text-gray-900">{product.name}</div>
+                <div className='flex items-center'>
+                  <div className='ml-4'>
+                    <div className='text-gray-900'>{product.name}</div>
                   </div>
                 </div>
-                <div className="mr-4 flex-shrink-0">
-                  <p className="text-sm text-gray-500">Cantidad
-                    disponible: {product.quantity}</p>
+                <div className='mr-4 flex-shrink-0'>
+                  <p className='text-sm text-gray-500'>
+                    Cantidad disponible: {product.quantity}
+                  </p>
                 </div>
               </li>
             ))}
           </ul>
-          <span className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          <span className='mt-2 text-sm text-gray-500 dark:text-gray-400'>
             Seleccione un producto para agregarlo a la lista
-        </span>
+          </span>
         </div>
       )}
 
       {products != null && products.length === 0 && (
-        <p className="text-gray-500 mt-6 text-center">
+        <p className='text-gray-500 mt-6 text-center'>
           No se encontraron productos.
         </p>
       )}
