@@ -22,7 +22,6 @@ const RegisterOrderSchema = z.object({
   customer_id: z.string().min(1, 'Debe seleccionar un cliente'),
   employee_id: z.string().min(1, 'Debe seleccionar un empleado'),
   address: z.string().min(1, 'Debe ingresar una dirección'),
-  items: z.array(z.any()).min(1, 'Debe ingresar al menos un producto'),
   pub_id: z.string().min(1, 'Debe seleccionar un bar')
 })
 
