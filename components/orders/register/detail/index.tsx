@@ -10,6 +10,7 @@ import { z } from 'zod'
 const OrderDetailSchema = z
   .object({
     product: z.object({
+      code: z.string(),
       quantity: z.coerce.number().optional()
     }),
     quantity: z.coerce
