@@ -125,8 +125,8 @@ const EditEmployeeForm: FC<Props> = ({ onUpdated, employee }) => {
               className='p-4 w-full col-span-6 mt-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800'
               role='alert'
             >
-              Error al actualizar el empleado, verifique los datos e intente
-              de nuevo
+              Error al actualizar el empleado, verifique los datos e intente de
+              nuevo
             </div>
           )}
 

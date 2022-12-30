@@ -17,10 +17,7 @@ const RegisterCustomerForm: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting
-    },
+    formState: { errors, isSubmitting },
     reset
   } = useForm<CustomerInputs>({
     resolver: zodResolver(CustomerSchema)
@@ -30,13 +27,10 @@ const RegisterCustomerForm: FC = () => {
     await axios.post('/api/customers', data)
   }
 
-  const {
-    mutate,
-    isLoading
-  } = useMutation(saveCustomer, {
+  const { mutate, isLoading } = useMutation(saveCustomer, {
     onSuccess: () => {
       toast.custom(t => (
-        <Alert id={t.id} title="Cliente registrado!" variant="success"/>
+        <Alert id={t.id} title='Cliente registrado!' variant='success' />
       ))
       reset()
     }
@@ -47,42 +41,42 @@ const RegisterCustomerForm: FC = () => {
   }
 
   return (
-    <form className="space-y-10" onSubmit={handleSubmit(onSubmit)}>
+    <form className='space-y-10' onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div>
-          <label className="block">
-            <span className="block">Id</span>
+          <label className='block'>
+            <span className='block'>Id</span>
             <input
-              type="text"
-              className="block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+              type='text'
+              className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
               {...register('id')}
               disabled={isLoading || isSubmitting}
             />
           </label>
           {errors.id != null && (
-            <p className="text-sm text-red-600 mt-1">{errors.id.message}</p>
+            <p className='text-sm text-red-600 mt-1'>{errors.id.message}</p>
           )}
         </div>
 
-        <div className="mt-6">
-          <label className="block">
-            <span className="block">Nombre</span>
+        <div className='mt-6'>
+          <label className='block'>
+            <span className='block'>Nombre</span>
             <input
-              type="text"
-              className="block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+              type='text'
+              className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
               {...register('name')}
               disabled={isLoading || isSubmitting}
             />
           </label>
           {errors.name != null && (
-            <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+            <p className='text-sm text-red-600 mt-1'>{errors.name.message}</p>
           )}
         </div>
 
-        <div className="mt-8">
+        <div className='mt-8'>
           <button
-            type="submit"
-            className="text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400"
+            type='submit'
+            className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
             disabled={isSubmitting || isLoading}
           >
             Guardar
