@@ -237,7 +237,7 @@ const RegisterOrderForm: FC = () => {
         <Dialog
           onClose={closeAddDetailModal}
           as='div'
-          className='relative z-10'
+          className='relative z-50'
         >
           <Transition.Child
             as={Fragment}
@@ -269,7 +269,7 @@ const RegisterOrderForm: FC = () => {
                   >
                     <div className='flex flex-col mb-5'>
                       <div className='flex flex-row justify-between'>
-                        <h3 className='text-xl font-semibold text-gray-900'>
+                        <h3 className='text-gray-900 font-bold text-2xl sm:text-3xl'>
                           Agregar producto
                         </h3>
                         <button

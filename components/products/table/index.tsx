@@ -126,7 +126,7 @@ const ProductsTable: FC = () => {
       </Card>
 
       <Transition appear show={isOpeningDeleteModal} as={Fragment}>
-        <Dialog onClose={closeDeleteModal} as='div' className='relative z-10'>
+        <Dialog onClose={closeDeleteModal} as='div' className='relative z-50'>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -203,7 +203,7 @@ const ProductsTable: FC = () => {
       </Transition>
 
       <Transition appear show={isOpeningEditModal} as={Fragment}>
-        <Dialog onClose={closeEditModal} as='div' className='relative z-10'>
+        <Dialog onClose={closeEditModal} as='div' className='relative z-50'>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -234,7 +234,7 @@ const ProductsTable: FC = () => {
                   >
                     <div className='flex flex-col mb-5'>
                       <div className='flex flex-row justify-between'>
-                        <h3 className='text-xl font-semibold text-gray-900'>
+                        <h3 className='text-gray-900 font-bold text-2xl sm:text-3xl'>
                           Actualizar producto
                         </h3>
                         <button

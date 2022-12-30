@@ -11,48 +11,28 @@ const QuantityField: FC = () => {
 
   return (
     <>
-      <label
-        htmlFor='quantity'
-        className='block text-sm font-medium text-gray-700'
-      >
-        Cantidad
-      </label>
-      <input
-        type='number'
-        className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-        id='quantity'
-        {...register('quantity', {
-          required: {
-            value: true,
-            message: 'La cantidad es requerida'
-          },
-          max: {
-            value: watch('product.quantity'),
-            message: 'La cantidad no puede ser mayor a la existencia'
-          },
-          min: {
-            value: 1,
-            message: 'La cantidad no puede ser menor a 1'
-          },
-          pattern: {
-            value: /^[0-9]+$/i,
-            message: 'Solo se permiten números'
+      <label className='block'>
+        <span className='block'>Cantidad</span>
+        <input
+          type='number'
+          disabled={
+            watch('product')?.quantity === undefined ||
+            watch('product')?.quantity === null
           }
-        })}
-      />
+          className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+          {...register('quantity')}
+        />
 
-      {watch('product')?.quantity !== undefined &&
-        errors.quantity?.message === undefined && (
-          <span className='text-gray-400 text-xs block py-1'>
+        {watch('product')?.quantity !== undefined && (
+          <span className='mt-2 text-sm text-gray-500 dark:text-gray-400'>
             Cantidad máxima: {watch('product.quantity')}
           </span>
-      )}
+        )}
 
-      {errors.quantity?.message !== undefined && (
-        <span className='text-red-500 text-xs block py-1'>
-          {errors.quantity.message}
-        </span>
-      )}
+        {errors.quantity != null && (
+          <p className='text-sm text-red-600 mt-1'>{errors.quantity.message}</p>
+        )}
+      </label>
     </>
   )
 }
