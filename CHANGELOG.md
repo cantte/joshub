@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/arkews/joshub/compare/v1.9.0...v1.9.1) (2022-12-30)
+
+
+### Bug Fixes
+
+* include product code on zod schema ([#42](https://github.com/arkews/joshub/issues/42)) ([2aebc4e](https://github.com/arkews/joshub/commit/2aebc4e24effb8fb2c284b64d141f330acf902a6))
+
 ## [1.9.0](https://github.com/arkews/joshub/compare/v1.8.0...v1.9.0) (2022-12-30)
 
 
