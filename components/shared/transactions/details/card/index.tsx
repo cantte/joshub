@@ -29,7 +29,7 @@ const TransactionDetailInputCard: FC<Props> = ({ detail, onDeleted }) => {
 
         <button
           type='button'
-          onClick={() => onDeleted(detail)}
+          onClick={() => { onDeleted(detail) }}
           className='ml-auto -mx-1.5 -my-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg p-1.5 hover:bg-red-100 inline-flex h-8 w-8'
           aria-label='Close'
         >

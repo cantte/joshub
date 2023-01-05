@@ -10,8 +10,8 @@ import withRequiredPub from '@joshub/hocs/pubs/with-required-pub'
 const ProductsPage: FC = () => {
   const [addProductModalOpen, setAddProductModalOpen] = useState(false)
 
-  const openAddProductModal = (): void => setAddProductModalOpen(true)
-  const closeAddProductModal = (): void => setAddProductModalOpen(false)
+  const openAddProductModal = (): void => { setAddProductModalOpen(true) }
+  const closeAddProductModal = (): void => { setAddProductModalOpen(false) }
 
   return (
     <DefaultLayout>

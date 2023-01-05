@@ -162,8 +162,7 @@ const RegisterOrderForm: FC = () => {
                 {...register('customer_id', { required: true })}
               />
               <CustomerField
-                onSelected={customer =>
-                  resetField('customer_id', { defaultValue: customer.id })
+                onSelected={customer => { resetField('customer_id', { defaultValue: customer.id }) }
                 }
               />
 

@@ -68,7 +68,7 @@ const OrderDetailForm: FC<Props> = ({ onSubmit }) => {
                 })}
               />
               <ProductField
-                onSelected={product => handleSelectProduct(product)}
+                onSelected={product => { handleSelectProduct(product) }}
               />
             </div>
 

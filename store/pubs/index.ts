@@ -12,7 +12,7 @@ interface PubsState {
 }
 
 export const usePubsStore = create<PubsState>(set => ({
-  setPub: pub => set({ pub })
+  setPub: pub => { set({ pub }) }
 }))
 
 interface UsePubReturn {
