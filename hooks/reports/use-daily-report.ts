@@ -25,7 +25,8 @@ const useDailyReport = (): UseDailyReport => {
     ['daily_reports'],
     async () => await loadDailyReport(pub?.id ?? ''),
     {
-      enabled: pub !== undefined
+      enabled: pub !== undefined,
+      retry: false
     }
   )
 
