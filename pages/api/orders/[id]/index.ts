@@ -12,14 +12,16 @@ const handler = async (
 
     const { data, error } = await supabase
       .from('orders')
-      .select(`
+      .select(
+        `
               id,
               customers(id,name),
               employees(id,name),
               address,
               total,
               created_at
-      `)
+      `
+      )
       .eq('id', id)
 
     if (error !== null) {
@@ -34,13 +36,15 @@ const handler = async (
 
     const { data: orderItems, error: orderItemsError } = await supabase
       .from('orders_detail')
-      .select(`
+      .select(
+        `
               id,
               products(code,name),
               quantity,
               price,
               total
-      `)
+      `
+      )
       .eq('order_id', id)
 
     if (orderItemsError !== null) {
@@ -55,7 +59,7 @@ const handler = async (
       created_at: data[0].created_at,
       customer: data[0].customers,
       employee: data[0].employees,
-      items: orderItems?.map((item) => ({
+      items: orderItems?.map(item => ({
         id: item.id,
         product: item.products,
         quantity: item.quantity,

@@ -34,7 +34,9 @@ const ProductsTable: FC = () => {
   const queryClient = useQueryClient()
 
   const [isOpeningDeleteModal, setIsOpeningDeleteModal] = useState(false)
-  const openDeleteModal = (): void => { setIsOpeningDeleteModal(true) }
+  const openDeleteModal = (): void => {
+    setIsOpeningDeleteModal(true)
+  }
   const closeDeleteModal = (): void => {
     setIsOpeningDeleteModal(false)
     void queryClient.invalidateQueries(['products'])
@@ -49,7 +51,9 @@ const ProductsTable: FC = () => {
   const { mutate } = useMutation(deleteProduct, { onSuccess: closeDeleteModal })
 
   const [isOpeningEditModal, setIsOpeningEditModal] = useState(false)
-  const openEditModal = (): void => { setIsOpeningEditModal(true) }
+  const openEditModal = (): void => {
+    setIsOpeningEditModal(true)
+  }
   const closeEditModal = (): void => {
     setIsOpeningEditModal(false)
     void queryClient.invalidateQueries(['products'])
@@ -190,7 +194,9 @@ const ProductsTable: FC = () => {
                     <button
                       type='button'
                       className='inline-flex ml-3 justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2'
-                      onClick={() => { setIsOpeningDeleteModal(false) }}
+                      onClick={() => {
+                        setIsOpeningDeleteModal(false)
+                      }}
                     >
                       No, cancelar
                     </button>
@@ -238,7 +244,9 @@ const ProductsTable: FC = () => {
                           Actualizar producto
                         </h3>
                         <button
-                          onClick={() => { setIsOpeningEditModal(false) }}
+                          onClick={() => {
+                            setIsOpeningEditModal(false)
+                          }}
                           className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
                         >
                           <XMarkIcon className='h-5 w-5 text-red-700' />

@@ -51,7 +51,9 @@ const ProductField: FC<Props> = ({ onSelected }) => {
         <div className='relative'>
           <input
             type='text'
-            onChange={e => { handleChange(e.target.value) }}
+            onChange={e => {
+              handleChange(e.target.value)
+            }}
             onKeyDown={e => {
               if (e.key === 'Enter') {
                 handleEnter()
@@ -82,7 +84,9 @@ const ProductField: FC<Props> = ({ onSelected }) => {
               <li
                 key={product.code}
                 className='py-4 flex justify-between items-center cursor-pointer hover:bg-gray-100'
-                onClick={() => { handleSelect(product) }}
+                onClick={() => {
+                  handleSelect(product)
+                }}
               >
                 <div className='flex items-center'>
                   <div className='ml-4'>

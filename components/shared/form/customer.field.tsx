@@ -46,7 +46,9 @@ const CustomerField: FC<Props> = ({ onSelected }) => {
         <div className='relative'>
           <input
             type='text'
-            onChange={e => { handleChange(e.target.value) }}
+            onChange={e => {
+              handleChange(e.target.value)
+            }}
             onKeyDown={e => {
               if (e.key === 'Enter') {
                 handleEnter()
