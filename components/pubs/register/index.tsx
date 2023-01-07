@@ -40,7 +40,9 @@ const RegisterPubForm: FC = () => {
     defaultValues: {
       user_id: user?.id,
       nit: undefined
-    }
+    },
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   })
 
   useEffect(() => {
