@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import {
   Card,
   Table,
@@ -12,6 +12,8 @@ import { Sale } from '@joshub/types/sales'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { usePub } from '@joshub/store/pubs'
+import NextLink from 'next/link'
+import { EyeIcon } from '@heroicons/react/24/outline'
 
 const SalesTable: FC = () => {
   const { pub } = usePub()
@@ -39,6 +41,7 @@ const SalesTable: FC = () => {
               <TableHeaderCell>Cliente</TableHeaderCell>
               <TableHeaderCell>Empleado</TableHeaderCell>
               <TableHeaderCell>Total</TableHeaderCell>
+              <TableHeaderCell>{' '}</TableHeaderCell>
             </TableRow>
           </TableHead>
 
@@ -46,24 +49,35 @@ const SalesTable: FC = () => {
             {sales !== undefined && sales !== null
               ? (
                   sales.map(sale => (
-                <TableRow key={sale.id}>
-                  <TableCell>
-                    {Intl.DateTimeFormat('es').format(
-                      Date.parse(sale.created_at)
-                    )}
-                  </TableCell>
-                  <TableCell>{sale.customer_id}</TableCell>
-                  <TableCell>{sale.employee_id}</TableCell>
-                  <TableCell>
-                    ${Intl.NumberFormat('es').format(sale.total)}
-                  </TableCell>
-                </TableRow>
+                  <TableRow key={sale.id}>
+                    <TableCell>
+                      {Intl.DateTimeFormat('es').format(
+                        Date.parse(sale.created_at)
+                      )}
+                    </TableCell>
+                    <TableCell>{sale.customer_id}</TableCell>
+                    <TableCell>{sale.employee_id}</TableCell>
+                    <TableCell>
+                      ${Intl.NumberFormat('es').format(sale.total)}
+                    </TableCell>
+                    <TableCell>
+                      <NextLink href={`/sales/${sale.id}`}>
+                        <button
+                          type='button'
+                          title='Ver venta'
+                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'
+                        >
+                          <EyeIcon className='h-5 w-5 text-indigo-700' />
+                        </button>
+                      </NextLink>
+                    </TableCell>
+                  </TableRow>
                   ))
                 )
               : (
-              <TableRow>
-                <TableCell>No hay ventas</TableCell>
-              </TableRow>
+                <TableRow>
+                  <TableCell>No hay ventas</TableCell>
+                </TableRow>
                 )}
           </TableBody>
         </Table>
