@@ -59,7 +59,9 @@ const Alert: FC<Props> = ({ id, title, variant }) => {
 
         <button
           type='button'
-          onClick={() => toast.remove(id)}
+          onClick={() => {
+            toast.remove(id)
+          }}
           className={`ml-auto -mx-1.5 -my-1.5 rounded-lg  p-1.5 inline-flex h-8 w-8 ${color}`}
         >
           <span className='sr-only'>Close</span>

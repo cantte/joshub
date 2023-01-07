@@ -13,9 +13,17 @@ const PubSchema = z.object({
   address: z.string().min(1, 'La dirección es requerida'),
   user_id: z.string().min(1, 'El dueño es requerido'),
   owner: z.object({
-    id: z.string().min(1, 'La identificación es requerida'),
+    id: z.string().min(1, 'La identificación es requerida')
+      .refine(async (id) => {
+        const { data } = await axios.get<boolean>(`/api/employees/exist/${id}`)
+        return !data
+      }, 'El empleado ya existe'),
     name: z.string().min(1, 'El nombre es requerido'),
-    phone: z.string().min(1, 'El teléfono es requerido'),
+    phone: z.string().min(1, 'El teléfono es requerido')
+      .refine(async (id) => {
+        const { data } = await axios.get<boolean>(`/api/employees/exist/${id}`)
+        return !data
+      }, 'Este teléfono ya existe'),
     salary: z.coerce.number().min(1, 'El salario es requerido')
   })
 })
@@ -32,7 +40,9 @@ const RegisterPubForm: FC = () => {
     defaultValues: {
       user_id: user?.id,
       nit: undefined
-    }
+    },
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   })
 
   useEffect(() => {

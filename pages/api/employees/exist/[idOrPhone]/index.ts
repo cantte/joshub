@@ -7,13 +7,13 @@ const handler = async (
 ): Promise<void> => {
   if (req.method === 'GET') {
     const supabase = createServerSupabaseClient({ req, res })
-    const { pubId } = req.query
+
+    const { idOrPhone } = req.query
 
     const { data, error } = await supabase
-      .from('daily_reports')
+      .from('employees')
       .select()
-      .eq('created_at', new Date().toISOString().split('T')[0])
-      .eq('pub_id', pubId)
+      .or(`phone.eq.${idOrPhone as string},id.eq.${idOrPhone as string}`)
 
     if (error !== null) {
       res.status(500).json({ error: error.message })
@@ -21,11 +21,11 @@ const handler = async (
     }
 
     if (data === null || data.length === 0) {
-      res.status(404).json({ error: 'No data found' })
+      res.status(200).json(false)
       return
     }
 
-    res.status(200).json(data[0])
+    res.status(200).json(true)
     return
   }
 

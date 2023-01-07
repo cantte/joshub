@@ -14,8 +14,23 @@ export interface SalesInputs {
   pub_id: string
 }
 
-export type Sale = Omit<SalesInputs, 'id'> & {
+export type Sale = Omit<SalesInputs, 'id' | 'pub_id'> & {
   id: number
   created_at: string
+}
+
+interface SaleCustomer {
+  id: string
+  name: string
+}
+
+interface SaleEmployee {
+  id: string
+  name: string
+}
+
+export type SingleSale = Omit<Sale, 'customer_id' | 'employee_id'> & {
+  customer: SaleCustomer
+  employee: SaleEmployee
   items: SaleDetail[]
 }

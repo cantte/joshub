@@ -11,7 +11,9 @@ import withRequiredPub from '@joshub/hocs/pubs/with-required-pub'
 const EmployeesPage: FC = () => {
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false)
 
-  const openAddEmployeeModal = (): void => setAddEmployeeModalOpen(true)
+  const openAddEmployeeModal = (): void => {
+    setAddEmployeeModalOpen(true)
+  }
 
   const queryClient = useQueryClient()
   const closeAddEmployeeModal = (): void => {
@@ -38,7 +40,9 @@ const EmployeesPage: FC = () => {
 
       <Transition appear show={addEmployeeModalOpen} as={Fragment}>
         <Dialog
-          onClose={() => setAddEmployeeModalOpen(false)}
+          onClose={() => {
+            setAddEmployeeModalOpen(false)
+          }}
           as='div'
           className='relative z-50'
         >
@@ -76,7 +80,9 @@ const EmployeesPage: FC = () => {
                           Registrar empleado
                         </h3>
                         <button
-                          onClick={() => setAddEmployeeModalOpen(false)}
+                          onClick={() => {
+                            setAddEmployeeModalOpen(false)
+                          }}
                           className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
                         >
                           <XMarkIcon className='h-5 w-5 text-red-700' />

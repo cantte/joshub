@@ -30,7 +30,9 @@ const SignInForm: FC = () => {
   const router = useRouter()
   const { mutate, isLoading } = useMutation(signIn, {
     onSuccess: () => {
-      void router.replace('/auth/session/check').then(() => router.reload())
+      void router.replace('/auth/session/check').then(() => {
+        router.reload()
+      })
     }
   })
 

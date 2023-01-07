@@ -2,10 +2,9 @@
 
 ## [1.9.2](https://github.com/arkews/joshub/compare/v1.9.1...v1.9.2) (2022-12-30)
 
-
 ### Bug Fixes
 
-* solve order form lockout ([a86e480](https://github.com/arkews/joshub/commit/a86e4805d5b98a3ee0bad6d250dfdb5e1b702e0a))
+- solve order form lockout ([a86e480](https://github.com/arkews/joshub/commit/a86e4805d5b98a3ee0bad6d250dfdb5e1b702e0a))
 
 ## [1.9.1](https://github.com/arkews/joshub/compare/v1.9.0...v1.9.1) (2022-12-30)
 

@@ -147,7 +147,9 @@ const RegisterSaleForm: FC = () => {
                 {...register('customer_id', { required: true })}
               />
               <CustomerField
-                onSelected={customer => setValue('customer_id', customer.id)}
+                onSelected={customer => {
+                  setValue('customer_id', customer.id)
+                }}
               />
             </div>
 

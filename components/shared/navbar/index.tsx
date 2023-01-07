@@ -87,7 +87,7 @@ const Navbar: FC = () => {
                           'group inline-flex items-center rounded-md text-base hover:text-gray-900 focus:outline-none'
                         )}
                       >
-                        <span>Tienda</span>
+                        <span>Bar</span>
                         <ChevronDownIcon
                           className={classNames(
                             open ? 'text-gray-600' : 'text-gray-400',
