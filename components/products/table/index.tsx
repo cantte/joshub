@@ -102,9 +102,9 @@ const ProductsTable: FC = () => {
                         setProductToEdit(product)
                         openEditModal()
                       }}
-                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 focus:outline-none'
                     >
-                      <PencilIcon className='h-5 w-5 text-indigo-700' />
+                      <PencilIcon className='h-5 w-5 text-blue-700' />
                     </button>
 
                     <button
@@ -112,7 +112,7 @@ const ProductsTable: FC = () => {
                         setProductToDelete(product)
                         openDeleteModal()
                       }}
-                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
+                      className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 ml-1 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
                     >
                       <TrashIcon className='h-5 w-5 text-red-700' />
                     </button>
@@ -247,7 +247,7 @@ const ProductsTable: FC = () => {
                           onClick={() => {
                             setIsOpeningEditModal(false)
                           }}
-                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
+                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
                         >
                           <XMarkIcon className='h-5 w-5 text-red-700' />
                         </button>

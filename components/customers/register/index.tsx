@@ -9,7 +9,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const CustomerSchema = z.object({
-  id: z.string().min(1, 'El id es requerido'),
+  id: z.string().min(1, 'La identificación es requerida'),
   name: z.string().min(1, 'El nombre es requerido')
 })
 
@@ -45,7 +45,7 @@ const RegisterCustomerForm: FC = () => {
       <div>
         <div>
           <label className='block'>
-            <span className='block'>Id</span>
+            <span className='block'>Identificación</span>
             <input
               type='text'
               className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
@@ -76,7 +76,7 @@ const RegisterCustomerForm: FC = () => {
         <div className='mt-8'>
           <button
             type='submit'
-            className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+            className='text-base w-full px-6 py-3.5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
             disabled={isSubmitting || isLoading}
           >
             Guardar

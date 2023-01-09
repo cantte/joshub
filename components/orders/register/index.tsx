@@ -112,7 +112,7 @@ const RegisterOrderForm: FC = () => {
                 <button
                   onClick={openAddDetailModal}
                   type='button'
-                  className='text-sm px-5 py-2.5 text-center font-medium inline-flex text-indigo-900 border-indigo-100 rounded-lg hover:border-indigo-200 border border-transparent'
+                  className='text-sm px-5 py-2.5 text-center font-medium inline-flex text-blue-700 border-blue-700 rounded-lg hover:border-blue-800 border border-transparent'
                 >
                   Agregar
                 </button>
@@ -216,7 +216,7 @@ const RegisterOrderForm: FC = () => {
                 <button
                   type='submit'
                   disabled={isLoading}
-                  className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+                  className='text-base w-full px-6 py-3.5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
                 >
                   Guardar
                 </button>
@@ -273,7 +273,7 @@ const RegisterOrderForm: FC = () => {
                         </h3>
                         <button
                           onClick={closeAddDetailModal}
-                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
+                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none'
                         >
                           <XMarkIcon className='h-5 w-5 text-red-700' />
                         </button>

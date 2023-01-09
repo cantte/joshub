@@ -18,17 +18,20 @@ type Features = Feature[]
 const features: Features = [
   {
     title: 'Manten un control de tu inventario',
-    description: 'Mantén un inventario preciso, realiza seguimiento de tus ventas y costos en tiempo real y toma decisiones informadas para mejorar el rendimiento de tu negocio.',
+    description:
+      'Mantén un inventario preciso, realiza seguimiento de tus ventas y costos en tiempo real y toma decisiones informadas para mejorar el rendimiento de tu negocio.',
     icon: <CubeIcon className='h-7 w-7 text-white' />
   },
   {
     title: 'Administra tus empleados',
-    description: 'Administra tus empleados, sus ventas. Conoce el rendimiento de cada uno de ellos.',
+    description:
+      'Administra tus empleados, sus ventas. Conoce el rendimiento de cada uno de ellos.',
     icon: <UsersIcon className='h-7 w-7 text-white' />
   },
   {
     title: 'Realiza seguimiento de tus ventas',
-    description: 'Realiza seguimiento de tus ventas, costos y gastos en tiempo real y toma decisiones informadas para mejorar el rendimiento de tu negocio.',
+    description:
+      'Realiza seguimiento de tus ventas, costos y gastos en tiempo real y toma decisiones informadas para mejorar el rendimiento de tu negocio.',
     icon: <CalculatorIcon className='h-7 w-7 text-white' />
   },
   {
@@ -47,20 +50,17 @@ const FeaturesSection: FC = () => {
             <h2 className='text-lg font-semibold leading-8 text-blue-700'>
               Caracteristicas
             </h2>
-            <p
-              className='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
+            <p className='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
               Mira que tenemos para ti
             </p>
-            <p
-              className='mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600'>
+            <p className='mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600'>
               Obtén una visión general de las características que tenemos para
               ti.
             </p>
           </div>
 
           <div className='mt-20 max-w-lg sm:mx-auto md:max-w-none'>
-            <div
-              className='grid grid-cols-1 gap-y-16 md:grid-cols-2 md:gap-x-12 md:gap-y-16'>
+            <div className='grid grid-cols-1 gap-y-16 md:grid-cols-2 md:gap-x-12 md:gap-y-16'>
               {features.map((feature, index) => (
                 <FeatureCard
                   key={index}

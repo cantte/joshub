@@ -44,7 +44,9 @@ const OrdersTable: FC = () => {
               <TableHeaderCell>Dirección</TableHeaderCell>
               <TableHeaderCell>Empleado</TableHeaderCell>
               <TableHeaderCell>Total</TableHeaderCell>
-              <TableHeaderCell>{' '}</TableHeaderCell>
+              <TableHeaderCell>
+                <span className='sr-only'>Acciones</span>
+              </TableHeaderCell>
             </TableRow>
           </TableHead>
 
@@ -52,37 +54,36 @@ const OrdersTable: FC = () => {
             {orders !== undefined && orders !== null
               ? (
                   orders.map(order => (
-                  <TableRow key={order.id}>
-                    <TableCell>
-                      {Intl.DateTimeFormat('es').format(
-                        Date.parse(order.created_at)
-                      )}
-                    </TableCell>
-                    <TableCell>{order.customer_id}</TableCell>
-                    <TableCell>{order.address}</TableCell>
-                    <TableCell>{order.employee_id}</TableCell>
-                    <TableCell>
-                      ${Intl.NumberFormat('es').format(order.total)}
-                    </TableCell>
-                    <TableCell>
-                      <NextLink href={`/orders/${order.id}`}>
-                        <button
-                          type='button'
-                          title='Ver orden'
-                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'
-                        >
-                          <EyeIcon className='h-5 w-5 text-indigo-700' />
-                        </button>
-                      </NextLink>
-                    </TableCell>
-                  </TableRow>
+                <TableRow key={order.id}>
+                  <TableCell>
+                    {Intl.DateTimeFormat('es').format(
+                      Date.parse(order.created_at)
+                    )}
+                  </TableCell>
+                  <TableCell>{order.customer_id}</TableCell>
+                  <TableCell>{order.address}</TableCell>
+                  <TableCell>{order.employee_id}</TableCell>
+                  <TableCell>
+                    ${Intl.NumberFormat('es').format(order.total)}
+                  </TableCell>
+                  <TableCell>
+                    <NextLink href={`/orders/${order.id}`}>
+                      <button
+                        type='button'
+                        title='Ver orden'
+                        className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 focus:outline-none'
+                      >
+                        <EyeIcon className='h-5 w-5 text-blue-700' />
+                      </button>
+                    </NextLink>
+                  </TableCell>
+                </TableRow>
                   ))
                 )
               : (
-                <TableRow>
-                  <TableCell textAlignment='text-center'>No hay
-                    ventas</TableCell>
-                </TableRow>
+              <TableRow>
+                <TableCell textAlignment='text-center'>No hay ventas</TableCell>
+              </TableRow>
                 )}
           </TableBody>
         </Table>

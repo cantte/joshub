@@ -13,14 +13,18 @@ const PubSchema = z.object({
   address: z.string().min(1, 'La dirección es requerida'),
   user_id: z.string().min(1, 'El dueño es requerido'),
   owner: z.object({
-    id: z.string().min(1, 'La identificación es requerida')
-      .refine(async (id) => {
+    id: z
+      .string()
+      .min(1, 'La identificación es requerida')
+      .refine(async id => {
         const { data } = await axios.get<boolean>(`/api/employees/exist/${id}`)
         return !data
       }, 'El empleado ya existe'),
     name: z.string().min(1, 'El nombre es requerido'),
-    phone: z.string().min(1, 'El teléfono es requerido')
-      .refine(async (id) => {
+    phone: z
+      .string()
+      .min(1, 'El teléfono es requerido')
+      .refine(async id => {
         const { data } = await axios.get<boolean>(`/api/employees/exist/${id}`)
         return !data
       }, 'Este teléfono ya existe'),
@@ -186,7 +190,7 @@ const RegisterPubForm: FC = () => {
                 <span className='block'>Salario del propietario</span>
                 <input
                   type='text'
-                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                  className='block border text-lg px-4 py-3 mt-2 rounded-lg border-gray-200 focus:bg-white text-gray-900 focus:border-blue-600 focus:ring-0 outline-none w-full disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
                   {...register('owner.salary')}
                   disabled={isSubmitting || isLoading}
                 />
@@ -203,7 +207,7 @@ const RegisterPubForm: FC = () => {
         <div className='mt-8'>
           <button
             type='submit'
-            className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+            className='text-base w-full px-6 py-3.5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
             disabled={isSubmitting || isLoading}
           >
             Registrar

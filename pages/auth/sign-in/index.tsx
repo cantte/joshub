@@ -72,7 +72,7 @@ const SignInPage: NextPage = () => {
                   ¿No tienes una cuenta?{' '}
                   <NextLink
                     href='/auth/sign-up'
-                    className='text-blue-500 hover:underline'
+                    className='text-blue-600 hover:underline'
                   >
                     Regístrate
                   </NextLink>

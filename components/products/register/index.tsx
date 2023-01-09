@@ -201,7 +201,7 @@ const RegisterProductForm: FC<Props> = ({ onRegister }) => {
             <button
               type='submit'
               disabled={isLoading || isSubmitting}
-              className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+              className='text-base w-full px-6 py-3.5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
             >
               Guardar
             </button>
