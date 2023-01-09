@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/arkews/joshub/compare/v1.10.0...v1.11.0) (2023-01-08)
+
+
+### Features
+
+* add new landing page elements ([ce589e6](https://github.com/arkews/joshub/commit/ce589e62cabfca247fa19e3d7cecaa1e1417283a))
+
 ## [1.10.0](https://github.com/arkews/joshub/compare/v1.9.2...v1.10.0) (2023-01-07)
 
 ### Features
