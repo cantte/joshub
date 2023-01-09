@@ -2,8 +2,7 @@ import { FC } from 'react'
 import axios, { AxiosError } from 'axios'
 import { SingleSale } from '@joshub/types/sales'
 import { useQuery } from '@tanstack/react-query'
-import TransactionDetailInputCard
-  from '@components/shared/transactions/details/card'
+import TransactionDetailInputCard from '@components/shared/transactions/details/card'
 
 interface Props {
   id: string
@@ -45,22 +44,18 @@ const SaleView: FC<Props> = ({ id }) => {
           <div className='col-span-6 sm:col-span-3'>
             <h3 className='text-2xl text-gray-900 mb-3'>Detalles</h3>
 
-            <div
-              className='p-3 mt-2 w-full text-gray-500 bg-white rounded-lg border dark:bg-gray-800 dark:text-gray-400'>
+            <div className='p-3 mt-2 w-full text-gray-500 bg-white rounded-lg border dark:bg-gray-800 dark:text-gray-400'>
               <div className='ml-3 text-sm font-normal'>
-                <span
-                  className='mb-1 text-base font-semibold text-gray-900 dark:text-white'>
+                <span className='mb-1 text-base font-semibold text-gray-900 dark:text-white'>
                   Cliente
                 </span>
                 <div className='text-sm font-normal'>{sale.customer.name}</div>
               </div>
             </div>
 
-            <div
-              className='p-3 mt-2 w-full text-gray-500 bg-white rounded-lg border dark:bg-gray-800 dark:text-gray-400'>
+            <div className='p-3 mt-2 w-full text-gray-500 bg-white rounded-lg border dark:bg-gray-800 dark:text-gray-400'>
               <div className='ml-3 text-sm font-normal'>
-                <span
-                  className='mb-1 text-base font-semibold text-gray-900 dark:text-white'>
+                <span className='mb-1 text-base font-semibold text-gray-900 dark:text-white'>
                   Empleado
                 </span>
                 <div className='text-sm font-normal'>{sale.employee.name}</div>
@@ -69,8 +64,7 @@ const SaleView: FC<Props> = ({ id }) => {
           </div>
 
           <div className='col-span-6 sm:col-span-3 sm:col-start-4'>
-            <h3
-              className='mb-2 text-2xl font-semibold text-gray-900 dark:text-white'>
+            <h3 className='mb-2 text-2xl font-semibold text-gray-900 dark:text-white'>
               Resumen
             </h3>
 

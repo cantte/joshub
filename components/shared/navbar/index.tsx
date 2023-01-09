@@ -116,7 +116,7 @@ const Navbar: FC = () => {
                                   className='-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50'
                                 >
                                   <item.icon
-                                    className='h-6 w-6 flex-shrink-0 text-indigo-700'
+                                    className='h-6 w-6 flex-shrink-0 text-blue-700'
                                     aria-hidden='true'
                                   />
                                   <div className='ml-4'>
@@ -157,14 +157,14 @@ const Navbar: FC = () => {
               <>
                 <NextLink
                   href='/auth/sign-in'
-                  className='py-2 px-3 text-sm font-medium text-center inline-flex text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent'
+                  className='py-2 px-3 text-sm font-medium text-center inline-flex text-white bg-blue-700 rounded-lg hover:bg-blue-800 border border-transparent'
                 >
                   Iniciar sesión
                 </NextLink>
 
                 <NextLink
                   href='/auth/sign-up'
-                  className='ml-4 py-2 px-3 text-sm font-medium text-center inline-flex text-indigo-900 border-indigo-100 rounded-full hover:border-indigo-200 border border-transparent'
+                  className='ml-4 py-2 px-3 text-sm font-medium text-center inline-flex text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600'
                 >
                   Registrarse
                 </NextLink>
@@ -175,7 +175,7 @@ const Navbar: FC = () => {
               <button
                 type='button'
                 onClick={handleLogout}
-                className='py-2 px-3 text-sm font-medium text-center inline-flex text-red-900 bg-red-100 rounded-full hover:bg-red-200 border border-transparent'
+                className='py-2 px-3 text-sm font-medium text-center inline-flex text-red-700 rounded-lg border border-transparent hover:bg-red-50'
               >
                 Cerrar sesión
               </button>

@@ -41,7 +41,9 @@ const SalesTable: FC = () => {
               <TableHeaderCell>Cliente</TableHeaderCell>
               <TableHeaderCell>Empleado</TableHeaderCell>
               <TableHeaderCell>Total</TableHeaderCell>
-              <TableHeaderCell>{' '}</TableHeaderCell>
+              <TableHeaderCell>
+                <span className='sr-only'>Acciones</span>
+              </TableHeaderCell>
             </TableRow>
           </TableHead>
 
@@ -49,35 +51,35 @@ const SalesTable: FC = () => {
             {sales !== undefined && sales !== null
               ? (
                   sales.map(sale => (
-                  <TableRow key={sale.id}>
-                    <TableCell>
-                      {Intl.DateTimeFormat('es').format(
-                        Date.parse(sale.created_at)
-                      )}
-                    </TableCell>
-                    <TableCell>{sale.customer_id}</TableCell>
-                    <TableCell>{sale.employee_id}</TableCell>
-                    <TableCell>
-                      ${Intl.NumberFormat('es').format(sale.total)}
-                    </TableCell>
-                    <TableCell>
-                      <NextLink href={`/sales/${sale.id}`}>
-                        <button
-                          type='button'
-                          title='Ver venta'
-                          className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 focus:outline-none'
-                        >
-                          <EyeIcon className='h-5 w-5 text-indigo-700' />
-                        </button>
-                      </NextLink>
-                    </TableCell>
-                  </TableRow>
+                <TableRow key={sale.id}>
+                  <TableCell>
+                    {Intl.DateTimeFormat('es').format(
+                      Date.parse(sale.created_at)
+                    )}
+                  </TableCell>
+                  <TableCell>{sale.customer_id}</TableCell>
+                  <TableCell>{sale.employee_id}</TableCell>
+                  <TableCell>
+                    ${Intl.NumberFormat('es').format(sale.total)}
+                  </TableCell>
+                  <TableCell>
+                    <NextLink href={`/sales/${sale.id}`}>
+                      <button
+                        type='button'
+                        title='Ver venta'
+                        className='inline-flex justify-center rounded-full border border-transparent bg-white px-2 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 focus:outline-none'
+                      >
+                        <EyeIcon className='h-5 w-5 text-blue-700' />
+                      </button>
+                    </NextLink>
+                  </TableCell>
+                </TableRow>
                   ))
                 )
               : (
-                <TableRow>
-                  <TableCell>No hay ventas</TableCell>
-                </TableRow>
+              <TableRow>
+                <TableCell>No hay ventas</TableCell>
+              </TableRow>
                 )}
           </TableBody>
         </Table>

@@ -2,39 +2,34 @@
 
 ## [1.11.0](https://github.com/arkews/joshub/compare/v1.10.0...v1.11.0) (2023-01-08)
 
-
 ### Features
 
-* add new landing page elements ([ce589e6](https://github.com/arkews/joshub/commit/ce589e62cabfca247fa19e3d7cecaa1e1417283a))
+- add new landing page elements ([ce589e6](https://github.com/arkews/joshub/commit/ce589e62cabfca247fa19e3d7cecaa1e1417283a))
 
 ## [1.10.0](https://github.com/arkews/joshub/compare/v1.9.2...v1.10.0) (2023-01-07)
 
-
 ### Features
 
-* **orders:** add find order api route ([08d731c](https://github.com/arkews/joshub/commit/08d731c808b46971144ad82ae32f95e7cd3474a5))
-* **orders:** add link to see details ([034849e](https://github.com/arkews/joshub/commit/034849e2c96b45e38161d72483a755d23591d864))
-* **orders:** add order details page ([9788529](https://github.com/arkews/joshub/commit/9788529d78836c4bd7e421d01043896555b37b5d))
-* **sales:** add detail page ([bce9558](https://github.com/arkews/joshub/commit/bce9558b8fa77e879c24bf623b5142ac3a03e200))
-* **sales:** add find api route ([423c918](https://github.com/arkews/joshub/commit/423c918f88a8372c1d66f3da52e54b55507d1ac2))
-* **sales:** add link to see details ([dc7455a](https://github.com/arkews/joshub/commit/dc7455a123a2263a9af14244eca4766b10a9f6ea))
-
+- **orders:** add find order api route ([08d731c](https://github.com/arkews/joshub/commit/08d731c808b46971144ad82ae32f95e7cd3474a5))
+- **orders:** add link to see details ([034849e](https://github.com/arkews/joshub/commit/034849e2c96b45e38161d72483a755d23591d864))
+- **orders:** add order details page ([9788529](https://github.com/arkews/joshub/commit/9788529d78836c4bd7e421d01043896555b37b5d))
+- **sales:** add detail page ([bce9558](https://github.com/arkews/joshub/commit/bce9558b8fa77e879c24bf623b5142ac3a03e200))
+- **sales:** add find api route ([423c918](https://github.com/arkews/joshub/commit/423c918f88a8372c1d66f3da52e54b55507d1ac2))
+- **sales:** add link to see details ([dc7455a](https://github.com/arkews/joshub/commit/dc7455a123a2263a9af14244eca4766b10a9f6ea))
 
 ### Bug Fixes
 
-* **pubs:** add employee id and phone exits checks ([6fede11](https://github.com/arkews/joshub/commit/6fede1142b80f0a40b902570c945270f2b2037c5))
-* solve report loading bugs ([60216bf](https://github.com/arkews/joshub/commit/60216bf1e15137a6f0a01e99105283e5f607a90d))
-
+- **pubs:** add employee id and phone exits checks ([6fede11](https://github.com/arkews/joshub/commit/6fede1142b80f0a40b902570c945270f2b2037c5))
+- solve report loading bugs ([60216bf](https://github.com/arkews/joshub/commit/60216bf1e15137a6f0a01e99105283e5f607a90d))
 
 ### Build System
 
-* update pnpm-lock.yaml ([dfc27a2](https://github.com/arkews/joshub/commit/dfc27a24a9f85f18a735903269c6a1c328bb5f5f))
-
+- update pnpm-lock.yaml ([dfc27a2](https://github.com/arkews/joshub/commit/dfc27a24a9f85f18a735903269c6a1c328bb5f5f))
 
 ### Refactors
 
-* change 'Tienda' to 'Bar' ([b4776ce](https://github.com/arkews/joshub/commit/b4776ce16c2807a5b21de7fc65cc5db91dd8f53f))
-* **pubs:** validate form on submit ([4a72630](https://github.com/arkews/joshub/commit/4a72630050d3b8cf236db8208bd2d49a529e9c0e))
+- change 'Tienda' to 'Bar' ([b4776ce](https://github.com/arkews/joshub/commit/b4776ce16c2807a5b21de7fc65cc5db91dd8f53f))
+- **pubs:** validate form on submit ([4a72630](https://github.com/arkews/joshub/commit/4a72630050d3b8cf236db8208bd2d49a529e9c0e))
 
 ## [1.9.2](https://github.com/arkews/joshub/compare/v1.9.1...v1.9.2) (2022-12-30)
 

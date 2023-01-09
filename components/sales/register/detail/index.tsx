@@ -129,7 +129,7 @@ const SaleDetailForm: FC<Props> = ({ onSubmit }) => {
             <div className='col-span-6 pt-5'>
               <button
                 type='submit'
-                className='text-base w-full px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
+                className='text-base w-full px-6 py-3.5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 border border-transparent disabled:bg-gray-100 disabled:text-gray-400'
               >
                 Agregar producto
               </button>

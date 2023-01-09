@@ -61,7 +61,7 @@ const CustomerField: FC<Props> = ({ onSelected }) => {
             type='button'
             onClick={handleEnter}
             disabled={isFetching}
-            className='absolute py-2 px-3 right-2.5 bottom-2.5 text-xs font-medium text-center inline-flex text-indigo-900 border-indigo-100 rounded-lg hover:border-indigo-200 border border-transparent'
+            className='absolute py-2 px-3 right-2.5 bottom-2.5 text-xs font-medium text-center inline-flex text-blue-900 border-blue-100 rounded-lg hover:border-blue-200 border border-transparent'
           >
             Buscar
           </button>

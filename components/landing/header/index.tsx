@@ -41,7 +41,7 @@ const HeaderSection: FC = () => {
             <div className='relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20'>
               <span className='text-gray-600'>
                 Carácteristicas de nuestra version preeliminar.{' '}
-                <a href='#' className='font-semibold text-indigo-600'>
+                <a href='#' className='font-semibold text-blue-600'>
                   <span className='absolute inset-0' aria-hidden='true' />
                   Leer más <span aria-hidden='true'>&rarr;</span>
                 </a>
@@ -63,10 +63,10 @@ const HeaderSection: FC = () => {
             <div className='mt-8 flex gap-x-4 sm:justify-center'>
               <NextLink
                 href='/auth/sign-up'
-                className='text-base px-6 py-3.5 font-medium text-center text-indigo-900 bg-indigo-100 rounded-full hover:bg-indigo-200 border border-transparent'
+                className='text-base px-6 py-3.5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 border border-transparent'
               >
                 Comenzar ahora
-                <span className='text-blue-900 ml-2' aria-hidden='true'>
+                <span className='text-white ml-2' aria-hidden='true'>
                   &rarr;
                 </span>
               </NextLink>
