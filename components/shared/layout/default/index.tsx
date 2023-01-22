@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Navbar from '@components/shared/navbar'
 import { Toaster } from 'react-hot-toast'
 
-const DefaultLayout: FC<PropsWithChildren<{}>> = ({ children }) => {
+const DefaultLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div>
       <Head>
