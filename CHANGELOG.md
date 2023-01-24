@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.11.2](https://github.com/arkews/joshub/compare/v1.11.1...v1.11.2) (2023-01-22)
+
+
+### Bug Fixes
+
+* solve 'Don't use `{}` as a type' ([efe3747](https://github.com/arkews/joshub/commit/efe37479981fea91c1df82397463ad118cf5a61c))
+
+
+### Build System
+
+* update pnpm-lock.yaml ([908eb52](https://github.com/arkews/joshub/commit/908eb524d301c8bde981ff292ea88d026d51a1ca))
+
 ## [1.11.1](https://github.com/arkews/joshub/compare/v1.11.0...v1.11.1) (2023-01-09)
 
 
