@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import { TransactionDetailInput } from '@joshub/types/shared'
+import { type FC } from 'react'
+import { type TransactionDetailInput } from '@joshub/types/shared'
 
 interface Props {
   detail: TransactionDetailInput

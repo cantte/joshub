@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { type FC } from 'react'
 import NextLink from 'next/link'
 
 const FooterSection: FC = () => {

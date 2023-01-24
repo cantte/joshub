@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react'
+import { type FC, type PropsWithChildren } from 'react'
 import Head from 'next/head'
 import Navbar from '@components/shared/navbar'
 import { Toaster } from 'react-hot-toast'

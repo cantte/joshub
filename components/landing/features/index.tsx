@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { type FC, type ReactNode } from 'react'
 import FeatureCard from '@components/landing/features/card'
 import {
   CalculatorIcon,

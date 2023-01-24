@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from 'react'
+import { type FC, Fragment, useState } from 'react'
 import ProductsTable from '@components/products/table'
 import DefaultLayout from '@components/shared/layout/default'
 import { Dialog, Transition } from '@headlessui/react'

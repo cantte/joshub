@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { type NextPage } from 'next'
 import { useRouter } from 'next/router'
 import DefaultLayout from '@components/shared/layout/default'
 import OrderView from '@components/orders/view'

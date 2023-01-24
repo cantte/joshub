@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { type NextPage } from 'next'
 import { ColGrid } from '@tremor/react'
 import SalesCard from '@components/dashboard/sales'
 import ProfitsCard from '@components/dashboard/profits'

@@ -1,5 +1,5 @@
-import { FC, useState } from 'react'
-import { Customer } from '@joshub/types/customers'
+import { type FC, useState } from 'react'
+import { type Customer } from '@joshub/types/customers'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 

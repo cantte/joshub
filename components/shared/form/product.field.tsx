@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react'
+import React, { type FC, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Product } from '@joshub/types/products'
+import { type Product } from '@joshub/types/products'
 import axios from 'axios'
 import { usePub } from '@joshub/store/pubs'
 
