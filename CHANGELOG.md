@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.11.3](https://github.com/arkews/joshub/compare/v1.11.2...v1.11.3) (2023-01-25)
+
+
+### Build System
+
+* update pnpm-lock file ([72367ce](https://github.com/arkews/joshub/commit/72367ce87caddee83e4fc0c22accb4547ab76bec))
+
+
+### Refactors
+
+* apply eslint and prettier fixes ([fb7a1de](https://github.com/arkews/joshub/commit/fb7a1ded5f4b3f93ffffa1e6f347b2a3973405a9))
+* apply eslint and prettier fixes ([bc1ef80](https://github.com/arkews/joshub/commit/bc1ef80c8efa4f63f4b4b6fef8c7b39e9befee3f))
+
 ## [1.11.2](https://github.com/arkews/joshub/compare/v1.11.1...v1.11.2) (2023-01-22)
 
 
