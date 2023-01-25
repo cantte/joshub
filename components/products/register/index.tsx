@@ -1,6 +1,6 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
-import React, { FC } from 'react'
+import React, { type FC } from 'react'
 import axios from 'axios'
 import { usePub } from '@joshub/store/pubs'
 import toast from 'react-hot-toast'

@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { type NextPage } from 'next'
 import SignUpForm from '@components/auth/sign-up'
 import Head from 'next/head'
 import NextLink from 'next/link'

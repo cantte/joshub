@@ -6,7 +6,7 @@ import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 import { useQuery } from '@tanstack/react-query'
 import { useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
-import { Pub } from '@joshub/types/pubs'
+import { type Pub } from '@joshub/types/pubs'
 import axios from 'axios'
 
 const RegisterPubPage: NextPage = () => {

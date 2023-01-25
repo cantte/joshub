@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { type FC } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { TransactionDetailInput } from '@joshub/types/shared'
+import { type TransactionDetailInput } from '@joshub/types/shared'
 
 const QuantityField: FC = () => {
   const {

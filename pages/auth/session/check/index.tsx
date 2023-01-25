@@ -1,11 +1,11 @@
-import { NextPage } from 'next'
+import { type NextPage } from 'next'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
 import Head from 'next/head'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'
 import { usePubsStore } from '@joshub/store/pubs'
-import { Pub } from '@joshub/types/pubs'
+import { type Pub } from '@joshub/types/pubs'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 

@@ -1,6 +1,6 @@
-import { FC } from 'react'
-import axios, { AxiosError } from 'axios'
-import { SingleOrder } from '@joshub/types/orders'
+import { type FC } from 'react'
+import axios, { type AxiosError } from 'axios'
+import { type SingleOrder } from '@joshub/types/orders'
 import { useQuery } from '@tanstack/react-query'
 import TransactionDetailInputCard from '@components/shared/transactions/details/card'
 

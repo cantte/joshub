@@ -1,5 +1,5 @@
-import React, { FC, Fragment, useState } from 'react'
-import { Employee } from '@joshub/types/employees'
+import React, { type FC, Fragment, useState } from 'react'
+import { type Employee } from '@joshub/types/employees'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import useCurrentEmployee from '@joshub/hooks/employees/use-current-employee'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { type FC } from 'react'
 import {
   Card,
   Table,
@@ -8,7 +8,7 @@ import {
   TableHeaderCell,
   TableRow
 } from '@tremor/react'
-import { Order } from '@joshub/types/orders'
+import { type Order } from '@joshub/types/orders'
 import { useQuery } from '@tanstack/react-query'
 import { usePub } from '@joshub/store/pubs'
 import axios from 'axios'

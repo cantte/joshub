@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { type FC } from 'react'
 import { Card, Metric, Text } from '@tremor/react'
 import useDailyReport from '@joshub/hooks/reports/use-daily-report'
 

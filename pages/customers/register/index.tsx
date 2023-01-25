@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { type FC } from 'react'
 import DefaultLayout from '@components/shared/layout/default'
 import RegisterCustomerForm from '@components/customers/register'
 import { withRequiredAuth } from '@joshub/shared/auth/with-required-auth'

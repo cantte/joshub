@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from 'react'
+import { type FC, Fragment, useState } from 'react'
 import EmployeesTable from '@components/employees/table'
 import DefaultLayout from '@components/shared/layout/default'
 import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid'

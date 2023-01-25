@@ -14,10 +14,9 @@
 
 ## [1.11.1](https://github.com/arkews/joshub/compare/v1.11.0...v1.11.1) (2023-01-09)
 
-
 ### Refactors
 
-* apply new designs to the entire application ([77728c2](https://github.com/arkews/joshub/commit/77728c2c925ebc0ccf677eb4769dbb28bd67d242))
+- apply new designs to the entire application ([77728c2](https://github.com/arkews/joshub/commit/77728c2c925ebc0ccf677eb4769dbb28bd67d242))
 
 ## [1.11.0](https://github.com/arkews/joshub/compare/v1.10.0...v1.11.0) (2023-01-08)
 

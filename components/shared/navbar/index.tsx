@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react'
+import React, { type FC, Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
   Bars3Icon,

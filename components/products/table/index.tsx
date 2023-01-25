@@ -1,5 +1,5 @@
-import React, { FC, Fragment, useState } from 'react'
-import { Product } from '@joshub/types/products'
+import React, { type FC, Fragment, useState } from 'react'
+import { type Product } from '@joshub/types/products'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   Card,

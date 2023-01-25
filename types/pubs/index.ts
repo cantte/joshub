@@ -1,4 +1,4 @@
-import { Employee } from '@joshub/types/employees'
+import { type Employee } from '@joshub/types/employees'
 
 type PubOwnerInputs = Omit<Employee, 'user_id' | 'pub_id'>
 
